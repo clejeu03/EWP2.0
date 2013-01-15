@@ -19,5 +19,5 @@ HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
 
-INCLUDEPATH += /usr/include/opencv2/opencv.hpp
-LIBS += -L usr/include/opencv2/opencv.hpp
+INCLUDEPATH += -l/usr/include/opencv -l/usr/include/opencv2
+LIBS += -Lopencv -Lopencv2
