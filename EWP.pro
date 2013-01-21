@@ -12,12 +12,19 @@ TARGET = EWP
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES += main.cpp \
+    mainwindow.cpp \
+    chutier.cpp \
+    moniteur.cpp \
+    timeline.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    mainwindow.h \
+    chutier.h \
+    moniteur.h \
+    timeline.h
 
-FORMS    += mainwindow.ui
+FORMS    +=
 
 INCLUDEPATH += -l/usr/include/opencv -l/usr/include/opencv2
 LIBS += -Lopencv -Lopencv2
