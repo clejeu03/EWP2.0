@@ -159,6 +159,7 @@ void mainWindow::initMenu()
     m_Enregistrer->setShortcut(QKeySequence::Save);
     m_EnregistrerSous = new QAction("Enregistrer sous...",this);
     m_EnregistrerSous->setShortcut(QKeySequence::SaveAs);
+    m_Importer = new QAction("Importer",this);
     m_Exporter = new QAction("Exporter", this);
 
     m_ouvrirScript = new QAction("Ouvrir", this);
@@ -204,6 +205,7 @@ void mainWindow::initMenu()
     fichier->addAction(m_Enregistrer);
     fichier->addAction(m_EnregistrerSous);
     fichier->addSeparator();
+    fichier->addAction(m_Importer);
     fichier->addAction(m_Exporter);
     fichier->addSeparator();
     fichier->addAction(m_Quitter);
@@ -226,9 +228,22 @@ void mainWindow::initMenu()
     connect(m_Ouvrir, SIGNAL(triggered()), this, SLOT(openProject()));
     connect(m_Enregistrer, SIGNAL(triggered()), this, SLOT(save()));
     connect(m_EnregistrerSous, SIGNAL(triggered()), this, SLOT(saveUnder()));
+    //connect(m_Importer, SIGNAL(triggered()), this, SLOT());
+    //connect(m_Exporter, SIGNAL(triggered()), this, SLOT());
     connect(m_Quitter,SIGNAL(triggered()),qApp, SLOT(quit()));
+
+    /*connect(m_ouvrirScript, SIGNAL(triggered()), this, SLOT());
+    connect(m_Executer, SIGNAL(triggered()), this, SLOT());
+    connect(m_Importer, SIGNAL(triggered()), this, SLOT());
+    connect(m_fermerScript, SIGNAL(triggered()), this, SLOT());
+    connect(m_appliquerScript, SIGNAL(triggered()), this, SLOT());*/
 
     connect(m_afficherChutier,SIGNAL(triggered()),this, SLOT(showChutier()));
     connect(m_afficherOutils,SIGNAL(triggered()),this, SLOT(showOutils()));
     connect(m_afficherTimeline,SIGNAL(triggered()),this, SLOT(showTimeline()));
+
+  /*  connect(m_afficherConception, SIGNAL(triggered()), this, SLOT());
+    connect(m_afficherRealisation, SIGNAL(triggered()), this, SLOT());
+    connect(m_voirSite, SIGNAL(triggered()), this, SLOT());
+    */
 }

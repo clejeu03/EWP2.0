@@ -49,6 +49,7 @@ class mainWindow : public QMainWindow
         QAction *m_Ouvrir;
         QAction *m_Enregistrer;
         QAction *m_EnregistrerSous;
+        QAction *m_Importer;
         QAction *m_Exporter;
         QAction *m_ouvrirScript;
         QAction *m_Executer;
