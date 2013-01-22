@@ -2,13 +2,6 @@
 
 Timeline::Timeline(QWidget *parent):QWidget(parent)
 {
-   /* QFont Tfont;
-    Tfont.setBold(true);
-    Tfont.setPointSize(16);
-
-    TLabel = new QLabel("Timeline", this);
-    TLabel->setFont(Tfont);
-    TLabel->setAlignment(Qt::AlignTop);*/
 
     clipList = new QListWidget(this);
     clipList->resize(700,300);

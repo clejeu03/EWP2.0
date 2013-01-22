@@ -18,3 +18,14 @@ Pinceau::~Pinceau()
 {
 
 }
+
+void Pinceau::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+
+    QBrush background(QLinearGradient());
+
+    painter.setBrush(background);
+    painter.drawRoundedRect(0,0,300,15,5,5,Qt::AbsoluteSize);
+
+}
