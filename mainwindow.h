@@ -13,6 +13,8 @@
 
 #include "chutier.h"
 #include "moniteur.h"
+#include "timeline.h"
+#include "pinceau.h"
 
 class mainWindow : public QMainWindow
 {
@@ -23,19 +25,24 @@ class mainWindow : public QMainWindow
 
         void initMenu();
         void displayChutier();
+        void displayPinceau();
         void displayMoniteur();
+        void displayTimeline();
 
     private :
         Chutier *chutier;
+        Pinceau *pinceau;
         Moniteur *moniteur;
+        Timeline *timeline;
         QWidget *centralWidget;
+
         QHBoxLayout *mainLayout;
-        QVBoxLayout *mainVLayout;
         QVBoxLayout *vLayout;
         QVBoxLayout *rightVLayout;
         QHBoxLayout *hLayout;
         QSplitter *HSplitter;
         QSplitter *VSplitter;
+        QSplitter *subRightSplitter;
 
         QAction *m_Quitter;
         QAction *m_Nouveau;

@@ -14,7 +14,7 @@ Chutier::Chutier(QWidget *parent):QWidget(parent)
    splitter = new QSplitter(Qt::Vertical, this);
 
    mediaList = new QListWidget();
-   mediaList->size();
+   mediaList->resize(300,600);
    mediaList->addItem("media1");
    mediaList->addItem("media2");
    mediaList->addItem("media3");
@@ -22,7 +22,7 @@ Chutier::Chutier(QWidget *parent):QWidget(parent)
 
    splitter->addWidget(titre);
    splitter->addWidget(mediaList);
-
+   splitter->setStyleSheet("border : 1px solid #d9d9d9");
    setContentsMargins(1,2,3,4);
 
 }

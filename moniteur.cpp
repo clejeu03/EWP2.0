@@ -10,6 +10,8 @@ Moniteur::Moniteur(QWidget *parent):QWidget(parent)
     labMoniteur->setFont(Mfont);
     labMoniteur->setAlignment(Qt::AlignTop);
 
+    //a enlever par la suite
+    labMoniteur->resize(300,200);
 }
 
 Moniteur::~Moniteur()

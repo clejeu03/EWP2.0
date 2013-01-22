@@ -16,13 +16,15 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     chutier.cpp \
     moniteur.cpp \
-    timeline.cpp
+    timeline.cpp \
+    pinceau.cpp
 
 HEADERS  += \
     mainwindow.h \
     chutier.h \
     moniteur.h \
-    timeline.h
+    timeline.h \
+    pinceau.h
 
 FORMS    +=
 

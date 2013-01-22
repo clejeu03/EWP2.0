@@ -4,28 +4,46 @@
 void mainWindow::displayChutier()
 {
     chutier = new Chutier(this);
-    chutier->resize(300,300);
-
+    chutier->resize(300,600);
     HSplitter->addWidget(chutier);
 
     chutier->show();
 
 }
 
+void mainWindow::displayPinceau()
+{
+    pinceau = new Pinceau(this);
+    pinceau->setStyleSheet("border : 1px solid #d9d9d9");
+
+    subRightSplitter->addWidget(pinceau);
+    pinceau->show();
+}
+
 void mainWindow::displayMoniteur()
 {
     moniteur = new Moniteur(this);
     moniteur->resize(300,300);
-    moniteur->move(800,500);
+    moniteur->setStyleSheet("border : 1px solid #d9d9d9");
 
-    VSplitter->addWidget(moniteur);
+    subRightSplitter->addWidget(moniteur);
     moniteur->show();
+}
+
+void mainWindow::displayTimeline()
+{
+    timeline = new Timeline(this);
+    timeline->resize(300,200);
+    timeline->setStyleSheet("border : 1px solid #d9d9d9");
+
+    VSplitter->addWidget(timeline);
+    timeline->show();
 }
 
 mainWindow::mainWindow()
 {
     centralWidget = new QWidget(this);
-    QWidget *container = new QWidget(this); //widgets moniteur + timeline
+    QWidget *container = new QWidget(this); //widgets moniteur + pinceau + timeline
 
     mainLayout = new QHBoxLayout;
 
@@ -35,11 +53,24 @@ mainWindow::mainWindow()
     initMenu();
 
     displayChutier();
-    //mainVLayout = new QVBoxLayout;
 
     rightVLayout = new QVBoxLayout;
-    //hLayout = new QHBoxLayout;
+
+    QWidget *subContainer = new QWidget(this); //pinceau + moniteur
+    hLayout = new QHBoxLayout;
+    subRightSplitter = new QSplitter(Qt::Horizontal, this);
+
+    displayPinceau();
     displayMoniteur();
+    VSplitter->addWidget(subContainer);
+
+    hLayout->addWidget(subRightSplitter);
+    subContainer->setLayout(hLayout);
+
+    displayTimeline();
+
+    //VSplitter->setStyleSheet("border : 1px solid red");
+
     rightVLayout->addWidget(VSplitter);
     container->setLayout(rightVLayout);
 
