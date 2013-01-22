@@ -17,16 +17,26 @@ SOURCES += main.cpp \
     chutier.cpp \
     moniteur.cpp \
     timeline.cpp \
-    pinceau.cpp
+    pinceau.cpp \
+    player/QOpenCVWidget.cpp \
+    player/Player.cpp
 
 HEADERS  += \
     mainwindow.h \
     chutier.h \
     moniteur.h \
     timeline.h \
-    pinceau.h
+    pinceau.h \
+    player/QOpenCVWidget.h \
+    player/Player.h
 
 FORMS    +=
 
+CONFIG += link_pkgconfig
+PKGCONFIG += opencv
+
 INCLUDEPATH += -l/usr/include/opencv -l/usr/include/opencv2
 LIBS += -Lopencv -Lopencv2
+
+OTHER_FILES += \
+    player/playerStyleSheet.css
