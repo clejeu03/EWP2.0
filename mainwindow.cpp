@@ -23,8 +23,6 @@ void mainWindow::displayPinceau()
 void mainWindow::displayMoniteur()
 {
     moniteur = new Moniteur(this);
-    moniteur->resize(300,300);
-    moniteur->setStyleSheet("border : 1px solid #d9d9d9");
 
     subRightSplitter->addWidget(moniteur);
     moniteur->show();
