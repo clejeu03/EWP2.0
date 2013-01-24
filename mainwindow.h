@@ -28,7 +28,11 @@ class mainWindow : public QMainWindow
         void displayPinceau();
         void displayMoniteur();
         void displayTimeline();
-
+    public slots:
+        void updateTimelineAction(bool a);
+        void updatePinceauAction(bool a);
+        void updateMoniteurAction(bool a);
+        void updateChutierAction(bool a);
     private :
         Chutier *chutier;
         Pinceau *pinceau;
@@ -57,6 +61,7 @@ class mainWindow : public QMainWindow
         QAction *m_appliquerScript;
         QAction *m_afficherChutier;
         QAction *m_afficherOutils;
+        QAction *m_afficherMoniteur;
         QAction *m_afficherTimeline;
         QAction *m_afficherConception;
         QAction *m_afficherRealisation;
@@ -69,6 +74,7 @@ class mainWindow : public QMainWindow
         void saveUnder();
         void showChutier();
         void showOutils();
+        void showMoniteur();
         void showTimeline();
 
 };

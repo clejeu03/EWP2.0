@@ -14,7 +14,10 @@ void mainWindow::displayChutier()
 void mainWindow::displayPinceau()
 {
     pinceau = new Pinceau(this);
-    pinceau->setStyleSheet("border : 1px solid #d9d9d9");
+    pinceau->setStyleSheet("border : 1px solid #d9d9d9;"
+                           "border-top-left-radius:5px;"
+                           "border-top-right-radius:5px;"
+                           "padding-top:20px;");
 
     subRightSplitter->addWidget(pinceau);
     pinceau->show();
@@ -23,9 +26,6 @@ void mainWindow::displayPinceau()
 void mainWindow::displayMoniteur()
 {
     moniteur = new Moniteur(this);
-    moniteur->resize(300,300);
-    moniteur->setStyleSheet("border : 1px solid #d9d9d9");
-
     subRightSplitter->addWidget(moniteur);
     moniteur->show();
 }
@@ -34,7 +34,11 @@ void mainWindow::displayTimeline()
 {
     timeline = new Timeline(this);
     timeline->resize(300,200);
-    timeline->setStyleSheet("border : 1px solid #d9d9d9");
+
+    timeline->setStyleSheet("border : 1px solid #d9d9d9;"
+                            "border-top-left-radius:5px;"
+                            "border-top-right-radius:5px;"
+                            "padding-top:15px;");
 
     VSplitter->addWidget(timeline);
     timeline->show();
@@ -65,18 +69,24 @@ mainWindow::mainWindow()
     VSplitter->addWidget(subContainer);
 
     hLayout->addWidget(subRightSplitter);
+
     subContainer->setLayout(hLayout);
 
     displayTimeline();
 
-    //VSplitter->setStyleSheet("border : 1px solid red");
-
     rightVLayout->addWidget(VSplitter);
+
     container->setLayout(rightVLayout);
 
     HSplitter->addWidget(container);
     mainLayout->addWidget(HSplitter);
     HSplitter->setStretchFactor(1,2);
+
+
+    connect(timeline,SIGNAL(sig_show(bool)), this, SLOT(updateTimelineAction(bool)));
+    connect(pinceau,SIGNAL(sig_show(bool)), this, SLOT(updatePinceauAction(bool)));
+    connect(moniteur,SIGNAL(sig_show(bool)), this, SLOT(updateMoniteurAction(bool)));
+    connect(chutier,SIGNAL(sig_show(bool)), this, SLOT(updateChutierAction(bool)));
 
     centralWidget->setLayout(mainLayout);
     setCentralWidget(centralWidget);
@@ -132,20 +142,30 @@ void mainWindow::showChutier()
 void mainWindow::showOutils()
 {
     if(m_afficherOutils->isChecked()){
-        std::cout<<"show OUtils"<<std::endl;
+        pinceau->setVisible(true);
     }
     else{
-        std::cout<<"hide Outils"<<std::endl;
+        pinceau->setVisible(false);
+    }
+}
+
+void mainWindow::showMoniteur()
+{
+    if(m_afficherMoniteur->isChecked()){
+        moniteur->setVisible(true);
+    }
+    else{
+        moniteur->setVisible(false);
     }
 }
 
 void mainWindow::showTimeline()
 {
     if(m_afficherTimeline->isChecked()){
-        std::cout<<"show Timeline"<<std::endl;
+        timeline->setVisible(true);
     }
     else{
-        std::cout<<"hide Timeline"<<std::endl;
+        timeline->setVisible(false);
     }
 }
 
@@ -172,9 +192,12 @@ void mainWindow::initMenu()
     m_afficherChutier = new QAction("Chutier", this);
     m_afficherChutier->setCheckable(true);
     m_afficherChutier->setChecked(true);
-    m_afficherOutils = new QAction("Outils", this);
+    m_afficherOutils = new QAction("Outil", this);
     m_afficherOutils->setCheckable(true);
     m_afficherOutils->setChecked(true);
+    m_afficherMoniteur = new QAction("Moniteur", this);
+    m_afficherMoniteur->setCheckable(true);
+    m_afficherMoniteur->setChecked(true);
     m_afficherTimeline = new QAction("Timeline", this);
     m_afficherTimeline->setCheckable(true);
     m_afficherTimeline->setChecked(true);
@@ -215,8 +238,9 @@ void mainWindow::initMenu()
     script->addAction(m_fermerScript);
     script->addAction(m_appliquerScript);
 
-    affichage->addAction(m_afficherOutils);
     affichage->addAction(m_afficherChutier);
+    affichage->addAction(m_afficherOutils);
+    affichage->addAction(m_afficherMoniteur);
     affichage->addAction(m_afficherTimeline);
 
     credits->addAction(m_afficherConception);
@@ -240,10 +264,33 @@ void mainWindow::initMenu()
 
     connect(m_afficherChutier,SIGNAL(triggered()),this, SLOT(showChutier()));
     connect(m_afficherOutils,SIGNAL(triggered()),this, SLOT(showOutils()));
+    connect(m_afficherMoniteur,SIGNAL(triggered()),this, SLOT(showMoniteur()));
     connect(m_afficherTimeline,SIGNAL(triggered()),this, SLOT(showTimeline()));
 
   /*  connect(m_afficherConception, SIGNAL(triggered()), this, SLOT());
     connect(m_afficherRealisation, SIGNAL(triggered()), this, SLOT());
     connect(m_voirSite, SIGNAL(triggered()), this, SLOT());
     */
+
+
+}
+
+void mainWindow::updateTimelineAction(bool a)
+{
+    m_afficherTimeline->setChecked(a);
+}
+
+void mainWindow::updatePinceauAction(bool a)
+{
+    m_afficherOutils->setChecked(a);
+}
+
+void mainWindow::updateMoniteurAction(bool a)
+{
+    m_afficherMoniteur->setChecked(a);
+}
+
+void mainWindow::updateChutierAction(bool a)
+{
+    m_afficherChutier->setChecked(a);
 }
