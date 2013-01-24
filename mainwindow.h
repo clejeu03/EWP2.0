@@ -44,9 +44,12 @@ class mainWindow : public QMainWindow
         QVBoxLayout *vLayout;
         QVBoxLayout *rightVLayout;
         QHBoxLayout *hLayout;
+
+
         QSplitter *HSplitter;
         QSplitter *VSplitter;
         QSplitter *subRightSplitter;
+
 
         QAction *m_Quitter;
         QAction *m_Nouveau;
@@ -70,6 +73,7 @@ class mainWindow : public QMainWindow
      private slots:
         void newProject();
         void openProject();
+        void openFile();
         void save();
         void saveUnder();
         void showChutier();

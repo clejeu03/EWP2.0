@@ -4,11 +4,15 @@
 void mainWindow::displayChutier()
 {
     chutier = new Chutier(this);
+    chutier->setStyleSheet("border : 1px solid #d9d9d9;"
+                           "border-top-left-radius:5px;"
+                           "border-top-right-radius:5px;"
+                           "padding-top:20px;");
     chutier->resize(300,600);
+
     HSplitter->addWidget(chutier);
 
     chutier->show();
-
 }
 
 void mainWindow::displayPinceau()
@@ -72,6 +76,10 @@ mainWindow::mainWindow()
 
     subContainer->setLayout(hLayout);
 
+    container->setStyleSheet("border:1px solid blue;");
+    VSplitter->setStyleSheet("border : 1px solid red;");
+    subContainer->setStyleSheet("border : 1px solid black;");
+
     displayTimeline();
 
     rightVLayout->addWidget(VSplitter);
@@ -105,11 +113,11 @@ void mainWindow::newProject()
 
 void mainWindow::openProject()
 {
-    QString filename = QFileDialog::getOpenFileName(this, "Ouvrir le fichier", "/home/");
+    QString projectname = QFileDialog::getOpenFileName(this, "Ouvrir le fichier", "/home/");
 
     //AJOUTER LES FILTRES DE RESTRICTION
 
-    if(filename.isEmpty())
+    if(projectname.isEmpty())
     {
         std::cout << "Aucun fichier n'a été sélectionné" << std::endl;
     }
@@ -124,18 +132,50 @@ void mainWindow::save()
 
 void mainWindow::saveUnder()
 {
-    QString filename = QFileDialog::getSaveFileName(this,tr("Enregistrer sous..."),"/home");
+    QString projectname = QFileDialog::getSaveFileName(this,tr("Enregistrer sous..."),"/home");
+}
+
+void mainWindow::openFile()
+{
+    //Charger une vidéo
+    QStringList filters;
+    filters << "Video files (*.mp4 *.avi *.mov)";
+
+    QFileDialog dialog(this);
+    dialog.setNameFilters(filters);
+    dialog.setViewMode(QFileDialog::Detail);
+    dialog.exec();
+
+
+    //afficher le nom de la vidéo et son type
+    QString fileName = dialog.selectedFiles().first();
+    fileName.remove(0, ( fileName.lastIndexOf("/")+1) );
+
+    QList<QString> list;
+    list.append(fileName);
+    chutier->Add(list);
+
+    //afficher un lien vers le moniteur +lecture accélérée ou retour en arrière
+
+    //afficher le poid de la vidéo
+    QFileInfo fileWeight(dialog.selectedFiles().first());
+    qint64 size = 0;
+    size = fileWeight.size()/1000000;
+    QString Size = QString::number(size, 10);
+
+    QList<QString> listW;
+    listW.append(Size);
+    if(!listW.isEmpty())
+        chutier->Weight(listW);
 }
 
 void mainWindow::showChutier()
 {
     if(m_afficherChutier->isChecked()){
-        std::cout<<"show Chutier"<<std::endl;
-        //http://doc.qt.digia.com/qt/qwidget.html#visible-prop
+       chutier->setVisible(true);
     }
     else{
-        std::cout<<"hide Chutier"<<std::endl;
-        //http://doc.qt.digia.com/qt/qwidget.html#setHidden
+        chutier->setVisible(false);
     }
 }
 
@@ -179,7 +219,7 @@ void mainWindow::initMenu()
     m_Enregistrer->setShortcut(QKeySequence::Save);
     m_EnregistrerSous = new QAction("Enregistrer sous...",this);
     m_EnregistrerSous->setShortcut(QKeySequence::SaveAs);
-    m_Importer = new QAction("Importer",this);
+    m_Importer = new QAction("Importer...",this);
     m_Exporter = new QAction("Exporter", this);
 
     m_ouvrirScript = new QAction("Ouvrir", this);
@@ -252,7 +292,7 @@ void mainWindow::initMenu()
     connect(m_Ouvrir, SIGNAL(triggered()), this, SLOT(openProject()));
     connect(m_Enregistrer, SIGNAL(triggered()), this, SLOT(save()));
     connect(m_EnregistrerSous, SIGNAL(triggered()), this, SLOT(saveUnder()));
-    //connect(m_Importer, SIGNAL(triggered()), this, SLOT());
+    connect(m_Importer, SIGNAL(triggered()), this, SLOT(openFile()));
     //connect(m_Exporter, SIGNAL(triggered()), this, SLOT());
     connect(m_Quitter,SIGNAL(triggered()),qApp, SLOT(quit()));
 

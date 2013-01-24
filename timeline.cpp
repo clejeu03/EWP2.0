@@ -18,7 +18,6 @@ Timeline::Timeline(QWidget *parent):QWidget(parent)
 
     this->addAction(m_Exit);
 
-    setMouseTracking(true);
     connect(m_Exit, SIGNAL(triggered()), this, SLOT(hide()));
 }
 
@@ -107,13 +106,8 @@ void Timeline::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
 
-    QPoint point = this->mapFromGlobal(QCursor::pos());
-
-    if(point.x() > 650 && point.x() < 700)
-    {
-        m_State = STATE_DEFAULT;
-        update(675,2,18,18);
-    }
+    m_State = STATE_DEFAULT;
+    update(675,2,18,18);
 }
 
 void Timeline::mousePressEvent(QMouseEvent *event)

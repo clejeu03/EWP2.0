@@ -9,7 +9,6 @@
 #include <QLinearGradient>
 #include <QPixmap>
 #include <QAction>
-#include <iostream>
 
 class Timeline : public QWidget
 {
