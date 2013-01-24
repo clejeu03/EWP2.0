@@ -5,10 +5,10 @@ void mainWindow::displayChutier()
 {
     chutier = new Chutier(this);
     chutier->resize(300,600);
+
     HSplitter->addWidget(chutier);
 
     chutier->show();
-
 }
 
 void mainWindow::displayPinceau()
@@ -95,11 +95,11 @@ void mainWindow::newProject()
 
 void mainWindow::openProject()
 {
-    QString filename = QFileDialog::getOpenFileName(this, "Ouvrir le fichier", "/home/");
+    QString projectname = QFileDialog::getOpenFileName(this, "Ouvrir le fichier", "/home/");
 
     //AJOUTER LES FILTRES DE RESTRICTION
 
-    if(filename.isEmpty())
+    if(projectname.isEmpty())
     {
         std::cout << "Aucun fichier n'a été sélectionné" << std::endl;
     }
@@ -114,7 +114,41 @@ void mainWindow::save()
 
 void mainWindow::saveUnder()
 {
-    QString filename = QFileDialog::getSaveFileName(this,tr("Enregistrer sous..."),"/home");
+    QString projectname = QFileDialog::getSaveFileName(this,tr("Enregistrer sous..."),"/home");
+}
+
+void mainWindow::openFile()
+{
+    //Charger une vidéo
+    QStringList filters;
+    filters << "Video files (*.mp4 *.avi *.mov)";
+
+    QFileDialog dialog(this);
+    dialog.setNameFilters(filters);
+    dialog.setViewMode(QFileDialog::Detail);
+    dialog.exec();
+
+
+    //afficher le nom de la vidéo et son type
+    QString fileName = dialog.selectedFiles().first();
+    fileName.remove(0, ( fileName.lastIndexOf("/")+1) );
+
+    QList<QString> list;
+    list.append(fileName);
+    chutier->Add(list);
+
+    //afficher un lien vers le moniteur +lecture accélérée ou retour en arrière
+
+    //afficher le poid de la vidéo
+    QFileInfo fileWeight(dialog.selectedFiles().first());
+    qint64 size = 0;
+    size = fileWeight.size()/1000000;
+    QString Size = QString::number(size, 10);
+
+    QList<QString> listW;
+    listW.append(Size);
+    if(!listW.isEmpty())
+        chutier->Weight(listW);
 }
 
 void mainWindow::showChutier()
@@ -228,7 +262,7 @@ void mainWindow::initMenu()
     connect(m_Ouvrir, SIGNAL(triggered()), this, SLOT(openProject()));
     connect(m_Enregistrer, SIGNAL(triggered()), this, SLOT(save()));
     connect(m_EnregistrerSous, SIGNAL(triggered()), this, SLOT(saveUnder()));
-    //connect(m_Importer, SIGNAL(triggered()), this, SLOT());
+    connect(m_Importer, SIGNAL(triggered()), this, SLOT(openFile()));
     //connect(m_Exporter, SIGNAL(triggered()), this, SLOT());
     connect(m_Quitter,SIGNAL(triggered()),qApp, SLOT(quit()));
 
