@@ -15,6 +15,7 @@
 #include "moniteur.h"
 #include "timeline.h"
 #include "pinceau.h"
+#include "exportwindow.h"
 
 class mainWindow : public QMainWindow
 {
@@ -33,12 +34,14 @@ class mainWindow : public QMainWindow
         void updatePinceauAction(bool a);
         void updateMoniteurAction(bool a);
         void updateChutierAction(bool a);
+        void displayExportWindow();
     private :
         Chutier *chutier;
         Pinceau *pinceau;
         Moniteur *moniteur;
         Timeline *timeline;
         QWidget *centralWidget;
+        exportWindow *ui_exportWindow;
 
         QHBoxLayout *mainLayout;
         QVBoxLayout *vLayout;
@@ -62,6 +65,8 @@ class mainWindow : public QMainWindow
         QAction *m_Executer;
         QAction *m_fermerScript;
         QAction *m_appliquerScript;
+        QAction *m_lireDernierClip;
+        QAction *m_lancerRendu;
         QAction *m_afficherChutier;
         QAction *m_afficherOutils;
         QAction *m_afficherMoniteur;

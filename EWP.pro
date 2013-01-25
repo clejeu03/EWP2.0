@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     timeline.cpp \
     pinceau.cpp \
     player/QOpenCVWidget.cpp \
-    player/Player.cpp
+    player/Player.cpp \
+    exportwindow.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -28,9 +29,11 @@ HEADERS  += \
     timeline.h \
     pinceau.h \
     player/QOpenCVWidget.h \
-    player/Player.h
+    player/Player.h \
+    exportwindow.h
 
-FORMS    +=
+FORMS    += \
+    exportwindow.ui
 
 #INCLUDEPATH += /usr/include/opencv /usr/include/opencv2
 #LIBS += -Lopencv -Lopencv2

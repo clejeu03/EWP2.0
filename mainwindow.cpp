@@ -48,6 +48,16 @@ void mainWindow::displayTimeline()
     timeline->show();
 }
 
+void mainWindow::displayExportWindow()
+{
+    ui_exportWindow = exportWindow::Instance();
+    ui_exportWindow->setModal(true); //on empeche le clic sur le reste de la fenetre
+    ui_exportWindow->exec();
+
+    delete ui_exportWindow;
+    ui_exportWindow = NULL;
+}
+
 mainWindow::mainWindow()
 {
     centralWidget = new QWidget(this);
@@ -75,11 +85,11 @@ mainWindow::mainWindow()
     hLayout->addWidget(subRightSplitter);
 
     subContainer->setLayout(hLayout);
-
+/*
     container->setStyleSheet("border:1px solid blue;");
     VSplitter->setStyleSheet("border : 1px solid red;");
     subContainer->setStyleSheet("border : 1px solid black;");
-
+*/
     displayTimeline();
 
     rightVLayout->addWidget(VSplitter);
@@ -211,6 +221,8 @@ void mainWindow::showTimeline()
 
 void mainWindow::initMenu()
 {
+    /*------  INSTANCIATION ACTIONS  ------*/
+
     m_Nouveau = new QAction("Nouveau...", this);
     m_Nouveau->setShortcut(QKeySequence::New);
     m_Ouvrir = new QAction("Ouvrir...", this);
@@ -220,7 +232,7 @@ void mainWindow::initMenu()
     m_EnregistrerSous = new QAction("Enregistrer sous...",this);
     m_EnregistrerSous->setShortcut(QKeySequence::SaveAs);
     m_Importer = new QAction("Importer...",this);
-    m_Exporter = new QAction("Exporter", this);
+    m_Exporter = new QAction("Exporter...", this);
 
     m_ouvrirScript = new QAction("Ouvrir", this);
     m_Executer = new QAction("Exécuter", this);
@@ -228,6 +240,9 @@ void mainWindow::initMenu()
     m_appliquerScript = new QAction("Appliquer le script à  la timeline", this);
     m_Quitter = new QAction("Quitter", this);
     m_Quitter->setShortcut(QKeySequence::Quit);
+
+    m_lireDernierClip = new QAction("Lire le dernier clip importé", this);
+    m_lancerRendu = new QAction("Lancer le rendu", this);
 
     m_afficherChutier = new QAction("Chutier", this);
     m_afficherChutier->setCheckable(true);
@@ -246,12 +261,14 @@ void mainWindow::initMenu()
     m_afficherRealisation = new QAction("Réalisation",this);
     m_voirSite = new QAction("http://ewp.com",this);
 
+    /*------  INSTANCIATION ITEMS MENU  ------*/
+
     QMenu *fichier = new QMenu("&Fichier");
     QMenu *script = new QMenu("&Script");
     QMenu *lecteur = new QMenu("&Lecteur");
     QMenu *process = new QMenu("&Process");
     QMenu *affichage = new QMenu("&Affichage");
-    QMenu *credits = new QMenu("&Credits");
+    QMenu *credits = new QMenu("&Crédits");
 
     QMenuBar *menu = menuBar();
 
@@ -278,6 +295,9 @@ void mainWindow::initMenu()
     script->addAction(m_fermerScript);
     script->addAction(m_appliquerScript);
 
+    lecteur->addAction(m_lireDernierClip);
+    process->addAction(m_lancerRendu);
+
     affichage->addAction(m_afficherChutier);
     affichage->addAction(m_afficherOutils);
     affichage->addAction(m_afficherMoniteur);
@@ -288,12 +308,14 @@ void mainWindow::initMenu()
     credits->addSeparator();
     credits->addAction(m_voirSite);
 
+    /*------  CONNEXIONS ACTIONS  ------*/
+
     connect(m_Nouveau, SIGNAL(triggered()), this, SLOT(newProject()));
     connect(m_Ouvrir, SIGNAL(triggered()), this, SLOT(openProject()));
     connect(m_Enregistrer, SIGNAL(triggered()), this, SLOT(save()));
     connect(m_EnregistrerSous, SIGNAL(triggered()), this, SLOT(saveUnder()));
     connect(m_Importer, SIGNAL(triggered()), this, SLOT(openFile()));
-    //connect(m_Exporter, SIGNAL(triggered()), this, SLOT());
+    connect(m_Exporter, SIGNAL(triggered()), this, SLOT(displayExportWindow()));
     connect(m_Quitter,SIGNAL(triggered()),qApp, SLOT(quit()));
 
     /*connect(m_ouvrirScript, SIGNAL(triggered()), this, SLOT());
@@ -306,6 +328,9 @@ void mainWindow::initMenu()
     connect(m_afficherOutils,SIGNAL(triggered()),this, SLOT(showOutils()));
     connect(m_afficherMoniteur,SIGNAL(triggered()),this, SLOT(showMoniteur()));
     connect(m_afficherTimeline,SIGNAL(triggered()),this, SLOT(showTimeline()));
+
+    /*connect(m_lireDernierClip, SIGNAL(triggered()), this, SLOT());
+    connect(m_lancerRendu, SIGNAL(triggered()), this, SLOT());*/
 
   /*  connect(m_afficherConception, SIGNAL(triggered()), this, SLOT());
     connect(m_afficherRealisation, SIGNAL(triggered()), this, SLOT());
@@ -334,3 +359,4 @@ void mainWindow::updateChutierAction(bool a)
 {
     m_afficherChutier->setChecked(a);
 }
+
