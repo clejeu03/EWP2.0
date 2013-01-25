@@ -9,6 +9,7 @@
 #include <QMenuBar>
 #include <QFileDialog>
 #include <QtGui>
+#include <QDesktopServices>
 #include <iostream>
 
 #include "chutier.h"
@@ -85,6 +86,7 @@ class mainWindow : public QMainWindow
         void showOutils();
         void showMoniteur();
         void showTimeline();
+        void visitWebsite();
 
 };
 

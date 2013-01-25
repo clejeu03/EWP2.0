@@ -333,9 +333,9 @@ void mainWindow::initMenu()
     connect(m_lancerRendu, SIGNAL(triggered()), this, SLOT());*/
 
   /*  connect(m_afficherConception, SIGNAL(triggered()), this, SLOT());
-    connect(m_afficherRealisation, SIGNAL(triggered()), this, SLOT());
-    connect(m_voirSite, SIGNAL(triggered()), this, SLOT());
-    */
+    connect(m_afficherRealisation, SIGNAL(triggered()), this, SLOT());*/
+    connect(m_voirSite, SIGNAL(triggered()), this, SLOT(visitWebsite()));
+
 
 
 }
@@ -358,5 +358,10 @@ void mainWindow::updateMoniteurAction(bool a)
 void mainWindow::updateChutierAction(bool a)
 {
     m_afficherChutier->setChecked(a);
+}
+
+void mainWindow::visitWebsite()
+{
+    QDesktopServices::openUrl(QUrl("http://i.imgur.com/A81gtCp.gif"));
 }
 
