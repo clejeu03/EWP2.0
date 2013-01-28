@@ -115,7 +115,6 @@ void Timeline::mousePressEvent(QMouseEvent *event)
     Q_UNUSED(event);
 
     QPoint point = this->mapFromGlobal(QCursor::pos());
-    std::cout << point.x() << std::endl;
     if(point.x() > 650 && point.x() < 700)
     {
         m_State = STATE_CLICKED;

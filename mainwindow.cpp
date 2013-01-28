@@ -166,12 +166,12 @@ void mainWindow::openFile()
     chutier->Add(list);
 
     //afficher un lien vers le moniteur +lecture accélérée ou retour en arrière
-
+/*
     QIcon button = QIcon("/ressources/lecteur.jpeg");
 
     QList<QIcon> listP;
-    listP.append(button);
-    chutier->Play(listP);
+    listP.append(button);*/
+   // chutier->Play(listP);
 
     //afficher le poid de la vidéo
     QFileInfo fileWeight(dialog.selectedFiles().first());

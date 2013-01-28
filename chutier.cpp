@@ -42,7 +42,15 @@ Chutier::Chutier(QWidget *parent):QWidget(parent)
    splitter->addWidget(listcontainer);
    splitter->resize(300,400);
 
+   m_State = STATE_DEFAULT;
 
+   icone = new QPixmap("resources/exit.png");
+   exitIcon = new QIcon(*icone);
+   m_Exit = new QAction(*exitIcon,"fermer",this);
+
+   this->addAction(m_Exit);
+
+   connect(m_Exit, SIGNAL(triggered()), this, SLOT(hide()));
    connect(mediaList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(updateCurrentweightListItem(/*mediaList,weightList*/)));
    connect(weightList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(updateCurrentmediaListItem(/*weightList,mediaList*/)));
 }
@@ -86,7 +94,7 @@ void Chutier::Add(QList<QString> list){
     }
 }
 
-void Chutier::Play(QList<QIcon> list){
+void Chutier::Play(QList<QString> list){
     if(playList)
     {
         if(!list.isEmpty())
@@ -189,12 +197,17 @@ void Chutier::mousePressEvent(QMouseEvent *event)
 void Chutier::mouseReleaseEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
-    if(underMouse())
+    QPoint point = this->mapFromGlobal(QCursor::pos());
+
+    if(point.x() > 250 && point.x() < 300)
     {
-         m_State = STATE_HOVERED;
-    }
-    else{
-         m_State = STATE_DEFAULT;
+        if(underMouse())
+        {
+             m_State = STATE_HOVERED;
+        }
+        else{
+             m_State = STATE_DEFAULT;
+        }
     }
     m_Exit->trigger(); //on force le signal trigger de m_Exit
     update(275,2,18,18);

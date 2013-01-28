@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QDebug>
 #include <QFileDialog>
+#include <iostream>
 
 namespace Ui {
 class exportWindow;
@@ -18,6 +19,8 @@ public:
     ~exportWindow();
 private slots:
     void on_pushButton_clicked();
+    void action_valider();
+    void action_annuler();
 private:
     Ui::exportWindow *ui;
 };

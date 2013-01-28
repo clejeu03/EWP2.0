@@ -21,7 +21,7 @@ void Player::initPlayer(VideoCapture *video){
     int total_frame = capture->get(CV_CAP_PROP_FRAME_COUNT);
     QTime originTime(0,0,0);
     duration = originTime.addSecs(qRound(total_frame/fps));
-std::cout<<"bla"<<std::endl;
+
     /*Drawing the player*/
     layout->addWidget(cvwidget);
     initSlider();

@@ -67,7 +67,7 @@ class Chutier : public QWidget
 
 
     private slots:
-        void updateCurrentweightListItem(/*QListWidget *listeSource, QListWidget *listeTarget*/);
+        void updateCurrentweightListItem();
         void updateCurrentmediaListItem();
         //void updateCurrentplayListItem();
 
