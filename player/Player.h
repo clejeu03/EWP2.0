@@ -17,6 +17,7 @@
 #include <iostream>
 
 
+
 using namespace cv;
 
 class Player: public QWidget{
