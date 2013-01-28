@@ -1,5 +1,6 @@
 #include "Player.h"
 
+
 Player::Player(VideoCapture * capture, QWidget *parent) : QWidget(parent){
     assert(capture);
     Mat video;

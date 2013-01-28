@@ -6,10 +6,10 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QImage>
+#include <QDebug>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
-
-
+#include <opencv/cv.h>
 
 class QOpenCVWidget : public QWidget{
 

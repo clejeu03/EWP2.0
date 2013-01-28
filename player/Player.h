@@ -10,8 +10,11 @@
 #include "QOpenCVWidget.h"
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv/cv.h>
+#include <QDebug>
+#include <QFile>
+#include <QTimerEvent>
 #include <iostream>
-
 
 
 

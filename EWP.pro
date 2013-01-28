@@ -19,7 +19,9 @@ SOURCES += main.cpp \
     timeline.cpp \
     pinceau.cpp \
     player/QOpenCVWidget.cpp \
-    player/Player.cpp
+    player/Player.cpp \
+    exportwindow.cpp \
+    infoconception.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -28,15 +30,20 @@ HEADERS  += \
     timeline.h \
     pinceau.h \
     player/QOpenCVWidget.h \
-    player/Player.h
+    player/Player.h \
+    exportwindow.h \
+    infoconception.h
 
-FORMS    +=
+FORMS    += \
+    exportwindow.ui \
+    infoconception.ui
 
-CONFIG += link_pkgconfig
-PKGCONFIG += opencv
+#INCLUDEPATH += /usr/include/opencv /usr/include/opencv2
+#LIBS += -Lopencv -Lopencv2
 
 INCLUDEPATH += -l/usr/include/opencv -l/usr/include/opencv2
-LIBS += -Lopencv -Lopencv2
+LIBS += -lopencv_core
+LIBS += -lopencv_highgui
 
-OTHER_FILES += \
-    player/playerStyleSheet.css
+
+OTHER_FILES += player/playerStyleSheet.css

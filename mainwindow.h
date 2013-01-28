@@ -9,6 +9,7 @@
 #include <QMenuBar>
 #include <QFileDialog>
 #include <QtGui>
+#include <QDesktopServices>
 #include <iostream>
 #include <QToolButton>
 
@@ -16,6 +17,8 @@
 #include "moniteur.h"
 #include "timeline.h"
 #include "pinceau.h"
+#include "exportwindow.h"
+#include "infoconception.h"
 
 class mainWindow : public QMainWindow
 {
@@ -29,13 +32,20 @@ class mainWindow : public QMainWindow
         void displayPinceau();
         void displayMoniteur();
         void displayTimeline();
-
+    public slots:
+        void updateTimelineAction(bool a);
+        void updatePinceauAction(bool a);
+        void updateMoniteurAction(bool a);
+        void updateChutierAction(bool a);
+        void displayExportWindow();
     private :
         Chutier *chutier;
         Pinceau *pinceau;
         Moniteur *moniteur;
         Timeline *timeline;
         QWidget *centralWidget;
+        exportWindow *ui_exportWindow;
+        infoConception *ui_aboutConception;
 
         QHBoxLayout *mainLayout;
         QVBoxLayout *vLayout;
@@ -55,12 +65,13 @@ class mainWindow : public QMainWindow
         QAction *m_EnregistrerSous;
         QAction *m_Importer;
         QAction *m_Exporter;
-        QAction *m_ouvrirScript;
-        QAction *m_Executer;
-        QAction *m_fermerScript;
         QAction *m_appliquerScript;
+        QAction *m_supprimerScript;
+        QAction *m_lireDernierClip;
+        QAction *m_lancerRendu;
         QAction *m_afficherChutier;
         QAction *m_afficherOutils;
+        QAction *m_afficherMoniteur;
         QAction *m_afficherTimeline;
         QAction *m_afficherConception;
         QAction *m_afficherRealisation;
@@ -74,7 +85,10 @@ class mainWindow : public QMainWindow
         void saveUnder();
         void showChutier();
         void showOutils();
+        void showMoniteur();
         void showTimeline();
+        void showConception();
+        void visitWebsite();
 
 };
 

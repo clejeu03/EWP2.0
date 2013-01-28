@@ -4,6 +4,10 @@
 void mainWindow::displayChutier()
 {
     chutier = new Chutier(this);
+    chutier->setStyleSheet("border : 1px solid #d9d9d9;"
+                           "border-top-left-radius:5px;"
+                           "border-top-right-radius:5px;"
+                           "padding-top:20px;");
     chutier->resize(300,600);
 
     HSplitter->addWidget(chutier);
@@ -14,7 +18,10 @@ void mainWindow::displayChutier()
 void mainWindow::displayPinceau()
 {
     pinceau = new Pinceau(this);
-    pinceau->setStyleSheet("border : 1px solid #d9d9d9");
+    pinceau->setStyleSheet("border : 1px solid #d9d9d9;"
+                           "border-top-left-radius:5px;"
+                           "border-top-right-radius:5px;"
+                           "padding-top:20px;");
 
     subRightSplitter->addWidget(pinceau);
     pinceau->show();
@@ -23,7 +30,6 @@ void mainWindow::displayPinceau()
 void mainWindow::displayMoniteur()
 {
     moniteur = new Moniteur(this);
-
     subRightSplitter->addWidget(moniteur);
     moniteur->show();
 }
@@ -32,10 +38,24 @@ void mainWindow::displayTimeline()
 {
     timeline = new Timeline(this);
     timeline->resize(300,200);
-    timeline->setStyleSheet("border : 1px solid #d9d9d9");
+
+    timeline->setStyleSheet("border : 1px solid #d9d9d9;"
+                            "border-top-left-radius:5px;"
+                            "border-top-right-radius:5px;"
+                            "padding-top:15px;");
 
     VSplitter->addWidget(timeline);
     timeline->show();
+}
+
+void mainWindow::displayExportWindow()
+{
+    ui_exportWindow = new exportWindow();
+    ui_exportWindow->setModal(true); //on empeche le clic sur le reste de la fenetre
+    ui_exportWindow->exec();
+
+    delete ui_exportWindow;
+    ui_exportWindow = NULL;
 }
 
 mainWindow::mainWindow()
@@ -63,18 +83,28 @@ mainWindow::mainWindow()
     VSplitter->addWidget(subContainer);
 
     hLayout->addWidget(subRightSplitter);
-    subContainer->setLayout(hLayout);
 
+    subContainer->setLayout(hLayout);
+/*
+    container->setStyleSheet("border:1px solid blue;");
+    VSplitter->setStyleSheet("border : 1px solid red;");
+    subContainer->setStyleSheet("border : 1px solid black;");
+*/
     displayTimeline();
 
-    //VSplitter->setStyleSheet("border : 1px solid red");
-
     rightVLayout->addWidget(VSplitter);
+
     container->setLayout(rightVLayout);
 
     HSplitter->addWidget(container);
     mainLayout->addWidget(HSplitter);
     HSplitter->setStretchFactor(1,2);
+
+
+    connect(timeline,SIGNAL(sig_show(bool)), this, SLOT(updateTimelineAction(bool)));
+    connect(pinceau,SIGNAL(sig_show(bool)), this, SLOT(updatePinceauAction(bool)));
+    connect(moniteur,SIGNAL(sig_show(bool)), this, SLOT(updateMoniteurAction(bool)));
+    connect(chutier,SIGNAL(sig_show(bool)), this, SLOT(updateChutierAction(bool)));
 
     centralWidget->setLayout(mainLayout);
     setCentralWidget(centralWidget);
@@ -166,37 +196,58 @@ void mainWindow::openFile()
 void mainWindow::showChutier()
 {
     if(m_afficherChutier->isChecked()){
-        std::cout<<"show Chutier"<<std::endl;
-        //http://doc.qt.digia.com/qt/qwidget.html#visible-prop
+       chutier->setVisible(true);
     }
     else{
-        std::cout<<"hide Chutier"<<std::endl;
-        //http://doc.qt.digia.com/qt/qwidget.html#setHidden
+        chutier->setVisible(false);
     }
 }
 
 void mainWindow::showOutils()
 {
     if(m_afficherOutils->isChecked()){
-        std::cout<<"show OUtils"<<std::endl;
+        pinceau->setVisible(true);
     }
     else{
-        std::cout<<"hide Outils"<<std::endl;
+        pinceau->setVisible(false);
+    }
+}
+
+void mainWindow::showMoniteur()
+{
+    if(m_afficherMoniteur->isChecked()){
+        moniteur->setVisible(true);
+    }
+    else{
+        moniteur->setVisible(false);
     }
 }
 
 void mainWindow::showTimeline()
 {
     if(m_afficherTimeline->isChecked()){
-        std::cout<<"show Timeline"<<std::endl;
+        timeline->setVisible(true);
     }
     else{
-        std::cout<<"hide Timeline"<<std::endl;
+        timeline->setVisible(false);
     }
+}
+
+void mainWindow::showConception()
+{
+    ui_aboutConception = new infoConception();
+    ui_aboutConception->setModal(true); //on empeche le clic sur le reste de la fenetre
+    ui_aboutConception->exec();
+
+    delete ui_aboutConception;
+    ui_aboutConception = NULL;
+
 }
 
 void mainWindow::initMenu()
 {
+    /*------  INSTANCIATION ACTIONS  ------*/
+
     m_Nouveau = new QAction("Nouveau...", this);
     m_Nouveau->setShortcut(QKeySequence::New);
     m_Ouvrir = new QAction("Ouvrir...", this);
@@ -205,36 +256,43 @@ void mainWindow::initMenu()
     m_Enregistrer->setShortcut(QKeySequence::Save);
     m_EnregistrerSous = new QAction("Enregistrer sous...",this);
     m_EnregistrerSous->setShortcut(QKeySequence::SaveAs);
-    m_Importer = new QAction("Importer",this);
-    m_Exporter = new QAction("Exporter", this);
-
-    m_ouvrirScript = new QAction("Ouvrir", this);
-    m_Executer = new QAction("Exécuter", this);
-    m_fermerScript = new QAction("Fermer", this);
-    m_appliquerScript = new QAction("Appliquer le script à  la timeline", this);
+    m_Importer = new QAction("Importer...",this);
+    m_Exporter = new QAction("Exporter...", this);
     m_Quitter = new QAction("Quitter", this);
     m_Quitter->setShortcut(QKeySequence::Quit);
+
+
+    m_appliquerScript = new QAction("Appliquer un script...", this);
+    m_supprimerScript = new QAction("Supprimer les scripts appliqués", this);
+
+    m_lireDernierClip = new QAction("Lire le dernier clip importé", this);
+    m_lancerRendu = new QAction("Lancer le rendu", this);
 
     m_afficherChutier = new QAction("Chutier", this);
     m_afficherChutier->setCheckable(true);
     m_afficherChutier->setChecked(true);
-    m_afficherOutils = new QAction("Outils", this);
+    m_afficherOutils = new QAction("Outil", this);
     m_afficherOutils->setCheckable(true);
     m_afficherOutils->setChecked(true);
+    m_afficherMoniteur = new QAction("Moniteur", this);
+    m_afficherMoniteur->setCheckable(true);
+    m_afficherMoniteur->setChecked(true);
     m_afficherTimeline = new QAction("Timeline", this);
     m_afficherTimeline->setCheckable(true);
     m_afficherTimeline->setChecked(true);
 
     m_afficherConception = new QAction("Conception",this);
     m_afficherRealisation = new QAction("Réalisation",this);
-    m_voirSite = new QAction("http://ewp.com",this);
+    m_voirSite = new QAction("http://electronicwallpaper.com",this);
+
+    /*------  INSTANCIATION ITEMS MENU  ------*/
 
     QMenu *fichier = new QMenu("&Fichier");
     QMenu *script = new QMenu("&Script");
     QMenu *lecteur = new QMenu("&Lecteur");
     QMenu *process = new QMenu("&Process");
     QMenu *affichage = new QMenu("&Affichage");
-    QMenu *credits = new QMenu("&Credits");
+    QMenu *credits = new QMenu("&Crédits");
 
     QMenuBar *menu = menuBar();
 
@@ -256,13 +314,15 @@ void mainWindow::initMenu()
     fichier->addSeparator();
     fichier->addAction(m_Quitter);
 
-    script->addAction(m_ouvrirScript);
-    script->addAction(m_Executer);
-    script->addAction(m_fermerScript);
     script->addAction(m_appliquerScript);
+    script->addAction(m_supprimerScript);
 
-    affichage->addAction(m_afficherOutils);
+    lecteur->addAction(m_lireDernierClip);
+    process->addAction(m_lancerRendu);
+
     affichage->addAction(m_afficherChutier);
+    affichage->addAction(m_afficherOutils);
+    affichage->addAction(m_afficherMoniteur);
     affichage->addAction(m_afficherTimeline);
 
     credits->addAction(m_afficherConception);
@@ -270,26 +330,59 @@ void mainWindow::initMenu()
     credits->addSeparator();
     credits->addAction(m_voirSite);
 
+    /*------  CONNEXIONS ACTIONS  ------*/
+
     connect(m_Nouveau, SIGNAL(triggered()), this, SLOT(newProject()));
     connect(m_Ouvrir, SIGNAL(triggered()), this, SLOT(openProject()));
     connect(m_Enregistrer, SIGNAL(triggered()), this, SLOT(save()));
     connect(m_EnregistrerSous, SIGNAL(triggered()), this, SLOT(saveUnder()));
     connect(m_Importer, SIGNAL(triggered()), this, SLOT(openFile()));
-    //connect(m_Exporter, SIGNAL(triggered()), this, SLOT());
+    connect(m_Exporter, SIGNAL(triggered()), this, SLOT(displayExportWindow()));
     connect(m_Quitter,SIGNAL(triggered()),qApp, SLOT(quit()));
 
-    /*connect(m_ouvrirScript, SIGNAL(triggered()), this, SLOT());
-    connect(m_Executer, SIGNAL(triggered()), this, SLOT());
-    connect(m_Importer, SIGNAL(triggered()), this, SLOT());
-    connect(m_fermerScript, SIGNAL(triggered()), this, SLOT());
-    connect(m_appliquerScript, SIGNAL(triggered()), this, SLOT());*/
+    /*
+    connect(m_appliquerScript, SIGNAL(triggered()), this, SLOT());
+    connect(m_supprimerScript, SIGNAL(triggered()), this, SLOT());
+*/
 
     connect(m_afficherChutier,SIGNAL(triggered()),this, SLOT(showChutier()));
     connect(m_afficherOutils,SIGNAL(triggered()),this, SLOT(showOutils()));
+    connect(m_afficherMoniteur,SIGNAL(triggered()),this, SLOT(showMoniteur()));
     connect(m_afficherTimeline,SIGNAL(triggered()),this, SLOT(showTimeline()));
 
-  /*  connect(m_afficherConception, SIGNAL(triggered()), this, SLOT());
-    connect(m_afficherRealisation, SIGNAL(triggered()), this, SLOT());
-    connect(m_voirSite, SIGNAL(triggered()), this, SLOT());
-    */
+    /*connect(m_lireDernierClip, SIGNAL(triggered()), this, SLOT());
+    connect(m_lancerRendu, SIGNAL(triggered()), this, SLOT());*/
+
+    connect(m_afficherConception, SIGNAL(triggered()), this, SLOT(showConception()));
+  /*    connect(m_afficherRealisation, SIGNAL(triggered()), this, SLOT());*/
+    connect(m_voirSite, SIGNAL(triggered()), this, SLOT(visitWebsite()));
+
 }
+
+void mainWindow::updateTimelineAction(bool a)
+{
+    m_afficherTimeline->setChecked(a);
+}
+
+void mainWindow::updatePinceauAction(bool a)
+{
+    m_afficherOutils->setChecked(a);
+}
+
+void mainWindow::updateMoniteurAction(bool a)
+{
+    m_afficherMoniteur->setChecked(a);
+}
+
+void mainWindow::updateChutierAction(bool a)
+{
+    m_afficherChutier->setChecked(a);
+}
+
+void mainWindow::visitWebsite()
+{
+    QDesktopServices::openUrl(QUrl("http://i.imgur.com/A81gtCp.gif"));
+}
+
+
+

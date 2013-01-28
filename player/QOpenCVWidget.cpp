@@ -1,7 +1,3 @@
-#include <QWidget>
-#include <QDebug>
-#include <opencv2/opencv.hpp>
-#include <opencv2/highgui/highgui.hpp>
 #include "QOpenCVWidget.h"
 
 QOpenCVWidget::QOpenCVWidget(QWidget *parent) : QWidget(parent) {
