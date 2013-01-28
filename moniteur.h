@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QPaintEvent>
 #include <QPainter>
+#include <QHBoxLayout>
 #include <QLinearGradient>
 #include <QPixmap>
 #include <QAction>

@@ -30,6 +30,10 @@ void mainWindow::displayPinceau()
 void mainWindow::displayMoniteur()
 {
     moniteur = new Moniteur(this);
+    moniteur->setStyleSheet("border : 1px solid #d9d9d9;"
+                           "border-top-left-radius:5px;"
+                           "border-top-right-radius:5px;"
+                           "padding-top:20px;");
     subRightSplitter->addWidget(moniteur);
     moniteur->show();
 }
@@ -37,7 +41,7 @@ void mainWindow::displayMoniteur()
 void mainWindow::displayTimeline()
 {
     timeline = new Timeline(this);
-    timeline->resize(300,200);
+    timeline->resize(900,400);
 
     timeline->setStyleSheet("border : 1px solid #d9d9d9;"
                             "border-top-left-radius:5px;"

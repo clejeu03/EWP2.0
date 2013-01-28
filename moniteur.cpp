@@ -1,8 +1,8 @@
 #include <QFile>
-#include <opencv/cv.h>
-#include <opencv/highgui.h>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include "moniteur.h"
-#include "player/Player.h"
+#include "videoplayer.h"
 
 using namespace cv;
 
@@ -12,8 +12,8 @@ Moniteur::Moniteur(QWidget *parent):QWidget(parent)
     Mfont.setBold(true);
     Mfont.setPointSize(16);
 
-    VideoCapture * capture = new VideoCapture("/home/damaris/Vidéos/big_buck_bunny.mp4");
-    Player *player = new Player(capture);
+    VideoPlayer *player = new VideoPlayer(this);
+    //player->resize(400, 250);
 
     QHBoxLayout* layout = new QHBoxLayout(this);
     layout->addWidget(player);
@@ -21,10 +21,10 @@ Moniteur::Moniteur(QWidget *parent):QWidget(parent)
     player->show();
 
     /*Setting CSS file*/
-    QFile file("../player/playerStyleSheet.css");
+    /*QFile file("../player/playerStyleSheet.css");
     file.open(QFile::ReadOnly);
     QString playerStyleSheet = QLatin1String(file.readAll());
-    player->setStyleSheet(playerStyleSheet);
+    player->setStyleSheet(playerStyleSheet);*/
 
     m_State = STATE_DEFAULT;
 

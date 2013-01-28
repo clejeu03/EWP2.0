@@ -5,6 +5,8 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += multimedia multimediawidgets
+QT += network sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,9 +20,8 @@ SOURCES += main.cpp \
     moniteur.cpp \
     timeline.cpp \
     pinceau.cpp \
-    player/QOpenCVWidget.cpp \
-    player/Player.cpp \
-    exportwindow.cpp
+    exportwindow.cpp \
+    videoplayer.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -28,9 +29,8 @@ HEADERS  += \
     moniteur.h \
     timeline.h \
     pinceau.h \
-    player/QOpenCVWidget.h \
-    player/Player.h \
-    exportwindow.h
+    exportwindow.h \
+    videoplayer.h
 
 FORMS    += \
     exportwindow.ui
