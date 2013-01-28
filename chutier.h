@@ -13,6 +13,7 @@
 #include <QSplitter>
 #include <QList>
 #include <QString>
+#include <QToolButton>
 
 class Chutier : public QWidget
 {
@@ -22,6 +23,7 @@ class Chutier : public QWidget
         QListWidget *weightList;
         QListWidget *playList;
         QLabel *titre;
+        QLabel *titleClip;
         QLabel *titreMedia;
 
         QVBoxLayout *vLayout;
@@ -32,11 +34,17 @@ class Chutier : public QWidget
     public:
         void Add(QList<QString> list);
         void Weight(QList<QString> list);
-        void Play(QList<QString> list);
+        void Play(QList<QIcon> list);
 
         Chutier(QWidget *parent=0);
         virtual ~Chutier();
         void deplier();
+
+    private slots:
+        void updateCurrentweightListItem(/*QListWidget *listeSource, QListWidget *listeTarget*/);
+        void updateCurrentmediaListItem();
+        //void updateCurrentplayListItem();
+
 };
 
 #endif // CHUTIER_H

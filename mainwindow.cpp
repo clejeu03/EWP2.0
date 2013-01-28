@@ -137,16 +137,30 @@ void mainWindow::openFile()
 
     //afficher un lien vers le moniteur +lecture accélérée ou retour en arrière
 
+    QIcon button = QIcon("/ressources/lecteur.jpeg");
+
+    QList<QIcon> listP;
+    listP.append(button);
+    chutier->Play(listP);
+
     //afficher le poid de la vidéo
     QFileInfo fileWeight(dialog.selectedFiles().first());
     qint64 size = 0;
-    size = fileWeight.size()/1000000;
+    size = fileWeight.size()/1000000.;
     QString Size = QString::number(size, 10);
 
     QList<QString> listW;
     listW.append(Size);
     if(!listW.isEmpty())
         chutier->Weight(listW);
+
+    /*int i = 0;
+    bool select;
+    for(i=0;i<list.size();++i){
+        if(list[i].select=true){
+            listW[i].select;
+        }
+    }*/
 }
 
 void mainWindow::showChutier()
