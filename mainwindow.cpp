@@ -50,7 +50,7 @@ void mainWindow::displayTimeline()
 
 void mainWindow::displayExportWindow()
 {
-    ui_exportWindow = exportWindow::Instance();
+    ui_exportWindow = new exportWindow();
     ui_exportWindow->setModal(true); //on empeche le clic sur le reste de la fenetre
     ui_exportWindow->exec();
 
@@ -219,6 +219,17 @@ void mainWindow::showTimeline()
     }
 }
 
+void mainWindow::showConception()
+{
+    ui_aboutConception = new infoConception();
+    ui_aboutConception->setModal(true); //on empeche le clic sur le reste de la fenetre
+    ui_aboutConception->exec();
+
+    delete ui_aboutConception;
+    ui_aboutConception = NULL;
+
+}
+
 void mainWindow::initMenu()
 {
     /*------  INSTANCIATION ACTIONS  ------*/
@@ -233,13 +244,12 @@ void mainWindow::initMenu()
     m_EnregistrerSous->setShortcut(QKeySequence::SaveAs);
     m_Importer = new QAction("Importer...",this);
     m_Exporter = new QAction("Exporter...", this);
-
-    m_ouvrirScript = new QAction("Ouvrir", this);
-    m_Executer = new QAction("Exécuter", this);
-    m_fermerScript = new QAction("Fermer", this);
-    m_appliquerScript = new QAction("Appliquer le script à  la timeline", this);
     m_Quitter = new QAction("Quitter", this);
     m_Quitter->setShortcut(QKeySequence::Quit);
+
+
+    m_appliquerScript = new QAction("Appliquer un script...", this);
+    m_supprimerScript = new QAction("Supprimer les scripts appliqués", this);
 
     m_lireDernierClip = new QAction("Lire le dernier clip importé", this);
     m_lancerRendu = new QAction("Lancer le rendu", this);
@@ -259,7 +269,7 @@ void mainWindow::initMenu()
 
     m_afficherConception = new QAction("Conception",this);
     m_afficherRealisation = new QAction("Réalisation",this);
-    m_voirSite = new QAction("http://ewp.com",this);
+    m_voirSite = new QAction("http://electronicwallpaper.com",this);
 
     /*------  INSTANCIATION ITEMS MENU  ------*/
 
@@ -290,10 +300,8 @@ void mainWindow::initMenu()
     fichier->addSeparator();
     fichier->addAction(m_Quitter);
 
-    script->addAction(m_ouvrirScript);
-    script->addAction(m_Executer);
-    script->addAction(m_fermerScript);
     script->addAction(m_appliquerScript);
+    script->addAction(m_supprimerScript);
 
     lecteur->addAction(m_lireDernierClip);
     process->addAction(m_lancerRendu);
@@ -318,11 +326,10 @@ void mainWindow::initMenu()
     connect(m_Exporter, SIGNAL(triggered()), this, SLOT(displayExportWindow()));
     connect(m_Quitter,SIGNAL(triggered()),qApp, SLOT(quit()));
 
-    /*connect(m_ouvrirScript, SIGNAL(triggered()), this, SLOT());
-    connect(m_Executer, SIGNAL(triggered()), this, SLOT());
-    connect(m_Importer, SIGNAL(triggered()), this, SLOT());
-    connect(m_fermerScript, SIGNAL(triggered()), this, SLOT());
-    connect(m_appliquerScript, SIGNAL(triggered()), this, SLOT());*/
+    /*
+    connect(m_appliquerScript, SIGNAL(triggered()), this, SLOT());
+    connect(m_supprimerScript, SIGNAL(triggered()), this, SLOT());
+*/
 
     connect(m_afficherChutier,SIGNAL(triggered()),this, SLOT(showChutier()));
     connect(m_afficherOutils,SIGNAL(triggered()),this, SLOT(showOutils()));
@@ -332,11 +339,9 @@ void mainWindow::initMenu()
     /*connect(m_lireDernierClip, SIGNAL(triggered()), this, SLOT());
     connect(m_lancerRendu, SIGNAL(triggered()), this, SLOT());*/
 
-  /*  connect(m_afficherConception, SIGNAL(triggered()), this, SLOT());
-    connect(m_afficherRealisation, SIGNAL(triggered()), this, SLOT());*/
+    connect(m_afficherConception, SIGNAL(triggered()), this, SLOT(showConception()));
+  /*    connect(m_afficherRealisation, SIGNAL(triggered()), this, SLOT());*/
     connect(m_voirSite, SIGNAL(triggered()), this, SLOT(visitWebsite()));
-
-
 
 }
 
@@ -364,4 +369,6 @@ void mainWindow::visitWebsite()
 {
     QDesktopServices::openUrl(QUrl("http://i.imgur.com/A81gtCp.gif"));
 }
+
+
 

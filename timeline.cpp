@@ -115,7 +115,7 @@ void Timeline::mousePressEvent(QMouseEvent *event)
     Q_UNUSED(event);
 
     QPoint point = this->mapFromGlobal(QCursor::pos());
-
+    std::cout << point.x() << std::endl;
     if(point.x() > 650 && point.x() < 700)
     {
         m_State = STATE_CLICKED;
@@ -126,12 +126,17 @@ void Timeline::mousePressEvent(QMouseEvent *event)
 void Timeline::mouseReleaseEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
-    if(underMouse())
+    QPoint point = this->mapFromGlobal(QCursor::pos());
+
+    if(point.x() > 650 && point.x() < 700)
     {
-         m_State = STATE_HOVERED;
-    }
-    else{
-         m_State = STATE_DEFAULT;
+        if(underMouse())
+        {
+             m_State = STATE_HOVERED;
+        }
+        else{
+             m_State = STATE_DEFAULT;
+        }
     }
     m_Exit->trigger(); //on force le signal trigger de m_Exit
     update(675,2,18,18);

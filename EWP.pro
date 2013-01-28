@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     pinceau.cpp \
     player/QOpenCVWidget.cpp \
     player/Player.cpp \
-    exportwindow.cpp
+    exportwindow.cpp \
+    infoconception.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -30,10 +31,12 @@ HEADERS  += \
     pinceau.h \
     player/QOpenCVWidget.h \
     player/Player.h \
-    exportwindow.h
+    exportwindow.h \
+    infoconception.h
 
 FORMS    += \
-    exportwindow.ui
+    exportwindow.ui \
+    infoconception.ui
 
 #INCLUDEPATH += /usr/include/opencv /usr/include/opencv2
 #LIBS += -Lopencv -Lopencv2
