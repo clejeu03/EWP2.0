@@ -1,33 +1,6 @@
 #include "exportwindow.h"
 #include "ui_exportwindow.h"
 
-exportWindow* exportWindow::_instance = 0;
-
-exportWindow* exportWindow::Instance()
-{
-    static QMutex mutex;
-    if (!_instance)
-    {
-        mutex.lock();
-
-        if (!_instance)
-            _instance = new exportWindow;
-
-        mutex.unlock();
-    }
-
-    return _instance;
-
-}
-
-void exportWindow::drop()
-{
-    static QMutex mutex;
-    mutex.lock();
-    delete _instance;
-    _instance = 0;
-    mutex.unlock();
-}
 
 exportWindow::exportWindow(QWidget *parent) :
     QDialog(parent),
@@ -35,15 +8,29 @@ exportWindow::exportWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->btn_browse, SIGNAL(clicked()),this,SLOT(on_pushButton_clicked()));
+    connect(ui->btn_control, SIGNAL(accepted()), this, SLOT(action_valider()));
+    connect(ui->btn_control, SIGNAL(rejected()), this, SLOT(action_annuler()));
 }
 
-/*
+
 exportWindow::~exportWindow()
 {
     delete ui;
-}*/
+}
 
 void exportWindow::on_pushButton_clicked()
 {
-    QString directoryTarget = QFileDialog::getExistingDirectory(this,tr("Dossier d'exportation..."),"/home",QFileDialog::ShowDirsOnly);
+   QString directoryTarget = QFileDialog::getExistingDirectory(this,tr("Dossier d'exportation..."),"/home",QFileDialog::ShowDirsOnly);
+
+}
+
+void exportWindow::action_valider()
+{
+    std::cout << "Valider" << std::endl;
+}
+
+
+void exportWindow::action_annuler()
+{
+    std::cout << "Annuler" << std::endl;
 }

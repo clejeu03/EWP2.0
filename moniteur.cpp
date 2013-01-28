@@ -15,9 +15,10 @@ Moniteur::Moniteur(QWidget *parent):QWidget(parent)
     VideoPlayer *player = new VideoPlayer(this);
     //player->resize(400, 250);
 
-    QHBoxLayout* layout = new QHBoxLayout(this);
+    QHBoxLayout *layout = new QHBoxLayout(this);
     layout->addWidget(player);
-    layout->setSizeConstraint(QLayout::SetFixedSize);
+    player->resize(200,200);
+
     player->show();
 
     /*Setting CSS file*/
@@ -25,6 +26,10 @@ Moniteur::Moniteur(QWidget *parent):QWidget(parent)
     file.open(QFile::ReadOnly);
     QString playerStyleSheet = QLatin1String(file.readAll());
     player->setStyleSheet(playerStyleSheet);*/
+
+    labMoniteur = new QLabel("Moniteur",this);
+    labMoniteur->setFont(Mfont);
+    labMoniteur->setAlignment(Qt::AlignTop);
 
     m_State = STATE_DEFAULT;
 
@@ -35,6 +40,7 @@ Moniteur::Moniteur(QWidget *parent):QWidget(parent)
     this->addAction(m_Exit);
 
     connect(m_Exit, SIGNAL(triggered()), this, SLOT(hide()));
+
 
 }
 

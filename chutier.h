@@ -13,11 +13,13 @@
 #include <QSplitter>
 #include <QList>
 #include <QString>
+#include <QToolButton>
 #include <QAction>
 #include <QPixmap>
 #include <QLinearGradient>
 #include <QPaintEvent>
 #include <QPainter>
+
 
 class Chutier : public QWidget
 {
@@ -55,12 +57,19 @@ class Chutier : public QWidget
         QListWidget *weightList;
         QListWidget *playList;
         QLabel *titre;
+        QLabel *titleClip;
         QLabel *titreMedia;
 
         QVBoxLayout *vLayout;
         QSplitter *splitter;
         QHBoxLayout *cLayout;
         QSplitter *CSplitter;
+
+
+    private slots:
+        void updateCurrentweightListItem();
+        void updateCurrentmediaListItem();
+        //void updateCurrentplayListItem();
 
 };
 
