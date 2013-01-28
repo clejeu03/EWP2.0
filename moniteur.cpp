@@ -10,20 +10,20 @@ Moniteur::Moniteur(QWidget *parent):QWidget(parent)
     Mfont.setBold(true);
     Mfont.setPointSize(16);
 
-    VideoCapture * capture = new VideoCapture("/home/lotch/Vidéos/big_buck_bunny.mp4");
-    Player *player = new Player(capture);
+    VideoCapture * capture = new VideoCapture("/home/big_buck_bunny.mp4");
+   // Player *player = new Player(capture);
 
     QHBoxLayout* layout = new QHBoxLayout(this);
-    layout->addWidget(player);
+    /*layout->addWidget(player);
     player->resize(200,200);
     player->show();
-
+*/
     /*Setting CSS file*/
-    QFile file("../player/playerStyleSheet.css");
+/*    QFile file("../player/playerStyleSheet.css");
     file.open(QFile::ReadOnly);
     QString playerStyleSheet = QLatin1String(file.readAll());
     player->setStyleSheet(playerStyleSheet);
-
+*/
     labMoniteur = new QLabel("Moniteur",this);
     labMoniteur->setFont(Mfont);
     labMoniteur->setAlignment(Qt::AlignTop);

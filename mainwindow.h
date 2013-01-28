@@ -10,6 +10,7 @@
 #include <QFileDialog>
 #include <QtGui>
 #include <iostream>
+#include <QToolButton>
 
 #include "chutier.h"
 #include "moniteur.h"
