@@ -30,10 +30,8 @@ void mainWindow::displayPinceau()
 void mainWindow::displayMoniteur()
 {
     moniteur = new Moniteur(this);
-    moniteur->setStyleSheet("border : 1px solid #d9d9d9;"
-                           "border-top-left-radius:5px;"
-                           "border-top-right-radius:5px;"
-                           "padding-top:20px;");
+    moniteur->setStyleSheet("border-top-left-radius:5px;"
+                            "border-top-right-radius:5px;");
     subRightSplitter->addWidget(moniteur);
     moniteur->show();
 }

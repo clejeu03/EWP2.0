@@ -30,6 +30,7 @@ Moniteur::Moniteur(QWidget *parent):QWidget(parent)
     labMoniteur = new QLabel("Moniteur",this);
     labMoniteur->setFont(Mfont);
     labMoniteur->setAlignment(Qt::AlignTop);
+    labMoniteur->setStyleSheet("padding-top : 2px;");
 
     m_State = STATE_DEFAULT;
 
