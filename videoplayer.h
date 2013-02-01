@@ -5,6 +5,9 @@
 #include <qmediaplayer.h>
 #include <QtGui/QMovie>
 #include <QtWidgets/QWidget>
+#include <QtWidgets>
+#include <qvideowidget.h>
+#include <qvideosurfaceformat.h>
 
 QT_BEGIN_NAMESPACE
 class QAbstractButton;
@@ -17,6 +20,7 @@ class VideoPlayer : public QWidget
     Q_OBJECT
 public:
     VideoPlayer(QWidget *parent = 0);
+    void setNewMedia(const QString* filename);
     ~VideoPlayer();
 
 public slots:

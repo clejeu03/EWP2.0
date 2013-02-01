@@ -60,11 +60,18 @@ void mainWindow::displayExportWindow()
     ui_exportWindow = NULL;
 }
 
+void mainWindow::launchVideo(QListWidgetItem* item)
+{
+    const int numLine = item->listWidget()->currentRow() -1;
+    moniteur->getPlayer()->setNewMedia( &(m_vecPath[numLine]) );
+}
+
+
 mainWindow::mainWindow()
 {
     centralWidget = new QWidget(this);
     QWidget *container = new QWidget(this); //widgets moniteur + pinceau + timeline
-
+    //m_vecPath = new std::vector<QString>();
     mainLayout = new QHBoxLayout;
 
     VSplitter = new QSplitter(Qt::Vertical, this);
@@ -149,6 +156,7 @@ void mainWindow::saveUnder()
 
 void mainWindow::openFile()
 {
+
     //Charger une vidéo
     QStringList filters;
     filters << "Video files (*.mp4 *.avi *.mov)";
@@ -156,44 +164,58 @@ void mainWindow::openFile()
     QFileDialog dialog(this);
     dialog.setNameFilters(filters);
     dialog.setViewMode(QFileDialog::Detail);
-    dialog.exec();
 
+    if(dialog.exec()){
 
-    //afficher le nom de la vidéo et son type
-    QString fileName = dialog.selectedFiles().first();
-    fileName.remove(0, ( fileName.lastIndexOf("/")+1) );
+         //afficher le nom de la vidéo et son type
+        QString filePath = dialog.selectedFiles().first();
 
-    QList<QString> list;
-    list.append(fileName);
-    chutier->Add(list);
+        m_vecPath.push_back(filePath);
+        //std::cout<<"file :" << filePath.toStdString() <<std::endl;
+         QString fileName = dialog.selectedFiles().first();
+         fileName.remove(0, ( fileName.lastIndexOf("/")+1) );
 
-    //afficher un lien vers le moniteur +lecture accélérée ou retour en arrière
-/*
-    QIcon button = QIcon("/ressources/lecteur.jpeg");
+         QList<QString> list;
+         list.append(fileName);
+         chutier->Add(list);
 
-    QList<QIcon> listP;
-    listP.append(button);*/
-   // chutier->Play(listP);
+         //afficher le poid de la vidéo
+         QFileInfo fileWeight(dialog.selectedFiles().first());
+         qint64 size = 0;
+         size = fileWeight.size()/1000000.;
+         QString Size = QString::number(size, 10);
 
-    //afficher le poid de la vidéo
-    QFileInfo fileWeight(dialog.selectedFiles().first());
-    qint64 size = 0;
-    size = fileWeight.size()/1000000.;
-    QString Size = QString::number(size, 10);
+         QList<QString> listW;
+         listW.append(Size);
+         if(!listW.isEmpty())
+         chutier->Weight(listW);
 
-    QList<QString> listW;
-    listW.append(Size);
-    if(!listW.isEmpty())
-        chutier->Weight(listW);
+         //afficher un lien vers le moniteur +lecture accélérée ou retour en arrière
 
-    /*int i = 0;
-    bool select;
-    for(i=0;i<list.size();++i){
-        if(list[i].select=true){
-            listW[i].select;
-        }
-    }*/
+         QPixmap iconImage("/resources/play.jpeg");
+         QIcon icon(iconImage.scaled(QSize(5,5)));
+         QListWidgetItem butt = QListWidgetItem(icon, "Play");
+         std::cout<<"creation_du_bouton"<<std::endl;
+         chutier->Play(&butt);
+         connect(butt.listWidget(), SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(launchVideo(QListWidgetItem*)) );
+
+/*        QModelIndex button;
+        int i;
+        for(i=0;i<listW.size();++i){
+        button = listW[i];
+            if(QAbstractItemView::doubleClicked(button)){
+             if(point = ){
+                 QMediaPlayer mediaPlayer;
+                 mediaPlayer.setMedia(QUrl::fromLocalFile(fileName));
+                 QAbstractButton *playButton;
+                 playButton->setEnabled(true);
+                 VideoPlayer(filePath);
+             }
+         }
+        }*/
+    }
 }
+
 
 void mainWindow::showChutier()
 {
@@ -385,6 +407,3 @@ void mainWindow::visitWebsite()
 {
     QDesktopServices::openUrl(QUrl("http://i.imgur.com/A81gtCp.gif"));
 }
-
-
-

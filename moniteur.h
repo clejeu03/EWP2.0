@@ -9,6 +9,12 @@
 #include <QLinearGradient>
 #include <QPixmap>
 #include <QAction>
+#include <QFile>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
+
+#include "videoplayer.h"
 
 class Moniteur : public QWidget
 {
@@ -22,6 +28,9 @@ class Moniteur : public QWidget
         void leaveEvent(QEvent *event);
         void mousePressEvent(QMouseEvent *event);
         void mouseReleaseEvent(QMouseEvent *event);
+
+        //const VideoPlayer* getPlayer() { return m_player; }
+        VideoPlayer* getPlayer() { return m_player; }
     signals :
         void sig_show(bool);
     public slots :
@@ -39,6 +48,7 @@ class Moniteur : public QWidget
         QAction *m_Exit;
         QIcon *exitIcon;
         QLabel *labMoniteur;
+        VideoPlayer* m_player;
 
 };
 

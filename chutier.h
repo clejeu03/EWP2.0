@@ -20,6 +20,8 @@
 #include <QPaintEvent>
 #include <QPainter>
 
+#include "moniteur.h"
+
 
 class Chutier : public QWidget
 {
@@ -27,7 +29,7 @@ class Chutier : public QWidget
     public:
         void Add(QList<QString> list);
         void Weight(QList<QString> list);
-        void Play(QList<QString> list);
+        void Play(QListWidgetItem *button/*QList<QString> list*/);
 
         Chutier(QWidget *parent=0);
         virtual ~Chutier();
@@ -36,7 +38,6 @@ class Chutier : public QWidget
         void leaveEvent(QEvent *event);
         void mousePressEvent(QMouseEvent *event);
         void mouseReleaseEvent(QMouseEvent *event);
-        void deplier();
     signals :
         void sig_show(bool);
     public slots:
@@ -67,9 +68,12 @@ class Chutier : public QWidget
 
 
     private slots:
-        void updateCurrentweightListItem();
-        void updateCurrentmediaListItem();
-        //void updateCurrentplayListItem();
+        void updateCurrentweightmediaListItem();
+        void updateCurrentweightplayListItem();
+        void updateCurrentmediaweightListItem();
+        void updateCurrentmediaplayListItem();
+        void updateCurrentplaymediaListItem();
+        void updateCurrentplayweightListItem();
 
 };
 

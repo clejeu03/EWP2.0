@@ -51,11 +51,45 @@ Chutier::Chutier(QWidget *parent):QWidget(parent)
    this->addAction(m_Exit);
 
    connect(m_Exit, SIGNAL(triggered()), this, SLOT(hide()));
-   connect(mediaList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(updateCurrentweightListItem(/*mediaList,weightList*/)));
-   connect(weightList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(updateCurrentmediaListItem(/*weightList,mediaList*/)));
+   connect(mediaList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(updateCurrentweightmediaListItem(/*mediaList,weightList*/)));
+   connect(mediaList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(updateCurrentweightplayListItem(/*mediaList,weightList*/)));
+
+   connect(weightList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(updateCurrentmediaweightListItem(/*weightList,mediaList*/)));
+   connect(weightList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(updateCurrentmediaplayListItem(/*playList,weightList*/)));
+
+   connect(playList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(updateCurrentplayweightListItem(/*playList,weightList*/)));
+   connect(playList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(updateCurrentplaymediaListItem(/*playList,weightList*/)));
+
 }
 
-void Chutier::updateCurrentweightListItem(/*QListWidget *listeSource, QListWidget *listeTarget*/){
+void Chutier::updateCurrentplayweightListItem(){
+
+    QListWidgetItem *item = playList->currentItem();
+    //on recupere la ligne de l'item
+    int itemRow = playList->row(item);
+
+    weightList->setCurrentRow(itemRow);
+}
+
+void Chutier::updateCurrentplaymediaListItem(){
+
+    QListWidgetItem *item = playList->currentItem();
+    //on recupere la ligne de l'item
+    int itemRow = playList->row(item);
+
+    mediaList->setCurrentRow(itemRow);
+}
+
+void Chutier::updateCurrentweightplayListItem(){
+
+    QListWidgetItem *item = weightList->currentItem();
+    //on recupere la ligne de l'item
+    int itemRow = weightList->row(item);
+
+    playList->setCurrentRow(itemRow);
+}
+
+void Chutier::updateCurrentweightmediaListItem(/*QListWidget *listeSource, QListWidget *listeTarget*/){
 
     QListWidgetItem *item = mediaList->currentItem();
     //on recupere la ligne de l'item
@@ -64,14 +98,13 @@ void Chutier::updateCurrentweightListItem(/*QListWidget *listeSource, QListWidge
     weightList->setCurrentRow(itemRow);
 }
 
-void Chutier::updateCurrentmediaListItem(){
+void Chutier::updateCurrentmediaweightListItem(){
 
     QListWidgetItem *item = weightList->currentItem();
     //on recupere la ligne de l'item
     int itemRow = weightList->row(item);
 
     mediaList->setCurrentRow(itemRow);
-    mediaList->currentItem()->setCheckState(Qt::Checked);
 
     m_State = STATE_DEFAULT;
 
@@ -85,21 +118,32 @@ void Chutier::updateCurrentmediaListItem(){
 
 }
 
+void Chutier::updateCurrentmediaplayListItem(){
+
+    QListWidgetItem *it = mediaList->currentItem();
+    //on recupere la ligne de l'item
+    int itRow = mediaList->row(it);
+
+    playList->setCurrentRow(itRow);
+}
+
 void Chutier::Add(QList<QString> list){
     if(mediaList)
     {
-        if(!list.isEmpty()){
+       if(!list.isEmpty()){
             mediaList->addItem(list.last());
+            if(playList)
+            {
+                QListWidgetItem *icone = new QListWidgetItem();
+                icone->setIcon(QIcon("resources/play.png"));
+                playList->addItem(icone);
+            }
         }
     }
 }
 
-void Chutier::Play(QList<QString> list){
-    if(playList)
-    {
-        if(!list.isEmpty())
-    playList->addItem(list.last());
-    }
+void Chutier::Play(QListWidgetItem *button){
+            playList->addItem(button);
 }
 
 void Chutier::Weight(QList<QString> list){
@@ -229,10 +273,4 @@ void Chutier::hideEvent(QHideEvent *e)
 {
     Q_UNUSED(e);
     emit sig_show(false);
-}
-
-
-void Chutier::deplier()
-{
-
 }
