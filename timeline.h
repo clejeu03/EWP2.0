@@ -11,11 +11,15 @@
 #include <QPixmap>
 #include <QAction>
 #include <iostream>
+#include "openmedialist.h"
+#include "ui_openMediaList.h"
 
 class Timeline : public QWidget
 {
     Q_OBJECT
     public:
+    Q_INVOKABLE void openMedia();
+
         Timeline(QWidget *parent=0);
         virtual ~Timeline();
         void paintEvent(QPaintEvent *event);
@@ -41,6 +45,7 @@ class Timeline : public QWidget
         QIcon *exitIcon;
         QListWidget *clipList;
         QHBoxLayout *layout;
+        openMediaList *ui_openMediaList;
 };
 
 #endif // TIMELINE_H

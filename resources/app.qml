@@ -290,7 +290,8 @@ Rectangle {
                     parent.border.width = 1;
                     parent.border.color = "lightgrey"}
                 onExited:if(parent.state != "clicked"){parent.border.width = 0;}
-               onClicked: parent.state == 'clicked' ? parent.state = "" : parent.state = 'clicked';
+               onClicked:
+                   parent.state == 'clicked' ? parent.state = "" : parent.state = 'clicked';
             }
             states: [
                     State {
@@ -385,7 +386,9 @@ Rectangle {
                 onEntered:{parent.border.width = 1;parent.border.color = "lightgrey"}
                 onExited:{if(parent.state != "draw_on"){parent.border.width = 0;} }
                 onClicked: {
-                    parent.state == 'draw_on' ? parent.state = "draw_off" : parent.state = 'draw_on';}
+                    parent.state == 'draw_on' ? parent.state = "draw_off" : parent.state = 'draw_on';
+                    /*if(parent.state == 'draw_off'){ Timeline.sendValues(slider.value);}*/
+                }
             }
             states: [
                     State {
@@ -507,9 +510,10 @@ Rectangle {
 
                                         onEntered:{
                                             //slider.spacing = 50;
-                                            console.log(slider.maximum)
+                                            console.log("maximum : " +slider.maximum)
                                             if(pencil.state == "draw_on"){slider.value = slider.getValue(mouseX)
-                                            console.log(slider.value)}
+                                                Track.sendValues(slider.value)
+                                            console.log("slider.value : " +slider.value)}
                                         }
                                     }
                                 }

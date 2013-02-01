@@ -40,7 +40,8 @@ HEADERS  += \
 
 FORMS    += \
     exportwindow.ui \
-    infoconception.ui
+    infoconception.ui \
+    openMediaList.ui
 
 #INCLUDEPATH += /usr/include/opencv /usr/include/opencv2
 #LIBS += -Lopencv -Lopencv2

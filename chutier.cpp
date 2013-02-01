@@ -62,6 +62,10 @@ Chutier::Chutier(QWidget *parent):QWidget(parent)
 
 }
 
+QListWidget* Chutier::getMediaList(){
+    return mediaList;
+}
+
 void Chutier::updateCurrentplayweightListItem(){
 
     QListWidgetItem *item = playList->currentItem();

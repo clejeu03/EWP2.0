@@ -30,6 +30,7 @@ class Chutier : public QWidget
         void Add(QList<QString> list);
         void Weight(QList<QString> list);
         void Play(QListWidgetItem *button/*QList<QString> list*/);
+        QListWidget* getMediaList();
 
         Chutier(QWidget *parent=0);
         virtual ~Chutier();

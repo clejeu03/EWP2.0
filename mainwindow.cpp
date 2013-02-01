@@ -4,7 +4,10 @@
 #include <QDeclarativeContext>
 #include <QDeclarativeItem>
 #include <QDeclarativeView>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
+using namespace cv;
 
 void mainWindow::displayChutier()
 {
@@ -47,9 +50,27 @@ void mainWindow::displayTimeline()
 
     qmlRegisterType<Track>("Timeline", 1, 0, "Track");
 
-        QList<QObject*> dataList;
-           dataList.append(new Track("media01", 6000));
-           dataList.append(new Track("media02", 8000));
+    /*QListWidget *items = chutier->getMediaList();
+    const int numLine = items->currentRow() -1;
+
+    qDebug() << &(m_vecPath[numLine]);*/
+
+    QList<QObject*> dataList;
+
+    QStringList mediaList;
+    mediaList << "/home/cecilia/Vidéos/bunny.mp4" << "/home/cecilia/Vidéos/ludovik.mp4";
+
+    for (int i = 0; i < mediaList.size(); ++i){
+        VideoCapture * capture = new VideoCapture(mediaList.at(i).toStdString());
+        QString fileName = mediaList.at(i);
+        fileName.remove(0, ( fileName.lastIndexOf("/")+1) );
+
+        int fps = capture->get(CV_CAP_PROP_FPS);
+        double total_frame = capture->get(CV_CAP_PROP_FRAME_COUNT);
+        int duration = qRound(total_frame/fps);
+
+        dataList.append(new Track(fileName, duration));
+    }
 
      QDeclarativeView *view = new QDeclarativeView;
      QDeclarativeContext *ctxt = view->rootContext();

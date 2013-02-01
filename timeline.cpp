@@ -1,6 +1,7 @@
 #include "timeline.h"
 #include "track.h"
 
+
 Timeline::Timeline(QWidget *parent):QWidget(parent)
 {
 
@@ -15,10 +16,21 @@ Timeline::Timeline(QWidget *parent):QWidget(parent)
     connect(m_Exit, SIGNAL(triggered()), this, SLOT(hide()));
 }
 
+void Timeline::openMedia(){
+    /*ui_openMediaList = new openMediaList();
+    ui_openMediaList->setModal(true); //on empeche le clic sur le reste de la fenetre
+    ui_openMediaList->exec();
+
+    delete ui_openMediaList;
+    ui_openMediaList = NULL;*/
+}
+
 Timeline::~Timeline()
 {
 
 }
+
+
 
 void Timeline::paintEvent(QPaintEvent *event)
 {

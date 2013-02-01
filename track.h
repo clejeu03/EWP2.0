@@ -16,6 +16,7 @@
      int m_duration;//in milliseconds
 
  public:
+     Q_INVOKABLE int sendValues(int);
      Track(QString name, int duration, QDeclarativeItem *parent = 0);
      explicit Track(QDeclarativeItem *parent = 0);
 
