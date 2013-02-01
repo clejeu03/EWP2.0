@@ -1,8 +1,4 @@
-#include <QFile>
-#include <opencv2/opencv.hpp>
-#include <opencv2/highgui/highgui.hpp>
 #include "moniteur.h"
-#include "videoplayer.h"
 
 using namespace cv;
 
@@ -12,14 +8,14 @@ Moniteur::Moniteur(QWidget *parent):QWidget(parent)
     Mfont.setBold(true);
     Mfont.setPointSize(16);
 
-    VideoPlayer *player = new VideoPlayer(this);
+    m_player = new VideoPlayer(this);
     //player->resize(400, 250);
 
     QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->addWidget(player);
-    player->resize(200,200);
+    layout->addWidget(m_player);
+    m_player->resize(200,200);
 
-    player->show();
+    m_player->show();
 
     /*Setting CSS file*/
     /*QFile file("../player/playerStyleSheet.css");

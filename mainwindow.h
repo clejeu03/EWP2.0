@@ -12,6 +12,9 @@
 #include <QDesktopServices>
 #include <iostream>
 #include <QToolButton>
+#include <QEvent>
+#include <QIcon>
+#include <QString>
 
 #include "chutier.h"
 #include "moniteur.h"
@@ -32,12 +35,15 @@ class mainWindow : public QMainWindow
         void displayPinceau();
         void displayMoniteur();
         void displayTimeline();
+
     public slots:
         void updateTimelineAction(bool a);
         void updatePinceauAction(bool a);
         void updateMoniteurAction(bool a);
         void updateChutierAction(bool a);
         void displayExportWindow();
+        void launchVideo(QListWidgetItem* item);
+
     private :
         Chutier *chutier;
         Pinceau *pinceau;
@@ -46,6 +52,8 @@ class mainWindow : public QMainWindow
         QWidget *centralWidget;
         exportWindow *ui_exportWindow;
         infoConception *ui_aboutConception;
+
+        std::vector<QString> m_vecPath;
 
         QHBoxLayout *mainLayout;
         QVBoxLayout *vLayout;

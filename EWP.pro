@@ -38,7 +38,6 @@ HEADERS  += \
     infoconception.h \
     track.h
 
-
 FORMS    += \
     exportwindow.ui \
     infoconception.ui

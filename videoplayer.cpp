@@ -1,8 +1,7 @@
+
+#include <iostream>
 #include "videoplayer.h"
 
-#include <QtWidgets>
-#include <qvideowidget.h>
-#include <qvideosurfaceformat.h>
 
 VideoPlayer::VideoPlayer(QWidget *parent)
     : QWidget(parent)
@@ -79,7 +78,6 @@ void VideoPlayer::displayTime(int value){
 void VideoPlayer::openFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Movie"),QDir::homePath());
-
     if (!fileName.isEmpty()) {
         mediaPlayer.setMedia(QUrl::fromLocalFile(fileName));
 
@@ -125,4 +123,13 @@ void VideoPlayer::setPosition(int position)
 {
     mediaPlayer.setPosition(position);
 }
+
+void VideoPlayer::setNewMedia(const QString* filename)
+{
+    if (!filename->isEmpty()) {
+        mediaPlayer.setMedia( QUrl::fromLocalFile((*filename)) );
+        playButton->setEnabled(true);
+    }
+}
+
 
