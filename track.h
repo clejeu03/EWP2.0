@@ -14,6 +14,7 @@
  private:
      QString m_name;
      int m_duration;//in milliseconds
+     QList<QObject*> * resultList;
 
  public:
 
@@ -32,7 +33,7 @@ signals:
      void nameChanged();
      void durationChanged();
  public slots:
-    int receiveValues(int);
+    int receiveValues(int, int);
 
 };
 

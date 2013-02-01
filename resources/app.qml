@@ -511,14 +511,13 @@ Rectangle {
 
                                         onEntered:{
                                             slider.spacing = 50;
-                                            console.log("maximum : " +slider.maximum)
                                             if(pencil.state == "draw_on"){slider.value = slider.getValue(mouseX)
                                             console.log("slider.value : " +slider.value)}
                                         }
                                     }
                                     Connections {
                                         target: mouse_areaPencil
-                                        onClicked: if(pencil.state == 'draw_off'){sendValues(slider.value)}
+                                        onClicked: if(pencil.state == 'draw_off'){sendValues(slider.value-slider.spacing, slider.value+slider.spacing)}
                                     }
                                 }
 
