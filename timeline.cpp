@@ -1,14 +1,24 @@
 #include "timeline.h"
+#include "track.h"
+#include <qdeclarative.h>
+#include <QDeclarativeContext>
+#include <QDeclarativeItem>
+#include <QDeclarativeView>
 
 Timeline::Timeline(QWidget *parent):QWidget(parent)
 {
 
-    clipList = new QListWidget(this);
-    clipList->resize(700,300);
-    clipList->addItem("clip1 \tsequence video...");
-    clipList->addItem("clip2 \tsequence video...");
-    clipList->addItem("clip3 \tsequence video...");
-    clipList->addItem("clip4 \tsequence video...");
+    qmlRegisterType<Track>("Timeline", 1, 0, "Track");
+
+    QList<QObject*> dataList;
+       dataList.append(new Track("media01", 6000));
+       dataList.append(new Track("media02", 8000));
+
+    QDeclarativeView view;
+    QDeclarativeContext *ctxt = view.rootContext();
+    ctxt->setContextProperty("myModel", QVariant::fromValue(dataList));
+    view.setSource(QUrl::fromLocalFile("../EWP2.0/resources/app.qml"));
+    view.show();
 
     m_State = STATE_DEFAULT;
 

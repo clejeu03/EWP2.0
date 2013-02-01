@@ -39,13 +39,6 @@ void mainWindow::displayMoniteur()
 void mainWindow::displayTimeline()
 {
     timeline = new Timeline(this);
-    timeline->resize(900,400);
-
-    timeline->setStyleSheet("border : 1px solid #d9d9d9;"
-                            "border-top-left-radius:5px;"
-                            "border-top-right-radius:5px;"
-                            "padding-top:15px;");
-
     VSplitter->addWidget(timeline);
     timeline->show();
 }

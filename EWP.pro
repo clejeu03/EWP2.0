@@ -7,6 +7,8 @@
 QT       += core gui
 QT += multimedia multimediawidgets
 QT += network sql
+QT += declarative
+QT += quick qml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,15 +22,10 @@ SOURCES += main.cpp \
     moniteur.cpp \
     timeline.cpp \
     pinceau.cpp \
-<<<<<<< HEAD
     exportwindow.cpp \
-    videoplayer.cpp
-=======
-    player/QOpenCVWidget.cpp \
-    player/Player.cpp \
-    exportwindow.cpp \
-    infoconception.cpp
->>>>>>> 3cdce1526b4e85c54cc9d8df307a32fa151e0e9b
+    videoplayer.cpp \
+    infoconception.cpp \
+    track.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -36,15 +33,11 @@ HEADERS  += \
     moniteur.h \
     timeline.h \
     pinceau.h \
-<<<<<<< HEAD
     exportwindow.h \
-    videoplayer.h
-=======
-    player/QOpenCVWidget.h \
-    player/Player.h \
-    exportwindow.h \
-    infoconception.h
->>>>>>> 3cdce1526b4e85c54cc9d8df307a32fa151e0e9b
+    videoplayer.h \
+    infoconception.h \
+    track.h
+
 
 FORMS    += \
     exportwindow.ui \
@@ -59,3 +52,6 @@ LIBS += -lopencv_highgui
 
 
 OTHER_FILES += player/playerStyleSheet.css
+
+RESOURCES += \
+    timeline.qrc
