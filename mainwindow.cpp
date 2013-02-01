@@ -2,6 +2,7 @@
 #include "track.h"
 #include <qdeclarative.h>
 #include <QDeclarativeContext>
+#include <QGraphicsObject>
 #include <QDeclarativeItem>
 #include <QDeclarativeView>
 #include <opencv2/opencv.hpp>
@@ -47,6 +48,7 @@ void mainWindow::displayMoniteur()
 void mainWindow::displayTimeline()
 {
     timeline = new Timeline(this);
+    Track *track = new Track();
 
     qmlRegisterType<Track>("Timeline", 1, 0, "Track");
 
@@ -55,11 +57,12 @@ void mainWindow::displayTimeline()
 
     qDebug() << &(m_vecPath[numLine]);*/
 
-    QList<QObject*> dataList;
+    QList<QObject*> dataList;//List passed to the QML : (string name, int duration)
 
-    QStringList mediaList;
+    QStringList mediaList;//List of the imported video paths
     mediaList << "/home/cecilia/Vidéos/bunny.mp4" << "/home/cecilia/Vidéos/ludovik.mp4";
 
+    //Extrcting the name and the duration of each video selected to be imported into the timeline
     for (int i = 0; i < mediaList.size(); ++i){
         VideoCapture * capture = new VideoCapture(mediaList.at(i).toStdString());
         QString fileName = mediaList.at(i);
@@ -72,10 +75,18 @@ void mainWindow::displayTimeline()
         dataList.append(new Track(fileName, duration));
     }
 
+    //Connecting the QML interfacing and the C++ logic
      QDeclarativeView *view = new QDeclarativeView;
      QDeclarativeContext *ctxt = view->rootContext();
      ctxt->setContextProperty("myModel", QVariant::fromValue(dataList));
      view->setSource(QUrl::fromLocalFile("../EWP2.0/resources/app.qml"));
+
+     //Connecting functions
+     QObject *slider = view->rootObject();
+     QObject::connect(slider, SIGNAL(sendValues(int)),track, SLOT(receiveValues(int)));
+
+
+
     VSplitter->addWidget(view);
     VSplitter->resize(900, 300);
     //timeline->show();

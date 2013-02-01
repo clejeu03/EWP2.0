@@ -7,6 +7,7 @@ Rectangle {
     height: 360
     color: "#111"
     border.color: "#000000"
+    signal sendValues(int value)
 
     Rectangle {
         id: mediaColumn
@@ -362,6 +363,7 @@ Rectangle {
             radius: 2
             anchors.left: bin.right
             anchors.leftMargin: 12
+            border.width : 0
             anchors.verticalCenter: parent.verticalCenter
             gradient: Gradient {
                 GradientStop {
@@ -387,8 +389,7 @@ Rectangle {
                 onExited:{if(parent.state != "draw_on"){parent.border.width = 0;} }
                 onClicked: {
                     parent.state == 'draw_on' ? parent.state = "draw_off" : parent.state = 'draw_on';
-                    /*if(parent.state == 'draw_off'){ Timeline.sendValues(slider.value);}*/
-                }
+                    }
             }
             states: [
                     State {
@@ -509,12 +510,15 @@ Rectangle {
                                         anchors.fill: parent
 
                                         onEntered:{
-                                            //slider.spacing = 50;
+                                            slider.spacing = 50;
                                             console.log("maximum : " +slider.maximum)
                                             if(pencil.state == "draw_on"){slider.value = slider.getValue(mouseX)
-                                                Track.sendValues(slider.value)
                                             console.log("slider.value : " +slider.value)}
                                         }
+                                    }
+                                    Connections {
+                                        target: mouse_areaPencil
+                                        onClicked: if(pencil.state == 'draw_off'){sendValues(slider.value)}
                                     }
                                 }
 
@@ -552,5 +556,6 @@ Rectangle {
 
 
 
-    }
-}
+
+
+}}

@@ -17,7 +17,10 @@ Track::Track(QString name, int duration, QDeclarativeItem *parent)
     setDuration(duration);
 }
 
-int Track::sendValues(int value){
+int Track::receiveValues(int value){
+
+    Q
+
     qDebug() << " Valuer cpp :" << value;
     return value;
 }
