@@ -7,6 +7,7 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include <QLinearGradient>
+#include <QHBoxLayout>
 #include <QPixmap>
 #include <QAction>
 #include <iostream>
@@ -39,6 +40,7 @@ class Timeline : public QWidget
         QAction *m_Exit;
         QIcon *exitIcon;
         QListWidget *clipList;
+        QHBoxLayout *layout;
 };
 
 #endif // TIMELINE_H

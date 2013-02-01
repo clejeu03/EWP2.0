@@ -1,4 +1,9 @@
 #include "mainwindow.h"
+#include "track.h"
+#include <qdeclarative.h>
+#include <QDeclarativeContext>
+#include <QDeclarativeItem>
+#include <QDeclarativeView>
 
 
 void mainWindow::displayChutier()
@@ -39,8 +44,20 @@ void mainWindow::displayMoniteur()
 void mainWindow::displayTimeline()
 {
     timeline = new Timeline(this);
-    VSplitter->addWidget(timeline);
-    timeline->show();
+
+    qmlRegisterType<Track>("Timeline", 1, 0, "Track");
+
+        QList<QObject*> dataList;
+           dataList.append(new Track("media01", 6000));
+           dataList.append(new Track("media02", 8000));
+
+     QDeclarativeView *view = new QDeclarativeView;
+     QDeclarativeContext *ctxt = view->rootContext();
+     ctxt->setContextProperty("myModel", QVariant::fromValue(dataList));
+     view->setSource(QUrl::fromLocalFile("../EWP2.0/resources/app.qml"));
+    VSplitter->addWidget(view);
+    VSplitter->resize(900, 300);
+    //timeline->show();
 }
 
 void mainWindow::displayExportWindow()
