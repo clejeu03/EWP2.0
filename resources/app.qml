@@ -7,7 +7,8 @@ Rectangle {
     height: 360
     color: "#111"
     border.color: "#000000"
-    signal sendValues(int value)
+    signal sendValues(int value, int value2)
+    signal goEditing()
 
     Rectangle {
         id: mediaColumn
@@ -408,6 +409,7 @@ Rectangle {
             width: 30
             height: 30
             radius: 2
+            border.width : 0
             anchors.left: pencil.right
             anchors.leftMargin: 12
             anchors.verticalCenter: parent.verticalCenter
@@ -429,7 +431,9 @@ Rectangle {
                     parent.border.width = 1;
                     parent.border.color = "lightgrey"}
                 onExited:if(parent.state != "clicked"){parent.border.width = 0;}
-                onClicked: parent.state == 'clicked' ? parent.state = "" : parent.state = 'clicked';
+                onClicked: {
+                    goEditing();
+                    parent.state == 'clicked' ? parent.state = "" : parent.state = 'clicked';}
             }
             states: [
                     State {
@@ -510,14 +514,13 @@ Rectangle {
                                         anchors.fill: parent
 
                                         onEntered:{
-                                            slider.spacing = 50;
-                                            if(pencil.state == "draw_on"){slider.value = slider.getValue(mouseX)
-                                            console.log("slider.value : " +slider.value)}
+                                            slider.spacing = 20;
+                                            if(pencil.state == "draw_on"){slider.value = slider.getValue(mouseX)}
                                         }
                                     }
                                     Connections {
                                         target: mouse_areaPencil
-                                        onClicked: if(pencil.state == 'draw_off'){sendValues(slider.value-slider.spacing, slider.value+slider.spacing)}
+                                        onClicked: if(pencil.state == 'draw_off'){sendValues(Math.max(1, slider.value-slider.spacing), Math.min(slider.maximum, slider.value+slider.spacing))}
                                     }
                                 }
 

@@ -9,6 +9,7 @@ class Editor : public QObject
 public:
     explicit Editor(QObject *parent = 0);
     Editor(QString filepath, int value1, int value2, QObject *parent = 0);
+    static void VideoSplit(Editor *editor);
     
 signals:
     

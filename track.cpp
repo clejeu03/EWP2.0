@@ -5,7 +5,7 @@
 Track::Track(QDeclarativeItem *parent)
     : QDeclarativeItem(parent)
 {
-    resultList = new QList<QObject*>;
+    resultList = new QList<Editor*>;
     // need to disable this flag to draw inside a QDeclarativeItem
     setFlag(QGraphicsItem::ItemHasNoContents, false);
 }
@@ -20,15 +20,18 @@ Track::Track(QString name, int duration, QDeclarativeItem *parent)
 }
 
 int Track::receiveValues(int value, int value2){
-
     if(resultList->empty() == true){
         resultList->append(new Editor("/home/cecilia/Vidéos/bunny.mp4", value, value2));
     }else{
         resultList->append(new Editor("/home/cecilia/Vidéos/ludovik.mp4", value, value2));
     }
-
-    qDebug() << "List :" << resultList;
     return value;
+}
+
+void Track::edit(){
+    for(int i = 0; i < resultList->size(); ++i){
+        Editor::VideoSplit(resultList->at(i));
+    }
 }
 
 QString Track::name() const

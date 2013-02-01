@@ -4,6 +4,7 @@
 #include <QDeclarativeItem>
 #include <QSlider>
 #include <QColor>
+#include "editor.h"
 
  class Track : public QDeclarativeItem
  {
@@ -14,7 +15,7 @@
  private:
      QString m_name;
      int m_duration;//in milliseconds
-     QList<QObject*> * resultList;
+     QList<Editor*> * resultList;
 
  public:
 
@@ -34,6 +35,7 @@ signals:
      void durationChanged();
  public slots:
     int receiveValues(int, int);
+    void edit();
 
 };
 

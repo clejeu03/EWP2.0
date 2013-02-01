@@ -74,7 +74,7 @@ void mainWindow::displayTimeline()
 
         dataList.append(new Track(fileName, duration));
     }
-
+    track->edit();
     //Connecting the QML interfacing and the C++ logic
      QDeclarativeView *view = new QDeclarativeView;
      QDeclarativeContext *ctxt = view->rootContext();
@@ -83,7 +83,8 @@ void mainWindow::displayTimeline()
 
      //Connecting functions
      QObject *slider = view->rootObject();
-     QObject::connect(slider, SIGNAL(sendValues(int)),track, SLOT(receiveValues(int)));
+     QObject::connect(slider, SIGNAL(sendValues(int, int)),track, SLOT(receiveValues(int, int)));
+     QObject::connect(slider, SIGNAL(goEditing()),track, SLOT(edit()));
 
 
 
