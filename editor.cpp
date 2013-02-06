@@ -29,9 +29,7 @@ void Editor::VideoSplit(Editor* editor){
     CvVideoWriter *writer = cvCreateVideoWriter("../EWP2.0/tmp/tmp.avi",CV_FOURCC('M','J','P','G'),fps,size);
     for(int i=(editor->m_in); i < (editor->m_out); ++i){
         cvWriteFrame( writer, frame);
-
-        cvReleaseVideoWriter( &writer );
-        cvReleaseCapture( &capture );
     }
-
+    cvReleaseVideoWriter( &writer );
+    cvReleaseCapture( &capture );
 }
