@@ -19,13 +19,14 @@ Editor::Editor(QString filepath, int value1, int value2, QObject *parent):QObjec
 void Editor::VideoSplit(Editor* editor){
     qDebug() << "editing ...";
 
-    CvCapture* capture = cvCreateFileCapture(editor->m_filepath.toLatin1().data());
+    CvCapture* capture = cvCreateFileCapture(editor->m_filepath.toLocal8Bit().data());
     IplImage* frame = cvQueryFrame(capture);
     int fps = cvGetCaptureProperty(capture,CV_CAP_PROP_FPS);
     CvSize size = cvSize(
         (int)cvGetCaptureProperty( capture, CV_CAP_PROP_FRAME_WIDTH),
         (int)cvGetCaptureProperty( capture, CV_CAP_PROP_FRAME_HEIGHT)
     );
+    qDebug() << "size :" << (int)cvGetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH) << (int)cvGetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT);
     CvVideoWriter *writer = cvCreateVideoWriter("../EWP2.0/tmp/tmp.avi",CV_FOURCC('M','J','P','G'),fps,size);
     for(int i=(editor->m_in); i < (editor->m_out); ++i){
         cvWriteFrame( writer, frame);
