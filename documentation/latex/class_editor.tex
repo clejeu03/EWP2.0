@@ -1,24 +1,115 @@
 \hypertarget{class_editor}{\section{\-Editor \-Class \-Reference}
 \label{class_editor}\index{\-Editor@{\-Editor}}
 }
+
+
+{\ttfamily \#include $<$editor.\-h$>$}
+
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_editor_a8b3b1155b1d158f6a3adb26e5dc65df0}{{\bfseries \-Editor} (\-Q\-Object $\ast$parent=0)}\label{class_editor_a8b3b1155b1d158f6a3adb26e5dc65df0}
-
+\hyperlink{class_editor_a8b3b1155b1d158f6a3adb26e5dc65df0}{\-Editor} (\-Q\-Object $\ast$parent=0)
 \item 
-\hypertarget{class_editor_a01d9b2ad0d3d13199863f62ec9bcd368}{{\bfseries \-Editor} (\-Q\-String filepath, int value1, int value2, \-Q\-Object $\ast$parent=0)}\label{class_editor_a01d9b2ad0d3d13199863f62ec9bcd368}
-
+\hyperlink{class_editor_a01d9b2ad0d3d13199863f62ec9bcd368}{\-Editor} (\-Q\-String filepath, int value1, int value2, \-Q\-Object $\ast$parent=0)
 \end{DoxyCompactItemize}
 \subsection*{\-Static \-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_editor_ae98dbc8d28690f3f1b203d582cd4c95a}{static void {\bfseries \-Video\-Split} (\hyperlink{class_editor}{\-Editor} $\ast$editor)}\label{class_editor_ae98dbc8d28690f3f1b203d582cd4c95a}
-
+static void \hyperlink{class_editor_ae98dbc8d28690f3f1b203d582cd4c95a}{\-Video\-Split} (\hyperlink{class_editor}{\-Editor} $\ast$editor)
 \end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+
+
+\-Definition at line 6 of file editor.\-h.
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{class_editor_a8b3b1155b1d158f6a3adb26e5dc65df0}{\index{\-Editor@{\-Editor}!\-Editor@{\-Editor}}
+\index{\-Editor@{\-Editor}!Editor@{\-Editor}}
+\subsubsection[{\-Editor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Editor\-::\-Editor} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Object $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}}\label{class_editor_a8b3b1155b1d158f6a3adb26e5dc65df0}
+
+
+\-Definition at line 8 of file editor.\-cpp.
+
+
+\begin{DoxyCode}
+                              :
+    QObject(parent)
+{
+}
+\end{DoxyCode}
+\hypertarget{class_editor_a01d9b2ad0d3d13199863f62ec9bcd368}{\index{\-Editor@{\-Editor}!\-Editor@{\-Editor}}
+\index{\-Editor@{\-Editor}!Editor@{\-Editor}}
+\subsubsection[{\-Editor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Editor\-::\-Editor} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{filepath, }
+\item[{int}]{value1, }
+\item[{int}]{value2, }
+\item[{\-Q\-Object $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{class_editor_a01d9b2ad0d3d13199863f62ec9bcd368}
+
+
+\-Definition at line 13 of file editor.\-cpp.
+
+
+\begin{DoxyCode}
+                                                                       :QObject
+      (parent){
+    m_filepath = filepath;
+    m_in = value1;
+    m_out = value2;
+    qDebug() << "file1 :" << m_filepath << m_in << m_out ;
+}
+\end{DoxyCode}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_editor_ae98dbc8d28690f3f1b203d582cd4c95a}{\index{\-Editor@{\-Editor}!\-Video\-Split@{\-Video\-Split}}
+\index{\-Video\-Split@{\-Video\-Split}!Editor@{\-Editor}}
+\subsubsection[{\-Video\-Split}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Editor\-::\-Video\-Split} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Editor} $\ast$}]{editor}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_editor_ae98dbc8d28690f3f1b203d582cd4c95a}
+
+
+\-Definition at line 19 of file editor.\-cpp.
+
+
+\begin{DoxyCode}
+                                     {
+    qDebug() << "editing ...";
+
+    CvCapture* capture = cvCreateFileCapture(editor->m_filepath.toLocal8Bit().
+      data());
+    IplImage* frame = cvQueryFrame(capture);
+    int fps = cvGetCaptureProperty(capture,CV_CAP_PROP_FPS);
+    CvSize size = cvSize(
+        (int)cvGetCaptureProperty( capture, CV_CAP_PROP_FRAME_WIDTH),
+        (int)cvGetCaptureProperty( capture, CV_CAP_PROP_FRAME_HEIGHT)
+    );
+    qDebug() << "size :" << (int)cvGetCaptureProperty(capture, 
+      CV_CAP_PROP_FRAME_WIDTH) << (int)cvGetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT);
+    CvVideoWriter *writer = cvCreateVideoWriter("../EWP2.0/tmp/tmp.avi",
+      CV_FOURCC('M','J','P','G'),fps,size);
+    for(int i=(editor->m_in); i < (editor->m_out); ++i){
+        cvWriteFrame( writer, frame);
+    }
+    cvReleaseVideoWriter( &writer );
+    cvReleaseCapture( &capture );
+}
+\end{DoxyCode}
 
 
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-editor.\-h\item 
-editor.\-cpp\end{DoxyCompactItemize}
+\hyperlink{editor_8h}{editor.\-h}\item 
+\hyperlink{editor_8cpp}{editor.\-cpp}\end{DoxyCompactItemize}

@@ -1,15 +1,68 @@
 \hypertarget{classinfo_conception}{\section{info\-Conception \-Class \-Reference}
 \label{classinfo_conception}\index{info\-Conception@{info\-Conception}}
 }
+
+
+{\ttfamily \#include $<$infoconception.\-h$>$}
+
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classinfo_conception_ad0af95f8561abe473a437842ce287a56}{{\bfseries info\-Conception} (\-Q\-Widget $\ast$parent=0)}\label{classinfo_conception_ad0af95f8561abe473a437842ce287a56}
-
+\hyperlink{classinfo_conception_ad0af95f8561abe473a437842ce287a56}{info\-Conception} (\-Q\-Widget $\ast$parent=0)
+\item 
+\hyperlink{classinfo_conception_a9c9dfb445add948d5a91a4c6e80d0e56}{$\sim$info\-Conception} ()
 \end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+
+
+\-Definition at line 10 of file infoconception.\-h.
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classinfo_conception_ad0af95f8561abe473a437842ce287a56}{\index{info\-Conception@{info\-Conception}!info\-Conception@{info\-Conception}}
+\index{info\-Conception@{info\-Conception}!infoConception@{info\-Conception}}
+\subsubsection[{info\-Conception}]{\setlength{\rightskip}{0pt plus 5cm}{\bf info\-Conception\-::info\-Conception} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}}\label{classinfo_conception_ad0af95f8561abe473a437842ce287a56}
+
+
+\-Definition at line 5 of file infoconception.\-cpp.
+
+
+\begin{DoxyCode}
+                                              :
+    QDialog(parent),
+    ui(new Ui::infoConception)
+{
+    ui->setupUi(this);
+    connect(ui->btn_close, SIGNAL(clicked()),this,SLOT(accept()));
+}
+\end{DoxyCode}
+\hypertarget{classinfo_conception_a9c9dfb445add948d5a91a4c6e80d0e56}{\index{info\-Conception@{info\-Conception}!$\sim$info\-Conception@{$\sim$info\-Conception}}
+\index{$\sim$info\-Conception@{$\sim$info\-Conception}!infoConception@{info\-Conception}}
+\subsubsection[{$\sim$info\-Conception}]{\setlength{\rightskip}{0pt plus 5cm}{\bf info\-Conception\-::$\sim$info\-Conception} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classinfo_conception_a9c9dfb445add948d5a91a4c6e80d0e56}
+
+
+\-Definition at line 14 of file infoconception.\-cpp.
+
+
+\begin{DoxyCode}
+{
+    delete ui;
+}
+\end{DoxyCode}
 
 
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-infoconception.\-h\item 
-infoconception.\-cpp\end{DoxyCompactItemize}
+\hyperlink{infoconception_8h}{infoconception.\-h}\item 
+\hyperlink{infoconception_8cpp}{infoconception.\-cpp}\end{DoxyCompactItemize}

@@ -59,7 +59,9 @@ VideoPlayer::~VideoPlayer()
 }
 
 void VideoPlayer::displayTime(int value){
-    /*Creating time references*/
+    /**This function create the time label placed under the slider and that display current time of the selected frame
+    toward the total duration of the video ; the format changes as the video duration is superior to an hour or not between "mm:ss"
+and "hh:mm:ss".*/
     QTime originTime(0,0,0);
     QTime hour(1,0,0);
 

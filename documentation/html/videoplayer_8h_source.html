@@ -52,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,6 +76,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -96,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">videoplayer.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef VIDEOPLAYER_H</span>
+<a href="videoplayer_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef VIDEOPLAYER_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define VIDEOPLAYER_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 
@@ -117,14 +119,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00019"></a>00019 {
 <a name="l00020"></a>00020     Q_OBJECT
 <a name="l00021"></a>00021 <span class="keyword">public</span>:
-<a name="l00022"></a>00022     <a class="code" href="class_video_player.html">VideoPlayer</a>(QWidget *parent = 0);
-<a name="l00023"></a>00023     <span class="keywordtype">void</span> setNewMedia(<span class="keyword">const</span> QString* filename);
-<a name="l00024"></a>00024     ~<a class="code" href="class_video_player.html">VideoPlayer</a>();
+<a name="l00022"></a>00022     <a class="code" href="class_video_player.html#a1d43337dac90ba3ec1ba178f4b1ddceb">VideoPlayer</a>(QWidget *parent = 0);
+<a name="l00023"></a>00023     <span class="keywordtype">void</span> <a class="code" href="class_video_player.html#a9f33fb15ac14c330e8b6fda8d9cf4164">setNewMedia</a>(<span class="keyword">const</span> QString* filename);
+<a name="l00024"></a>00024     <a class="code" href="class_video_player.html#a84982600649b54d2fa2ddb4efee2349f">~VideoPlayer</a>();
 <a name="l00025"></a>00025 
 <a name="l00026"></a>00026 <span class="keyword">public</span> slots:
-<a name="l00027"></a>00027     <span class="keywordtype">void</span> openFile();
-<a name="l00028"></a>00028     <span class="keywordtype">void</span> play();
-<a name="l00029"></a>00029     <span class="keywordtype">void</span> displayTime(<span class="keywordtype">int</span>);
+<a name="l00027"></a>00027     <span class="keywordtype">void</span> <a class="code" href="class_video_player.html#a96b3bad4d8680ba4b41b05aeabcd26b1">openFile</a>();
+<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="class_video_player.html#a13ba0d270e849566f33ceffd7fb425c0">play</a>();
+<a name="l00029"></a>00029     <span class="keywordtype">void</span> <a class="code" href="class_video_player.html#a7e7d8a5f78a0050b463d303a6ce0df4f">displayTime</a>(<span class="keywordtype">int</span>);
 <a name="l00030"></a>00030 
 <a name="l00031"></a>00031 <span class="keyword">private</span> slots:
 <a name="l00032"></a>00032     <span class="keywordtype">void</span> mediaStateChanged(QMediaPlayer::State state);
@@ -148,7 +150,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -159,9 +161,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><b>videoplayer.h</b>      </li>
+      <li class="navelem"><a class="el" href="videoplayer_8h.html">videoplayer.h</a>      </li>
 
-    <li class="footer">Generated on Mon Feb 11 2013 11:51:31 for EWP by
+    <li class="footer">Generated on Mon Feb 11 2013 12:15:03 for EWP by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

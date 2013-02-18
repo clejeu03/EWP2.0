@@ -1,15 +1,71 @@
 \hypertarget{classexport_window}{\section{export\-Window \-Class \-Reference}
 \label{classexport_window}\index{export\-Window@{export\-Window}}
 }
+
+
+{\ttfamily \#include $<$exportwindow.\-h$>$}
+
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classexport_window_a79cc588aebbf4452d849e5b87d7582a2}{{\bfseries export\-Window} (\-Q\-Widget $\ast$parent=0)}\label{classexport_window_a79cc588aebbf4452d849e5b87d7582a2}
-
+\hyperlink{classexport_window_a79cc588aebbf4452d849e5b87d7582a2}{export\-Window} (\-Q\-Widget $\ast$parent=0)
+\item 
+\hyperlink{classexport_window_af3bc05e4be66fd6961c99b11b1b8795b}{$\sim$export\-Window} ()
 \end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+
+
+\-Definition at line 13 of file exportwindow.\-h.
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classexport_window_a79cc588aebbf4452d849e5b87d7582a2}{\index{export\-Window@{export\-Window}!export\-Window@{export\-Window}}
+\index{export\-Window@{export\-Window}!exportWindow@{export\-Window}}
+\subsubsection[{export\-Window}]{\setlength{\rightskip}{0pt plus 5cm}{\bf export\-Window\-::export\-Window} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}}\label{classexport_window_a79cc588aebbf4452d849e5b87d7582a2}
+
+
+\-Definition at line 5 of file exportwindow.\-cpp.
+
+
+\begin{DoxyCode}
+                                          :
+    QDialog(parent),
+    ui(new Ui::exportWindow)
+{
+    ui->setupUi(this);
+    connect(ui->btn_browse, SIGNAL(clicked()),this,SLOT(on_pushButton_clicked()
+      ));
+    connect(ui->btn_control, SIGNAL(accepted()), this, SLOT(action_valider()));
+    connect(ui->btn_control, SIGNAL(rejected()), this, SLOT(action_annuler()));
+}
+\end{DoxyCode}
+\hypertarget{classexport_window_af3bc05e4be66fd6961c99b11b1b8795b}{\index{export\-Window@{export\-Window}!$\sim$export\-Window@{$\sim$export\-Window}}
+\index{$\sim$export\-Window@{$\sim$export\-Window}!exportWindow@{export\-Window}}
+\subsubsection[{$\sim$export\-Window}]{\setlength{\rightskip}{0pt plus 5cm}{\bf export\-Window\-::$\sim$export\-Window} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classexport_window_af3bc05e4be66fd6961c99b11b1b8795b}
+
+
+\-Definition at line 16 of file exportwindow.\-cpp.
+
+
+\begin{DoxyCode}
+{
+    delete ui;
+}
+\end{DoxyCode}
 
 
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-exportwindow.\-h\item 
-exportwindow.\-cpp\end{DoxyCompactItemize}
+\hyperlink{exportwindow_8h}{exportwindow.\-h}\item 
+\hyperlink{exportwindow_8cpp}{exportwindow.\-cpp}\end{DoxyCompactItemize}

@@ -52,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -76,6 +77,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -100,16 +102,69 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <!-- doxytag: class="infoConception" -->
+<p><code>#include &lt;<a class="el" href="infoconception_8h_source.html">infoconception.h</a>&gt;</code></p>
+
 <p><a href="classinfo_conception-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0af95f8561abe473a437842ce287a56"></a><!-- doxytag: member="infoConception::infoConception" ref="ad0af95f8561abe473a437842ce287a56" args="(QWidget *parent=0)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>infoConception</b> (QWidget *parent=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinfo_conception.html#ad0af95f8561abe473a437842ce287a56">infoConception</a> (QWidget *parent=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinfo_conception.html#a9c9dfb445add948d5a91a4c6e80d0e56">~infoConception</a> ()</td></tr>
 </table>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="infoconception_8h_source.html#l00010">10</a> of file <a class="el" href="infoconception_8h_source.html">infoconception.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ad0af95f8561abe473a437842ce287a56"></a><!-- doxytag: member="infoConception::infoConception" ref="ad0af95f8561abe473a437842ce287a56" args="(QWidget *parent=0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classinfo_conception.html#ad0af95f8561abe473a437842ce287a56">infoConception::infoConception</a> </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *&#160;</td>
+          <td class="paramname"><em>parent</em> = <code>0</code></td><td>)</td>
+          <td><code> [explicit]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="infoconception_8cpp_source.html#l00005">5</a> of file <a class="el" href="infoconception_8cpp_source.html">infoconception.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              :
+    QDialog(parent),
+    ui(<span class="keyword">new</span> Ui::infoConception)
+{
+    ui-&gt;setupUi(<span class="keyword">this</span>);
+    connect(ui-&gt;btn_close, SIGNAL(clicked()),<span class="keyword">this</span>,SLOT(accept()));
+}
+</pre></div>
+</div>
+</div>
+<a class="anchor" id="a9c9dfb445add948d5a91a4c6e80d0e56"></a><!-- doxytag: member="infoConception::~infoConception" ref="a9c9dfb445add948d5a91a4c6e80d0e56" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classinfo_conception.html#a9c9dfb445add948d5a91a4c6e80d0e56">infoConception::~infoConception</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="infoconception_8cpp_source.html#l00014">14</a> of file <a class="el" href="infoconception_8cpp_source.html">infoconception.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+    <span class="keyword">delete</span> ui;
+}
+</pre></div>
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="infoconception_8h_source.html">infoconception.h</a></li>
-<li>infoconception.cpp</li>
+<li><a class="el" href="infoconception_8cpp_source.html">infoconception.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div>
@@ -118,7 +173,7 @@ Public Member Functions</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -131,7 +186,7 @@ Public Member Functions</h2></td></tr>
     <ul>
       <li class="navelem"><a class="el" href="classinfo_conception.html">infoConception</a>      </li>
 
-    <li class="footer">Generated on Mon Feb 11 2013 11:51:31 for EWP by
+    <li class="footer">Generated on Mon Feb 11 2013 12:15:03 for EWP by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

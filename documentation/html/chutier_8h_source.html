@@ -52,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,6 +76,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -96,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">chutier.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef CHUTIER_H</span>
+<a href="chutier_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef CHUTIER_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define CHUTIER_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;QWidget&gt;</span>
@@ -118,32 +120,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00020"></a>00020 <span class="preprocessor">#include &lt;QPaintEvent&gt;</span>
 <a name="l00021"></a>00021 <span class="preprocessor">#include &lt;QPainter&gt;</span>
 <a name="l00022"></a>00022 
-<a name="l00023"></a>00023 <span class="preprocessor">#include &quot;moniteur.h&quot;</span>
+<a name="l00023"></a>00023 <span class="preprocessor">#include &quot;<a class="code" href="moniteur_8h.html">moniteur.h</a>&quot;</span>
 <a name="l00024"></a>00024 
 <a name="l00025"></a>00025 
 <a name="l00026"></a><a class="code" href="class_chutier.html">00026</a> <span class="keyword">class </span><a class="code" href="class_chutier.html">Chutier</a> : <span class="keyword">public</span> QWidget
 <a name="l00027"></a>00027 {
 <a name="l00028"></a>00028     Q_OBJECT
 <a name="l00029"></a>00029     <span class="keyword">public</span>:
-<a name="l00030"></a>00030         <span class="keywordtype">void</span> Add(QList&lt;QString&gt; list);
-<a name="l00031"></a>00031         <span class="keywordtype">void</span> Weight(QList&lt;QString&gt; list);
-<a name="l00032"></a>00032         <span class="keywordtype">void</span> Play(QListWidgetItem *button<span class="comment">/*QList&lt;QString&gt; list*/</span>);
-<a name="l00033"></a>00033         QListWidget* getMediaList();
+<a name="l00030"></a>00030         <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#af9218a9aa819faaa5f41e12982d23e83">Add</a>(QList&lt;QString&gt; list);
+<a name="l00031"></a>00031         <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#a90170902ce9da77c051b61d1a5265392">Weight</a>(QList&lt;QString&gt; list);
+<a name="l00032"></a>00032         <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#a743abbae7b6e2029debeb82a62bbcd0c">Play</a>(QListWidgetItem *button<span class="comment">/*QList&lt;QString&gt; list*/</span>);
+<a name="l00033"></a>00033         QListWidget* <a class="code" href="class_chutier.html#a128a5d0cdfa7c28b236e41219433a94a">getMediaList</a>();
 <a name="l00034"></a>00034 
-<a name="l00035"></a>00035         <a class="code" href="class_chutier.html">Chutier</a>(QWidget *parent=0);
-<a name="l00036"></a>00036         <span class="keyword">virtual</span> ~<a class="code" href="class_chutier.html">Chutier</a>();
-<a name="l00037"></a>00037         <span class="keywordtype">void</span> paintEvent(QPaintEvent *event);
-<a name="l00038"></a>00038         <span class="keywordtype">void</span> enterEvent(QEvent *event);
-<a name="l00039"></a>00039         <span class="keywordtype">void</span> leaveEvent(QEvent *event);
-<a name="l00040"></a>00040         <span class="keywordtype">void</span> mousePressEvent(QMouseEvent *event);
-<a name="l00041"></a>00041         <span class="keywordtype">void</span> mouseReleaseEvent(QMouseEvent *event);
+<a name="l00035"></a>00035         <a class="code" href="class_chutier.html#a703afe4f6ec72bf3ca37e15cbfc44fb7">Chutier</a>(QWidget *parent=0);
+<a name="l00036"></a>00036         <span class="keyword">virtual</span> <a class="code" href="class_chutier.html#af2f74dffd11ffe402038f373a0554021">~Chutier</a>();
+<a name="l00037"></a>00037         <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#a637112277c752f7b207cac4bc226df4c">paintEvent</a>(QPaintEvent *event);
+<a name="l00038"></a>00038         <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#a6bf1c8e7fdd33d15a5eabf275f684bd9">enterEvent</a>(QEvent *event);
+<a name="l00039"></a>00039         <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#ae27e4bb88c0b8be2e808d0a36fdf94cb">leaveEvent</a>(QEvent *event);
+<a name="l00040"></a>00040         <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#a71efe3e6fbfbac809e9cad405f626981">mousePressEvent</a>(QMouseEvent *event);
+<a name="l00041"></a>00041         <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#ac072c22b3e0f270258ba710815e07cd0">mouseReleaseEvent</a>(QMouseEvent *event);
 <a name="l00042"></a>00042     signals :
-<a name="l00043"></a>00043         <span class="keywordtype">void</span> sig_show(<span class="keywordtype">bool</span>);
+<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#af48c7afdd6a9154410abb35afb12d723">sig_show</a>(<span class="keywordtype">bool</span>);
 <a name="l00044"></a>00044     <span class="keyword">public</span> slots:
-<a name="l00045"></a>00045         <span class="keywordtype">void</span> hide();
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#a371bb3ff033a5edf37b67eaeca109e29">hide</a>();
 <a name="l00046"></a>00046     <span class="keyword">protected</span> :
-<a name="l00047"></a>00047         <span class="keyword">virtual</span> <span class="keywordtype">void</span> showEvent(QShowEvent *e);
-<a name="l00048"></a>00048         <span class="keyword">virtual</span> <span class="keywordtype">void</span> hideEvent(QHideEvent *e);
+<a name="l00047"></a>00047         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#a2a25ab89f0bbbb410bcbada8d1229919">showEvent</a>(QShowEvent *e);
+<a name="l00048"></a>00048         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_chutier.html#aebebc2251eaefb0f3fc93d563e76665d">hideEvent</a>(QHideEvent *e);
 <a name="l00049"></a>00049     <span class="keyword">private</span> :
 <a name="l00050"></a>00050         <span class="keyword">enum</span> buttonState
 <a name="l00051"></a>00051         {
@@ -184,7 +186,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -195,9 +197,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><b>chutier.h</b>      </li>
+      <li class="navelem"><a class="el" href="chutier_8h.html">chutier.h</a>      </li>
 
-    <li class="footer">Generated on Mon Feb 11 2013 11:51:31 for EWP by
+    <li class="footer">Generated on Mon Feb 11 2013 12:15:02 for EWP by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

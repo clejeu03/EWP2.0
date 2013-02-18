@@ -52,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -76,6 +77,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -98,19 +100,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 This is the complete list of members for <a class="el" href="class_video_player.html">VideoPlayer</a>, including all inherited members.<table>
-  <tr bgcolor="#f0f0f0"><td><b>displayTime</b>(int) (defined in <a class="el" href="class_video_player.html">VideoPlayer</a>)</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td><code> [slot]</code></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>openFile</b>() (defined in <a class="el" href="class_video_player.html">VideoPlayer</a>)</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td><code> [slot]</code></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>play</b>() (defined in <a class="el" href="class_video_player.html">VideoPlayer</a>)</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td><code> [slot]</code></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>setNewMedia</b>(const QString *filename) (defined in <a class="el" href="class_video_player.html">VideoPlayer</a>)</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>VideoPlayer</b>(QWidget *parent=0) (defined in <a class="el" href="class_video_player.html">VideoPlayer</a>)</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>~VideoPlayer</b>() (defined in <a class="el" href="class_video_player.html">VideoPlayer</a>)</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_video_player.html#a7e7d8a5f78a0050b463d303a6ce0df4f">displayTime</a>(int)</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td><code> [slot]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_video_player.html#a96b3bad4d8680ba4b41b05aeabcd26b1">openFile</a>()</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td><code> [slot]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_video_player.html#a13ba0d270e849566f33ceffd7fb425c0">play</a>()</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td><code> [slot]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_video_player.html#a9f33fb15ac14c330e8b6fda8d9cf4164">setNewMedia</a>(const QString *filename)</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_video_player.html#a1d43337dac90ba3ec1ba178f4b1ddceb">VideoPlayer</a>(QWidget *parent=0)</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_video_player.html#a84982600649b54d2fa2ddb4efee2349f">~VideoPlayer</a>()</td><td><a class="el" href="class_video_player.html">VideoPlayer</a></td><td></td></tr>
 </table></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -123,7 +125,7 @@ This is the complete list of members for <a class="el" href="class_video_player.
   <div id="nav-path" class="navpath">
     <ul>
 
-    <li class="footer">Generated on Mon Feb 11 2013 11:51:32 for EWP by
+    <li class="footer">Generated on Mon Feb 11 2013 12:15:04 for EWP by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>
