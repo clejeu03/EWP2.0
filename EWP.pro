@@ -38,7 +38,8 @@ HEADERS  += \
     videoplayer.h \
     infoconception.h \
     track.h \
-    editor.h
+    editor.h \
+    Video.h
 
 FORMS    += \
     exportwindow.ui \

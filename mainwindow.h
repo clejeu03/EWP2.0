@@ -22,6 +22,7 @@
 #include "pinceau.h"
 #include "exportwindow.h"
 #include "infoconception.h"
+#include "Video.h"
 
 class mainWindow : public QMainWindow
 {
