@@ -26,7 +26,9 @@ SOURCES += main.cpp \
     videoplayer.cpp \
     infoconception.cpp \
     track.cpp \
-    editor.cpp
+    editor.cpp \
+    Project.cpp \
+    ProjectManager.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -39,7 +41,9 @@ HEADERS  += \
     infoconception.h \
     track.h \
     editor.h \
-    Video.h
+    Video.h \
+    Project.h \
+    ProjectManager.h
 
 FORMS    += \
     exportwindow.ui \

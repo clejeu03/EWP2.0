@@ -18,13 +18,12 @@ class Video {
         m_path = path;
         m_completeName = path.remove(0, ( path.lastIndexOf("/")+1) );
 
-
-        VideoCapture * capture = new VideoCapture(path.toStdString());
+        VideoCapture * capture = new VideoCapture(m_path.toStdString());
         int fps = capture->get(CV_CAP_PROP_FPS);
         double total_frame = capture->get(CV_CAP_PROP_FRAME_COUNT);
         m_duration = qRound(total_frame/fps);
 
-        QFileInfo info(path);
+        QFileInfo info(m_path);
         m_name = info.completeBaseName();
         m_format = info.completeSuffix();
         m_weight = info.size()/1000000.;
@@ -40,6 +39,7 @@ class Video {
     inline void setFormat(QString format){m_format = format;}
     inline void setWeight(double weight){m_weight = weight; m_roundWeight = qRound(m_weight);}
     inline void setReverse(bool reverse){m_reverse = reverse;}
+    inline void setDuration(qint64 duration){m_duration = duration;}
     inline void setScript(QString script){m_script = script;}
     inline void setTimelinePresence(bool timelinePresence){m_timelinePresence = timelinePresence;}
 
@@ -50,6 +50,7 @@ class Video {
     inline double getWeight(){return m_weight;}
     inline double getRoundWeight(){return m_roundWeight;}
     inline bool getReverse(){return m_reverse;}
+    inline qint64 getDuration(){return m_duration;}
     inline QString getScript(){return m_script;}
     inline bool getTimelinePresence(){return m_timelinePresence;}
 
@@ -58,17 +59,15 @@ class Video {
     QString m_completeName; //ex : bunny.mp4
     QString m_name; //ex : bunny
     QString m_format;//ex : mp4
-    qint64 m_duration;
+    qint64 m_duration;// en secondes
     double m_weight; //ex: 5.514532 MB
     double m_roundWeight; //ex: 5.5 MB
     bool m_timelinePresence;
     QString m_script;
     bool m_reverse;
 
- public:
-
-    /*Project *project;
-    Timeline *timeline;
+    //Project *project;         DAFUUUQ ???
+    /*Timeline *timeline;
     VideoPart *VideoPartAssoc;*/
 };
 

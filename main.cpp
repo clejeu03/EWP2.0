@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "Video.h"
+#include "ProjectManager.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -13,34 +13,33 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
-    Video *video = new Video("/home/cecilia/Vidéos/bunny.mp4");
+    ProjectManager *chutier = new ProjectManager();
+    Project *project1 = chutier->newProject("/home/cecilia/Documents");
+    Project *project2 = chutier->newProject("/home/cecilia", "myProject");
 
-    QFileInfo info("/home/cecilia/Vidéos/bunny.mp4");
+    QList<QString> open = chutier->getOpenProjectsList();
 
-    QString name = video->getName();
-    QString completeName = video->getCompleteName();
-    QString format = video->getFormat();
-    QString path = video->getPath();
+    qDebug() << "open list :" << open;
 
-    double weight = video->getWeight();
-    double roundWeight = video->getRoundWeight();
-    bool reverse = video->getReverse();
-    QString script = video->getScript();
-    bool timeline = video->getTimelinePresence();
-
-    qDebug() << "exists :" << info.exists();
-    qDebug() << "name :" << name;
-    qDebug() << "CompleteName :" << completeName;
-    qDebug() << "format :" << format;
-    qDebug() << "path : " << path;
-    qDebug() << "weight :" << weight;
-    qDebug() << "roundWeight :" << roundWeight;
-    qDebug() << "reverse :" << reverse;
-    qDebug() << "script :" << script ;
-    qDebug() << "timeline :" << timeline;
+    project1->importVideo("/home/cecilia/Vidéos/bunny.mp4");
+    project1->importVideo("/home/cecilia/Vidéos/ludovik.mp4");
+    qDebug() << "project 1 :" << project1->getProjectName();
+    qDebug() << "project 1 :" << project1->getProjectPath();
+    qDebug() << "project 1 :" << project1->getVideoListSize();
 
 
-   /* mainWindow window;
+    project2->importVideo("/home/cecilia/Vidéos/bunny.mp4");
+    qDebug() << "project 2 :" << project2->getProjectName();
+    qDebug() << "project 2 :" << project2->getProjectPath();
+    qDebug() << "project 2 :" << project2->getVideoListSize();
+
+    chutier->closeAllProjects();
+    open = chutier->getOpenProjectsList();
+    qDebug() << "open list :" << open;
+
+
+
+    /*mainWindow window;
 
     QDesktopWidget *desktop = QApplication::desktop();
     screenWidth = desktop->width() -50;
