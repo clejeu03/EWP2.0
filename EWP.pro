@@ -18,32 +18,28 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     mainwindow.cpp \
-    chutier.cpp \
-    moniteur.cpp \
     timeline.cpp \
     pinceau.cpp \
     exportwindow.cpp \
-    videoplayer.cpp \
     infoconception.cpp \
     track.cpp \
     editor.cpp \
     Project.cpp \
-    ProjectManager.cpp
+    ProjectManager.cpp \
+    VideoUtils.cpp
 
 HEADERS  += \
     mainwindow.h \
-    chutier.h \
-    moniteur.h \
     timeline.h \
     pinceau.h \
     exportwindow.h \
-    videoplayer.h \
     infoconception.h \
     track.h \
     editor.h \
     Video.h \
     Project.h \
-    ProjectManager.h
+    ProjectManager.h \
+    VideoUtils.h
 
 FORMS    += \
     exportwindow.ui \
