@@ -17,8 +17,6 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    mainwindow.cpp \
-    timeline.cpp \
     pinceau.cpp \
     exportwindow.cpp \
     infoconception.cpp \
@@ -26,11 +24,9 @@ SOURCES += main.cpp \
     editor.cpp \
     Project.cpp \
     ProjectManager.cpp \
-    VideoUtils.cpp
+    Timeline.cpp
 
 HEADERS  += \
-    mainwindow.h \
-    timeline.h \
     pinceau.h \
     exportwindow.h \
     infoconception.h \
@@ -39,7 +35,8 @@ HEADERS  += \
     Video.h \
     Project.h \
     ProjectManager.h \
-    VideoUtils.h
+    VideoUtils.h \
+    Timeline.h
 
 FORMS    += \
     exportwindow.ui \

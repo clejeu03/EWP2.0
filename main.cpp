@@ -1,9 +1,10 @@
-#include "mainwindow.h"
-#include "ProjectManager.h"
+
+#include "Timeline.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QTextCodec>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -13,30 +14,37 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
-    ProjectManager *chutier = new ProjectManager();
-    Project *project1 = chutier->newProject("/home/cecilia/Documents");
-    Project *project2 = chutier->newProject("/home/cecilia", "myProject");
+    Timeline timeline;
 
-    QList<QString> open = chutier->getOpenProjectsList();
+    Video *video1 = new Video("/home/cecilia/Vidéos/bunny.mp4");
+    Video *video2 = new Video("/home/cecilia/Vidéos/ludovik.mp4");
+    timeline.addVideo(video1);
+    timeline.addVideo(video2);
+    qDebug() << "drawing status : " << timeline.getDrawingStatus();
 
-    qDebug() << "open list :" << open;
+    qDebug() << "adding 2 videos : " << timeline.getVideoList();
+    qDebug() << "list size : " << timeline.getListSize();
 
-    project1->importVideo("/home/cecilia/Vidéos/bunny.mp4");
-    project1->importVideo("/home/cecilia/Vidéos/ludovik.mp4");
-    qDebug() << "project 1 :" << project1->getProjectName();
-    qDebug() << "project 1 :" << project1->getProjectPath();
-    qDebug() << "project 1 :" << project1->getVideoListSize();
+    timeline.removeVideo(video2);
+    qDebug() << "removing video2: " <<  timeline.getVideoList();
+    qDebug() << "list size : " << timeline.getListSize();
 
+    timeline.addVideo(video2);
+    qDebug() << "adding again video2 : " << timeline.getVideoList();
+    qDebug() << "list size : " << timeline.getListSize();
 
-    project2->importVideo("/home/cecilia/Vidéos/bunny.mp4");
-    qDebug() << "project 2 :" << project2->getProjectName();
-    qDebug() << "project 2 :" << project2->getProjectPath();
-    qDebug() << "project 2 :" << project2->getVideoListSize();
+    timeline.moveVideo(video2, 1);
+    qDebug() << "moving video2 : " << timeline.getVideoList();
+    qDebug() << "list size : " << timeline.getListSize();
 
-    chutier->closeAllProjects();
-    open = chutier->getOpenProjectsList();
-    qDebug() << "open list :" << open;
+    timeline.setReverse(video1);
+    qDebug() << "setting reverse on video1 : " << timeline.getVideoList();
+    qDebug() << "list size : " << timeline.getListSize();
+    qDebug() << " video 1 : " << video1->getReverse();
 
+    timeline.clear();
+    qDebug() << "all clear :  " << timeline.getVideoList();
+    qDebug() << "list size : " << timeline.getListSize();
 
 
     /*mainWindow window;
