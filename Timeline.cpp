@@ -26,10 +26,10 @@ void Timeline::removeVideo(Video* video){
     QMap<int, Video*>::iterator iterator;
     int index = m_videoList.key(video);
     m_videoList.remove(index);
-    for(iterator.key() == index+1; iterator!=m_videoList.end(); ++iterator){
+    /*for(iterator.key() == index+1; iterator!=m_videoList.end(); ++iterator){
         Video * value = value(iterator.key());
         m_videoList.insert(iterator.key()--, value);
-    }
+    }*/
 }
 
 void Timeline::setReverse(Video* video){
@@ -41,9 +41,10 @@ void Timeline::setReverse(Video* video){
 }
 
 void Timeline::moveVideo(Video* video, int newPos){
-    int index = key(video);
+    QMap<int, Video*>::iterator iterator;
+    /*int index = key(video);
     Video* tmp = m_videoList.value(newPos);
     m_videoList.insert(newPos, m_videoList.value(index));
-    m_videoList.insert(index, tmp);
+    m_videoList.insert(index, tmp);*/
 }
 

@@ -33,9 +33,9 @@ int main(int argc, char *argv[])
     qDebug() << "adding again video2 : " << timeline.getVideoList();
     qDebug() << "list size : " << timeline.getListSize();
 
-    timeline.moveVideo(video2, 1);
+    /*timeline.moveVideo(video2, 1);
     qDebug() << "moving video2 : " << timeline.getVideoList();
-    qDebug() << "list size : " << timeline.getListSize();
+    qDebug() << "list size : " << timeline.getListSize();*/
 
     timeline.setReverse(video1);
     qDebug() << "setting reverse on video1 : " << timeline.getVideoList();
