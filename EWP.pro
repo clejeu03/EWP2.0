@@ -17,26 +17,29 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    pinceau.cpp \
     exportwindow.cpp \
     infoconception.cpp \
-    track.cpp \
-    editor.cpp \
     Project.cpp \
     ProjectManager.cpp \
-    Timeline.cpp
+    Timeline.cpp \
+    VideoUtils.cpp \
+    Mouse.cpp \
+    Camera.cpp \
+    Path.cpp
 
 HEADERS  += \
-    pinceau.h \
     exportwindow.h \
     infoconception.h \
-    track.h \
-    editor.h \
     Video.h \
     Project.h \
     ProjectManager.h \
     VideoUtils.h \
-    Timeline.h
+    Timeline.h \
+    Drawable.h \
+    Brush.h \
+    Mouse.h \
+    Camera.h \
+    Path.h
 
 FORMS    += \
     exportwindow.ui \

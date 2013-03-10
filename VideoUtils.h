@@ -4,9 +4,10 @@
 class VideoUtils
 {
 public:
+    VideoUtils();
     static void extract();
-    static void store();
     static void rendering();
+    static void exportRendering();
 };
 
 #endif // VIDEOUTILS_H
