@@ -25,7 +25,17 @@ SOURCES += main.cpp \
     VideoUtils.cpp \
     Mouse.cpp \
     Camera.cpp \
-    Path.cpp
+    Path.cpp \
+    core/VideoUtils.cpp \
+    core/Timeline.cpp \
+    core/ProjectManager.cpp \
+    core/Project.cpp \
+    core/Path.cpp \
+    core/Mouse.cpp \
+    core/main.cpp \
+    core/Camera.cpp \
+    view/infoconception.cpp \
+    view/exportwindow.cpp
 
 HEADERS  += \
     exportwindow.h \
@@ -39,12 +49,26 @@ HEADERS  += \
     Brush.h \
     Mouse.h \
     Camera.h \
-    Path.h
+    Path.h \
+    core/VideoUtils.h \
+    core/Video.h \
+    core/Timeline.h \
+    core/ProjectManager.h \
+    core/Project.h \
+    core/Path.h \
+    core/Mouse.h \
+    core/Drawable.h \
+    core/Camera.h \
+    core/Brush.h \
+    view/infoconception.h \
+    view/exportwindow.h
 
 FORMS    += \
     exportwindow.ui \
     infoconception.ui \
-    openMediaList.ui
+    openMediaList.ui \
+    view/infoconception.ui \
+    view/exportwindow.ui
 
 #INCLUDEPATH += /usr/include/opencv /usr/include/opencv2
 #LIBS += -Lopencv -Lopencv2
@@ -54,7 +78,23 @@ LIBS += -lopencv_core
 LIBS += -lopencv_highgui
 
 
-OTHER_FILES += player/playerStyleSheet.css
+OTHER_FILES += player/playerStyleSheet.css \
+    view/resources/Slider.qml \
+    view/resources/interface.qml \
+    view/resources/highlight.qml \
+    view/resources/dynamic.qml \
+    view/resources/app.qml \
+    view/resources/play.png \
+    view/resources/play.jpeg \
+    view/resources/exit_hovered.png \
+    view/resources/exit_clicked.png \
+    view/resources/exit.png \
+    view/resources/draw.png \
+    view/resources/blue-23.png \
+    view/resources/blue-16.png \
+    view/resources/blue-10.png \
+    view/resources/blue-02.png
 
 RESOURCES += \
-    timeline.qrc
+    timeline.qrc \
+    view/timeline.qrc

@@ -7,7 +7,7 @@ class Drawable {
 
  public:
 
-    virtual void Draw()  = 0;
+    virtual void Draw(Brush brush)  = 0;
     virtual ~Drawable() { }// virtual destructor for interface
 };
 
