@@ -1,4 +1,4 @@
-import Timeline 1.0
+//import Timeline 1.0
 import QtQuick 1.1
 
 Rectangle {

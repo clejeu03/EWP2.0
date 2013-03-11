@@ -1,6 +1,6 @@
+#include "view/MainWindow.h"
 
-#include "Timeline.h"
-
+#include <QHBoxLayout>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QTextCodec>
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
-    Video *video1 = new Video("/home/cecilia/Vidéos/bunny.mp4");
+    /*Video *video1 = new Video("/home/cecilia/Vidéos/bunny.mp4");
     Video *video2 = new Video("/home/cecilia/Vidéos/ludovik.mp4");
 
     QMap<int, Video*> sourceMap;
@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
     qDebug() << "list size : " << timeline->getVideoList();
     qDebug() << "keys : " << timeline->getVideoList().uniqueKeys();
 
-    /*timeline.addVideo(video1);
-    timeline.addVideo(video2);*/
+    //timeline.addVideo(video1);
+    //timeline.addVideo(video2);
 
     qDebug() << "__________ADDING__________";
     qDebug() << "list size : " << timeline->getListSize();
@@ -73,21 +73,12 @@ int main(int argc, char *argv[])
     timeline->clear();
     qDebug() << "__________CLEAR__________";
     qDebug() << "list size : " << timeline->getListSize();
-    qDebug() << "keys : " << timeline->getVideoList().uniqueKeys();
+    qDebug() << "keys : " << timeline->getVideoList().uniqueKeys();*/
 
-
-    /*mainWindow window;
-
-    QDesktopWidget *desktop = QApplication::desktop();
-    screenWidth = desktop->width() -50;
-    screenHeight = desktop->height()-50;
-
-    window.setWindowTitle("Titre projet - Electronic Wallpaper 2.0");
-    window.setWindowIcon(QIcon("icon.jpg"));
-    window.resize(screenWidth, screenHeight);
-
-    window.show();*/
+    MainWindow window;
+    window.show();
 
     return app.exec();
 
 }
+

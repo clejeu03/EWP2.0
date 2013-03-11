@@ -1,6 +1,8 @@
 #ifndef MOUSE_H
 #define MOUSE_H
 
+#include "Drawable.h"
+
 class Drawable;
 class Brush;
 class Path;

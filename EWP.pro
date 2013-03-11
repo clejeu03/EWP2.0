@@ -16,40 +16,19 @@ TARGET = EWP
 TEMPLATE = app
 
 
-SOURCES += main.cpp \
-    exportwindow.cpp \
-    infoconception.cpp \
-    Project.cpp \
-    ProjectManager.cpp \
-    Timeline.cpp \
-    VideoUtils.cpp \
-    Mouse.cpp \
-    Camera.cpp \
-    Path.cpp \
+SOURCES += \
     core/VideoUtils.cpp \
     core/Timeline.cpp \
     core/ProjectManager.cpp \
     core/Project.cpp \
     core/Path.cpp \
-    core/Mouse.cpp \
-    core/main.cpp \
-    core/Camera.cpp \
     view/infoconception.cpp \
-    view/exportwindow.cpp
+    view/exportwindow.cpp \
+    view/Timelineview.cpp \
+    main.cpp \
+    view/MainWindow.cpp
 
 HEADERS  += \
-    exportwindow.h \
-    infoconception.h \
-    Video.h \
-    Project.h \
-    ProjectManager.h \
-    VideoUtils.h \
-    Timeline.h \
-    Drawable.h \
-    Brush.h \
-    Mouse.h \
-    Camera.h \
-    Path.h \
     core/VideoUtils.h \
     core/Video.h \
     core/Timeline.h \
@@ -61,12 +40,11 @@ HEADERS  += \
     core/Camera.h \
     core/Brush.h \
     view/infoconception.h \
-    view/exportwindow.h
+    view/exportwindow.h \
+    view/Timelineview.h \
+    view/MainWindow.h
 
 FORMS    += \
-    exportwindow.ui \
-    infoconception.ui \
-    openMediaList.ui \
     view/infoconception.ui \
     view/exportwindow.ui
 
@@ -78,7 +56,7 @@ LIBS += -lopencv_core
 LIBS += -lopencv_highgui
 
 
-OTHER_FILES += player/playerStyleSheet.css \
+OTHER_FILES += \
     view/resources/Slider.qml \
     view/resources/interface.qml \
     view/resources/highlight.qml \
@@ -96,5 +74,4 @@ OTHER_FILES += player/playerStyleSheet.css \
     view/resources/blue-02.png
 
 RESOURCES += \
-    timeline.qrc \
     view/timeline.qrc

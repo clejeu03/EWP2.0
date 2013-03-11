@@ -1,13 +1,17 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include "Drawable.h"
+
 class Drawable;
+class Path;
+class Brush;
 
 class Camera: public Drawable
 {
 public:
     Camera();
-    virtual void Draw();
+    virtual Path Draw(Brush brush);
 };
 
 #endif // CAMERA_H
