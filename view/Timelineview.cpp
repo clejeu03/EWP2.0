@@ -8,15 +8,15 @@
 #include <QDeclarativeItem>
 #include <QDeclarativeView>
 
-TimelineView::TimelineView(QWidget *parent):QWidget(parent)
+TimelineView::TimelineView(Timeline *timeline, QWidget *parent):QWidget(parent)
 {
+    m_timeline = timeline;
+
     QWidget *container = new QWidget(this);
     QVBoxLayout *layout = new QVBoxLayout();
 
-    //Timeline *timeline = new Timeline();
+
     QList<QObject*> dataList;
-    //Video *video = new Video("/home/cecilia/Vidéos/bunny.mp4");
-    //qmlRegisterType<Track>("Timeline", 1, 0, "video");
     QDeclarativeView *view = new QDeclarativeView;
     QDeclarativeContext *ctxt = view->rootContext();
     ctxt->setContextProperty("myModel", QVariant::fromValue(dataList));

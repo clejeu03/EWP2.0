@@ -3,12 +3,15 @@
 
 #include <QWidget>
 
+class Timeline;
+
 class TimelineView : public QWidget
 {
     Q_OBJECT
 public:
-    TimelineView(QWidget *parent=0);
+    TimelineView(Timeline *timeline, QWidget *parent=0);
 private:
+    Timeline *m_timeline;
 
 };
 
