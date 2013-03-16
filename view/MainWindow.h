@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-
 #include <QMainWindow>
 
 class MainWindow : public QMainWindow
@@ -43,7 +42,6 @@ class MainWindow : public QMainWindow
         QAction *m_showCredits;
 
         void createMenu();
-        void createToolBars();
         void createStatusBar();
 
      private slots:

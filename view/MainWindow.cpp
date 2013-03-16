@@ -12,6 +12,7 @@
 #include <QVBoxLayout>
 #include <QApplication>
 
+
 MainWindow::MainWindow(){
 
 
@@ -42,7 +43,6 @@ MainWindow::MainWindow(){
 
 
     createMenu();
-    createToolBars();
     createStatusBar();
 
     QWidget *container = new QWidget;
@@ -183,21 +183,6 @@ void MainWindow::createStatusBar(){
     statusBar()->showMessage(tr("Ready"));
 }
 
-void MainWindow::createToolBars()
- {
-     fileToolBar = addToolBar(tr("File"));
-
-     /*Settings the geometry of the toolbar*/
-     fileToolBar->setOrientation(Qt::Vertical);
-     fileToolBar->setMovable(false);
-     fileToolBar->setFixedHeight(250);
-     fileToolBar->setFixedWidth(250);
-
-     fileToolBar->addAction(m_new);
-     fileToolBar->addAction(m_open);
-     fileToolBar->addAction(m_save);
-
- }
 
 void MainWindow::newProject()
 {
