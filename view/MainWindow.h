@@ -9,29 +9,40 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     public:
         MainWindow();
-        void initMenu();
 
     public slots:
 
     private:
-        QAction *m_Quitter;
-        QAction *m_Nouveau;
-        QAction *m_Ouvrir;
-        QAction *m_Enregistrer;
-        QAction *m_EnregistrerSous;
-        QAction *m_Importer;
-        QAction *m_Exporter;
-        QAction *m_appliquerScript;
-        QAction *m_supprimerScript;
-        QAction *m_lireDernierClip;
-        QAction *m_lancerRendu;
-        QAction *m_afficherChutier;
-        QAction *m_afficherOutils;
-        QAction *m_afficherMoniteur;
-        QAction *m_afficherTimeline;
-        QAction *m_afficherConception;
-        QAction *m_afficherRealisation;
-        QAction *m_voirSite;
+        QMenu *file;
+        QMenu *script;
+        QMenu *player;
+        QMenu *process;
+        QMenu *display;
+        QMenu *help;
+        QToolBar *fileToolBar;
+        QToolBar *editToolBar;
+        QAction *m_quit;
+        QAction *m_new;
+        QAction *m_open;
+        QAction *m_save;
+        QAction *m_saveAs;
+        QAction *m_import;
+        QAction *m_export;
+        QAction *m_applyScript;
+        QAction *m_suppressScript;
+        QAction *m_playLastClip;
+        QAction *m_render;
+        QAction *m_displayBin;
+        QAction *m_displayTool;
+        QAction *m_displayPlayer;
+        QAction *m_displayTimeline;
+        QAction *m_displayConceptionWindow;
+        QAction *m_displayRealisation;
+        QAction *m_showWebsite;
+
+        void createMenu();
+        void createToolBars();
+        void createStatusBar();
 
      private slots:
         void newProject();

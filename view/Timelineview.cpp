@@ -24,7 +24,7 @@ TimelineView::TimelineView(Timeline *timeline, QWidget *parent):QWidget(parent)
     QDeclarativeView *view = new QDeclarativeView;
     QDeclarativeContext *ctxt = view->rootContext();
     ctxt->setContextProperty("myModel", QVariant::fromValue(dataList));
-    view->setSource(QUrl::fromLocalFile("../EWP2.0/view/resources/app.qml"));
+    view->setSource(QUrl::fromLocalFile("../EWP2.0/view/resources/Timeline/app.qml"));
 
     layout->addWidget(view);
     container->setLayout(layout);

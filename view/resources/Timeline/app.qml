@@ -547,8 +547,8 @@ Rectangle {
                                 Text {  text: "check"
                                         color : "white"
                                         horizontalAlignment: Text.AlignRight
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        anchors.right : parent.right
+                                        //anchors.verticalCenter: parent.verticalCenter
+                                        //anchors.right : parent.right
                                        }
                             }
             }

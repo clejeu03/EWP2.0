@@ -11,7 +11,7 @@
 #include <QApplication>
 
 MainWindow::MainWindow(){
-
+    /****===============TESTS=======================*****/
     Video *video1 = new Video("/home/cecilia/Vidéos/bunny.mp4");
     Video *video2 = new Video("/home/cecilia/Vidéos/ludovik.mp4");
 
@@ -34,42 +34,49 @@ MainWindow::MainWindow(){
     qDebug() << "adding 2 videos : " << timeline->getVideoList().value(0)->getCompleteName();
     qDebug() << "adding 2 videos : " << timeline->getVideoList().value(1)->getCompleteName();
 
-    /*Drawing the Timeline View*/
+    /****============================================*****/
+
+    createMenu();
+    createToolBars();
+    createStatusBar();
+
     QWidget *container = new QWidget;
     QVBoxLayout *layout = new QVBoxLayout();
-    initMenu();
+
+    /*Drawing the Timeline View*/
     TimelineView *timelineView = new TimelineView(timeline);
 
     layout->addWidget(timelineView);
     container->setLayout(layout);
-    container->setMinimumHeight(400);
-    container->setMinimumWidth(1050);
+    container->setMinimumHeight(600);
+    container->setMinimumWidth(1250);
     setCentralWidget(container);
+    setUnifiedTitleAndToolBarOnMac(true);
 }
 
-void MainWindow::initMenu()
+void MainWindow::createMenu()
 {
     /*------ INSTANCIATION ACTIONS ------*/
 
-    m_Nouveau = new QAction("Nouveau...", this);
-    m_Nouveau->setShortcut(QKeySequence::New);
-    m_Ouvrir = new QAction("Ouvrir...", this);
-    m_Ouvrir->setShortcut(QKeySequence::Open);
-    m_Enregistrer = new QAction("Enregistrer",this);
-    m_Enregistrer->setShortcut(QKeySequence::Save);
-    m_EnregistrerSous = new QAction("Enregistrer sous...",this);
-    m_EnregistrerSous->setShortcut(QKeySequence::SaveAs);
-    m_Importer = new QAction("Importer...",this);
-    m_Exporter = new QAction("Exporter...", this);
-    m_Quitter = new QAction("Quitter", this);
-    m_Quitter->setShortcut(QKeySequence::Quit);
+    m_new = new QAction("Nouveau...", this);
+    m_new->setShortcut(QKeySequence::New);
+    m_open = new QAction("Ouvrir...", this);
+    m_open->setShortcut(QKeySequence::Open);
+    m_save = new QAction("Enregistrer",this);
+    m_save->setShortcut(QKeySequence::Save);
+    m_saveAs = new QAction("Enregistrer sous...",this);
+    m_saveAs->setShortcut(QKeySequence::SaveAs);
+    m_import = new QAction("Importer...",this);
+    m_export = new QAction("Exporter...", this);
+    m_quit = new QAction("Quitter", this);
+    m_quit->setShortcut(QKeySequence::Quit);
 
 
-    m_appliquerScript = new QAction("Appliquer un script...", this);
-    m_supprimerScript = new QAction("Supprimer les scripts appliqués", this);
+    m_applyScript = new QAction("Appliquer un script...", this);
+    m_suppressScript = new QAction("Supprimer les scripts appliqués", this);
 
-    m_lireDernierClip = new QAction("Lire le dernier clip importé", this);
-    m_lancerRendu = new QAction("Lancer le rendu", this);
+    m_playLastClip = new QAction("Lire le dernier clip importé", this);
+    m_render = new QAction("Lancer le rendu", this);
 
     /*m_afficherChutier = new QAction("Chutier", this);
     m_afficherChutier->setCheckable(true);
@@ -90,38 +97,38 @@ void MainWindow::initMenu()
 
     /*------ INSTANCIATION ITEMS MENU ------*/
 
-    QMenu *fichier = new QMenu("&Fichier");
-    QMenu *script = new QMenu("&Script");
-    QMenu *lecteur = new QMenu("&Lecteur");
-    QMenu *process = new QMenu("&Process");
-    QMenu *affichage = new QMenu("&Affichage");
-    QMenu *credits = new QMenu("&Crédits");
+    file = new QMenu("&Fichier");
+    script = new QMenu("&Script");
+    player = new QMenu("&Lecteur");
+    process = new QMenu("&Process");
+    display = new QMenu("&Affichage");
+    credits = new QMenu("&Crédits");
 
     QMenuBar *menu = menuBar();
 
-    menu->addMenu(fichier);
+    menu->addMenu(file);
     menu->addMenu(script);
-    menu->addMenu(lecteur);
+    menu->addMenu(player);
     menu->addMenu(process);
-    menu->addMenu(affichage);
-    menu->addMenu(credits);
+    menu->addMenu(display);
+    menu->addMenu(help);
 
-    fichier->addAction(m_Nouveau);
-    fichier->addAction(m_Ouvrir);
-    fichier->addSeparator();
-    fichier->addAction(m_Enregistrer);
-    fichier->addAction(m_EnregistrerSous);
-    fichier->addSeparator();
-    fichier->addAction(m_Importer);
-    fichier->addAction(m_Exporter);
-    fichier->addSeparator();
-    fichier->addAction(m_Quitter);
+    file->addAction(m_new);
+    file->addAction(m_open);
+    file->addSeparator();
+    file->addAction(m_save);
+    file->addAction(m_saveAs);
+    file->addSeparator();
+    file->addAction(m_import);
+    file->addAction(m_export);
+    file->addSeparator();
+    file->addAction(m_quit);
 
-    script->addAction(m_appliquerScript);
-    script->addAction(m_supprimerScript);
+    script->addAction(m_applyScript);
+    script->addAction(m_suppressScript);
 
-    lecteur->addAction(m_lireDernierClip);
-    process->addAction(m_lancerRendu);
+    player->addAction(m_playLastClip);
+    process->addAction(m_render);
 
     /*affichage->addAction(m_afficherChutier);
     affichage->addAction(m_afficherOutils);
@@ -135,13 +142,13 @@ void MainWindow::initMenu()
 
     /*------ CONNEXIONS ACTIONS ------*/
 
-    connect(m_Nouveau, SIGNAL(triggered()), this, SLOT(newProject()));
-    connect(m_Ouvrir, SIGNAL(triggered()), this, SLOT(openProject()));
-    connect(m_Enregistrer, SIGNAL(triggered()), this, SLOT(save()));
-    connect(m_EnregistrerSous, SIGNAL(triggered()), this, SLOT(saveUnder()));
-    connect(m_Importer, SIGNAL(triggered()), this, SLOT(openFile()));
+    connect(m_new, SIGNAL(triggered()), this, SLOT(newProject()));
+    connect(m_open, SIGNAL(triggered()), this, SLOT(openProject()));
+    connect(m_save, SIGNAL(triggered()), this, SLOT(save()));
+    connect(m_saveAs, SIGNAL(triggered()), this, SLOT(saveUnder()));
+    connect(m_import, SIGNAL(triggered()), this, SLOT(openFile()));
     //connect(m_Exporter, SIGNAL(triggered()), this, SLOT(displayExportWindow()));
-    connect(m_Quitter,SIGNAL(triggered()),qApp, SLOT(quit()));
+    connect(m_quit,SIGNAL(triggered()),qApp, SLOT(quit()));
 
     /*
 connect(m_appliquerScript, SIGNAL(triggered()), this, SLOT());
