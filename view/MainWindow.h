@@ -39,6 +39,8 @@ class MainWindow : public QMainWindow
         QAction *m_displayConceptionWindow;
         QAction *m_displayRealisation;
         QAction *m_showWebsite;
+        QAction *m_showHelp;
+        QAction *m_showCredits;
 
         void createMenu();
         void createToolBars();

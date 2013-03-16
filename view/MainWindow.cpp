@@ -5,12 +5,16 @@
 
 #include <QDebug>
 #include <QAction>
+#include <QToolBar>
+#include <QStatusBar>
 #include <QMenu>
 #include <QMenuBar>
 #include <QVBoxLayout>
 #include <QApplication>
 
 MainWindow::MainWindow(){
+
+
     /****===============TESTS=======================*****/
     Video *video1 = new Video("/home/cecilia/Vidéos/bunny.mp4");
     Video *video2 = new Video("/home/cecilia/Vidéos/ludovik.mp4");
@@ -35,6 +39,7 @@ MainWindow::MainWindow(){
     qDebug() << "adding 2 videos : " << timeline->getVideoList().value(1)->getCompleteName();
 
     /****============================================*****/
+
 
     createMenu();
     createToolBars();
@@ -102,7 +107,7 @@ void MainWindow::createMenu()
     player = new QMenu("&Lecteur");
     process = new QMenu("&Process");
     display = new QMenu("&Affichage");
-    credits = new QMenu("&Crédits");
+    help = new QMenu("&Help");
 
     QMenuBar *menu = menuBar();
 
@@ -129,6 +134,11 @@ void MainWindow::createMenu()
 
     player->addAction(m_playLastClip);
     process->addAction(m_render);
+
+    /*help->addAction(m_showHelp);
+    help->addSeparator();
+    help->addAction(m_showWebsite);
+    help->addAction(m_showCredits);*/
 
     /*affichage->addAction(m_afficherChutier);
     affichage->addAction(m_afficherOutils);
@@ -169,10 +179,31 @@ connect(m_lancerRendu, SIGNAL(triggered()), this, SLOT());*/
 
 }
 
+void MainWindow::createStatusBar(){
+    statusBar()->showMessage(tr("Ready"));
+}
+
+void MainWindow::createToolBars()
+ {
+     fileToolBar = addToolBar(tr("File"));
+
+     /*Settings the geometry of the toolbar*/
+     fileToolBar->setOrientation(Qt::Vertical);
+     fileToolBar->setMovable(false);
+     fileToolBar->setFixedHeight(250);
+     fileToolBar->setFixedWidth(250);
+
+     fileToolBar->addAction(m_new);
+     fileToolBar->addAction(m_open);
+     fileToolBar->addAction(m_save);
+
+ }
+
 void MainWindow::newProject()
 {
     std::cout<<"New Project"<<std::endl;
 }
+
 
 void MainWindow::openProject()
 {
