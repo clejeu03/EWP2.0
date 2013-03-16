@@ -55,23 +55,6 @@ INCLUDEPATH += -l/usr/include/opencv -l/usr/include/opencv2
 LIBS += -lopencv_core
 LIBS += -lopencv_highgui
 
-
-OTHER_FILES += \
-    view/resources/Slider.qml \
-    view/resources/interface.qml \
-    view/resources/highlight.qml \
-    view/resources/dynamic.qml \
-    view/resources/app.qml \
-    view/resources/play.png \
-    view/resources/play.jpeg \
-    view/resources/exit_hovered.png \
-    view/resources/exit_clicked.png \
-    view/resources/exit.png \
-    view/resources/draw.png \
-    view/resources/blue-23.png \
-    view/resources/blue-16.png \
-    view/resources/blue-10.png \
-    view/resources/blue-02.png
-
 RESOURCES += \
-    view/timeline.qrc
+    view/resources/viewResources.qrc
+

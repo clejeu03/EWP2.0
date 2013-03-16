@@ -5,18 +5,22 @@
 #include <qdeclarative.h>
 #include <QVBoxLayout>
 #include <QDeclarativeContext>
-#include <QDeclarativeItem>
 #include <QDeclarativeView>
 
 TimelineView::TimelineView(Timeline *timeline, QWidget *parent):QWidget(parent)
 {
+
     m_timeline = timeline;
+
+    //qmlRegisterType<Timeline>("Timeline", 1, 0, "Slider");
 
     QWidget *container = new QWidget(this);
     QVBoxLayout *layout = new QVBoxLayout();
 
 
-    QList<QObject*> dataList;
+    QStringList dataList;
+    dataList.append("Bunny.mp3");
+    dataList.append("Track02");
     QDeclarativeView *view = new QDeclarativeView;
     QDeclarativeContext *ctxt = view->rootContext();
     ctxt->setContextProperty("myModel", QVariant::fromValue(dataList));

@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/Timeline">
+        <file>Timeline/app.qml</file>
+        <file>Timeline/blue-02.png</file>
+        <file>Timeline/blue-10.png</file>
+        <file>Timeline/blue-16.png</file>
+        <file>Timeline/blue-23.png</file>
+        <file>Timeline/draw.png</file>
+        <file>Timeline/play.jpeg</file>
+        <file>Timeline/play.png</file>
+        <file>Timeline/Slider.qml</file>
+    </qresource>
+    <qresource prefix="/Global">
+        <file>Global/exit.png</file>
+        <file>Global/exit_clicked.png</file>
+        <file>Global/exit_hovered.png</file>
+    </qresource>
+    <qresource prefix="/Samples">
+        <file>Samples/dynamic.qml</file>
+        <file>Samples/highlight.qml</file>
+    </qresource>
+</RCC>
