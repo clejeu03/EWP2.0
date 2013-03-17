@@ -35,7 +35,7 @@ private slots:
    void showTimeline();
    void showConception();*/
    void about();
-   void updateMenus();
+   void updateMenu();
    void updateWindowMenu();
    MdiChild *createMdiChild();
    void setActiveSubWindow(QWidget *window);
@@ -43,21 +43,19 @@ private slots:
 private:
    void createMenu();
    void createStatusBar();
-   /*void createActions();
-   void createToolBox();
+   void createActions();
    void readSettings();
    void writeSettings();
    MdiChild *activeMdiChild();
-   QMdiSubWindow *findMdiChild(const QString &fileName);*/
+   QMdiSubWindow *findMdiChild(const QString &fileName);
 
-   QMdiArea *mdiArea;
-   QSignalMapper *windowMapper;
+   QMdiArea *m_mdiArea;
+   QSignalMapper *m_windowMapper;
 
     QMenu *fileMenu;
     QMenu *scriptMenu;
     QMenu *playerMenu;
     QMenu *processMenu;
-    QMenu *displayMenu;
     QMenu *windowMenu;
     QMenu *helpMenu;
     QAction *m_newAct;

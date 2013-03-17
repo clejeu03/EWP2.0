@@ -1,8 +1,10 @@
 #include "MainWindow.h"
+#include "MdiChild.h"
 #include "Timelineview.h"
 #include "core/Video.h"
 #include "core/Timeline.h"
 
+#include <QtWidgets>
 #include <QDebug>
 #include <QAction>
 #include <QToolBar>
@@ -44,11 +46,11 @@ MainWindow::MainWindow(){
     /****============================================*****/
 
     m_mdiArea = new QMdiArea;
-    setCentralWidget(mdiArea);
-    connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),
-            this, SLOT(updateMenus()));
-    windowMapper = new QSignalMapper(this);
-    connect(windowMapper, SIGNAL(mapped(QWidget*)),
+    setCentralWidget(m_mdiArea);
+    connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),
+            this, SLOT(updateMenu()));
+    m_windowMapper = new QSignalMapper(this);
+    connect(m_windowMapper, SIGNAL(mapped(QWidget*)),
             this, SLOT(setActiveSubWindow(QWidget*)));
 
     createActions();
@@ -68,15 +70,15 @@ MainWindow::MainWindow(){
     subWindow1->setWidget(timelineView);
     subWindow1->resize(900, 400);
     subWindow1->setAttribute(Qt::WA_DeleteOnClose);
-    mdiArea->addSubWindow(subWindow1);
-    setCentralWidget(mdiArea);
+    m_mdiArea->addSubWindow(subWindow1);
+    setCentralWidget(m_mdiArea);
     setUnifiedTitleAndToolBarOnMac(true);*/
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    mdiArea->closeAllSubWindows();
-    if (mdiArea->currentSubWindow()) {
+    m_mdiArea->closeAllSubWindows();
+    if (m_mdiArea->currentSubWindow()) {
         event->ignore();
     } else {
         writeSettings();
@@ -86,125 +88,37 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::createMenu()
 {
-    /*------ INSTANCIATION ACTIONS ------*/
-
-    m_newAct = new QAction("Nouveau...", this);
-    m_newAct->setShortcut(QKeySequence::New);
-    m_openAct = new QAction("Ouvrir...", this);
-    m_openAct->setShortcut(QKeySequence::Open);
-    m_saveAct = new QAction("Enregistrer",this);
-    m_saveAct->setShortcut(QKeySequence::Save);
-    m_saveAsAct = new QAction("Enregistrer sous...",this);
-    m_saveAsAct->setShortcut(QKeySequence::SaveAs);
-    m_importAct = new QAction("Importer...",this);
-    m_exportAct = new QAction("Exporter...", this);
-    m_quitAct = new QAction("Quitter", this);
-    m_quitAct->setShortcut(QKeySequence::Quit);
-
-
-    m_applyScriptAct = new QAction("Appliquer un script...", this);
-    m_suppressScriptAct = new QAction("Supprimer les scripts appliqués", this);
-
-    m_playLastClipAct = new QAction("Lire le dernier clip importé", this);
-    m_renderAct = new QAction("Lancer le rendu", this);
-
-    /*m_afficherChutier = new QAction("Chutier", this);
-    m_afficherChutier->setCheckable(true);
-    m_afficherChutier->setChecked(true);
-    m_afficherOutils = new QAction("Outil", this);
-    m_afficherOutils->setCheckable(true);
-    m_afficherOutils->setChecked(true);
-    m_afficherMoniteur = new QAction("Moniteur", this);
-    m_afficherMoniteur->setCheckable(true);
-    m_afficherMoniteur->setChecked(true);
-    m_afficherTimeline = new QAction("Timeline", this);
-    m_afficherTimeline->setCheckable(true);
-    m_afficherTimeline->setChecked(true);
-
-    m_afficherConception = new QAction("Conception",this);
-    m_afficherRealisation = new QAction("Réalisation",this);
-    m_voirSite = new QAction("http://electronicwallpaper.com",this);*/
-
-    /*------ INSTANCIATION ITEMS MENU ------*/
-
-    fileMenu = new QMenu("&Fichier");
-    scriptMenu = new QMenu("&Script");
-    playerMenu = new QMenu("&Lecteur");
-    processMenu = new QMenu("&Process");
-    displayMenu = new QMenu("&Affichage");
-    helpMenu = new QMenu("&Help");
-
-    QMenuBar *menu = menuBar();
-
-    menu->addMenu(fileMenu);
-    menu->addMenu(scriptMenu);
-    menu->addMenu(playerMenu);
-    menu->addMenu(processMenu);
-    menu->addMenu(displayMenu);
-    menu->addMenu(helpMenu);
-
+    fileMenu = menuBar()->addMenu(tr("&Fichier"));
     fileMenu->addAction(m_newAct);
     fileMenu->addAction(m_openAct);
-    fileMenu->addSeparator();
     fileMenu->addAction(m_saveAct);
     fileMenu->addAction(m_saveAsAct);
     fileMenu->addSeparator();
-    fileMenu->addAction(m_importAct);
-    fileMenu->addAction(m_exportAct);
-    fileMenu->addSeparator();
+    /*fileMenu->addAction(m_importAct);
+    fileMenu->addAction(m_exportAct);*/
     fileMenu->addAction(m_quitAct);
 
-    scriptMenu->addAction(m_applyScriptAct);
-    scriptMenu->addAction(m_suppressScriptAct);
+    scriptMenu = menuBar()->addMenu(tr("&Script"));
+    /*scriptMenu->addAction(m_applyScriptAct);
+    scriptMenu->addAction(m_suppressScriptAct);*/
 
-    playerMenu->addAction(m_playLastClipAct);
-    processMenu->addAction(m_renderAct);
+    playerMenu = menuBar()->addMenu(tr("&Player"));
+    //playerMenu->addAction(m_playLastClipAct);
 
-    /*help->addAction(m_showHelp);
-    help->addSeparator();
-    help->addAction(m_about);
-    help->addAction(m_showCredits);*/
+    processMenu = menuBar()->addMenu(tr("&Process"));
+    //processMenu->addAction(m_renderAct);
 
-    /*affichage->addAction(m_afficherChutier);
-    affichage->addAction(m_afficherOutils);
-    affichage->addAction(m_afficherMoniteur);
-    affichage->addAction(m_afficherTimeline);
+    windowMenu = menuBar()->addMenu(tr("&Window"));
+    updateWindowMenu();
+    connect(windowMenu, SIGNAL(aboutToShow()), this, SLOT(updateWindowMenu()));
 
-    credits->addAction(m_afficherConception);
-    credits->addAction(m_afficherRealisation);
-    credits->addSeparator();
-    credits->addAction(m_voirSite);*/
+    menuBar()->addSeparator();
 
-    /*------ CONNEXIONS ACTIONS ------*/
-
-    connect(m_newAct, SIGNAL(triggered()), this, SLOT(newProject()));
-    connect(m_openAct, SIGNAL(triggered()), this, SLOT(openProject()));
-    connect(m_saveAct, SIGNAL(triggered()), this, SLOT(save()));
-    connect(m_saveAsAct, SIGNAL(triggered()), this, SLOT(saveUnder()));
-    connect(m_importAct, SIGNAL(triggered()), this, SLOT(importFile()));
-    //connect(m_Exporter, SIGNAL(triggered()), this, SLOT(displayExportWindow()));
-    connect(m_quitAct,SIGNAL(triggered()),qApp, SLOT(quit()));
-
-    /*
-connect(m_appliquerScript, SIGNAL(triggered()), this, SLOT());
-connect(m_supprimerScript, SIGNAL(triggered()), this, SLOT());
-*/
-
-    /*connect(m_afficherChutier,SIGNAL(triggered()),this, SLOT(showChutier()));
-    connect(m_afficherOutils,SIGNAL(triggered()),this, SLOT(showOutils()));
-    connect(m_afficherMoniteur,SIGNAL(triggered()),this, SLOT(showMoniteur()));
-    connect(m_afficherTimeline,SIGNAL(triggered()),this, SLOT(showTimeline()));*/
-
-    /*connect(m_lireDernierClip, SIGNAL(triggered()), this, SLOT());
-connect(m_lancerRendu, SIGNAL(triggered()), this, SLOT());*/
-
-    //connect(m_afficherConception, SIGNAL(triggered()), this, SLOT(showConception()));
-  /* connect(m_afficherRealisation, SIGNAL(triggered()), this, SLOT());*/
-    //connect(m_voirSite, SIGNAL(triggered()), this, SLOT(visitWebsite()));
-
+    helpMenu = menuBar()->addMenu(tr("&Help"));
+    helpMenu->addAction(m_aboutAct);
 }
 
-void MainWindow::updateMenus()
+void MainWindow::updateMenu()
 {
     bool hasMdiChild = (activeMdiChild() != 0);
     m_saveAct->setEnabled(hasMdiChild);
@@ -213,10 +127,10 @@ void MainWindow::updateMenus()
     m_closeAllAct->setEnabled(hasMdiChild);
     m_tileAct->setEnabled(hasMdiChild);
     m_cascadeAct->setEnabled(hasMdiChild);
-    m_importAct->setEnabled(hasMdiChild);
+    /*m_importAct->setEnabled(hasMdiChild);
     m_exportAct->setEnabled(hasMdiChild);
     m_renderAct->setEnabled(hasMdiChild);
-    m_playLastClipAct->setEnabled(hasMdiChild);
+    m_playLastClipAct->setEnabled(hasMdiChild);*/
     m_separatorAct->setVisible(hasMdiChild);
 }
 
@@ -230,8 +144,8 @@ void MainWindow::updateWindowMenu(){
     windowMenu->addAction(m_cascadeAct);
     windowMenu->addAction(m_separatorAct);
 
-    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-    separatorAct->setVisible(!windows.isEmpty());
+    QList<QMdiSubWindow *> windows = m_mdiArea->subWindowList();
+    m_separatorAct->setVisible(!windows.isEmpty());
 
     for (int i = 0; i < windows.size(); ++i) {
         MdiChild *child = qobject_cast<MdiChild *>(windows.at(i)->widget());
@@ -247,16 +161,58 @@ void MainWindow::updateWindowMenu(){
         QAction *action  = windowMenu->addAction(text);
         action->setCheckable(true);
         action ->setChecked(child == activeMdiChild());
-        connect(action, SIGNAL(triggered()), windowMapper, SLOT(map()));
-        windowMapper->setMapping(action, windows.at(i));
+        connect(action, SIGNAL(triggered()), m_windowMapper, SLOT(map()));
+        m_windowMapper->setMapping(action, windows.at(i));
     }
+}
+
+void MainWindow::readSettings()
+{
+    QSettings settings("QtProject", "MDI Example");
+    QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
+    QSize size = settings.value("size", QSize(400, 400)).toSize();
+    move(pos);
+    resize(size);
+}
+
+void MainWindow::writeSettings()
+{
+    QSettings settings("QtProject", "MDI Example");
+    settings.setValue("pos", pos());
+    settings.setValue("size", size());
+}
+
+MdiChild *MainWindow::activeMdiChild()
+{
+    if (QMdiSubWindow *activeSubWindow = m_mdiArea->activeSubWindow())
+        return qobject_cast<MdiChild *>(activeSubWindow->widget());
+    return 0;
+}
+
+QMdiSubWindow *MainWindow::findMdiChild(const QString &fileName)
+{
+    QString canonicalFilePath = QFileInfo(fileName).canonicalFilePath();
+
+    foreach (QMdiSubWindow *window, m_mdiArea->subWindowList()) {
+        MdiChild *mdiChild = qobject_cast<MdiChild *>(window->widget());
+        if (mdiChild->currentFile() == canonicalFilePath)
+            return window;
+    }
+    return 0;
 }
 
 MdiChild *MainWindow::createMdiChild()
 {
     MdiChild *child = new MdiChild;
-    mdiArea->addSubWindow(child);
+    m_mdiArea->addSubWindow(child);
     return child;
+}
+
+void MainWindow::setActiveSubWindow(QWidget *window)
+{
+    if (!window)
+        return;
+    m_mdiArea->setActiveSubWindow(qobject_cast<QMdiSubWindow *>(window));
 }
 
 void MainWindow::createActions()
@@ -266,12 +222,12 @@ void MainWindow::createActions()
     m_newAct = new QAction(tr("&Nouveau Projet"), this);
     m_newAct->setShortcuts(QKeySequence::New);
     m_newAct->setStatusTip(tr("Créer un nouveau projet pour travailler"));
-    connect(m_newAct, SIGNAL(triggered()), this, SLOT(newProject());
+    connect(m_newAct, SIGNAL(triggered()), this, SLOT(newProject()));
 
     m_openAct = new QAction(tr("&Ouvrir un projet..."), this);
     m_openAct->setShortcuts(QKeySequence::Open);
     m_openAct->setStatusTip(tr("Ouvrir un projet existant"));
-    connect(m_openAct, SIGNAL(triggered()), this, SLOT(openProject());
+    connect(m_openAct, SIGNAL(triggered()), this, SLOT(openProject()));
 
     m_saveAct = new QAction(tr("&Sauvegarder"), this);
     m_saveAct->setShortcuts(QKeySequence::Save);
@@ -305,7 +261,7 @@ void MainWindow::createActions()
     m_renderAct = new QAction(tr("&Rendu"), this);
     m_renderAct->setStatusTip(tr("Lancer le rendu"));
     connect(m_renderAct, SIGNAL(triggered()), qApp, SLOT(render()));
-*/
+
 
     m_importAct = new QAction(tr("&Importer"), this);
     m_importAct->setStatusTip(tr("Importer une vidéo dans le projet courant"));
@@ -314,24 +270,24 @@ void MainWindow::createActions()
     m_exportAct = new QAction(tr("&Exporter"), this);
     m_exportAct->setStatusTip(tr("Importer une vidéo dans le projet courant"));
     connect(m_exportAct, SIGNAL(triggered()), qApp, SLOT(exportFile()));
-
+*/
     m_closeAct = new QAction(tr("&Fermer"), this);
     m_closeAct->setStatusTip(tr("Fermer la fenetre active"));
     connect(m_closeAct, SIGNAL(triggered()),
-            mdiArea, SLOT(closeActiveSubWindow()));
+            m_mdiArea, SLOT(closeActiveSubWindow()));
 
     m_closeAllAct = new QAction(tr("Fermer &tout"), this);
     m_closeAllAct->setStatusTip(tr("Fermer toutes les fenetres"));
     connect(m_closeAllAct, SIGNAL(triggered()),
-            mdiArea, SLOT(closeAllSubWindows()));
+            m_mdiArea, SLOT(closeAllSubWindows()));
 
     m_tileAct = new QAction(tr("&Mosaique"), this);
     m_tileAct->setStatusTip(tr("Organise les fenetres en mosaique"));
-    connect(m_tileAct, SIGNAL(triggered()), mdiArea, SLOT(tileSubWindows()));
+    connect(m_tileAct, SIGNAL(triggered()), m_mdiArea, SLOT(tileSubWindows()));
 
     m_cascadeAct = new QAction(tr("&Cascade"), this);
     m_cascadeAct->setStatusTip(tr("Organise les fenetres en cascade"));
-    connect(m_cascadeAct, SIGNAL(triggered()), mdiArea, SLOT(cascadeSubWindows()));
+    connect(m_cascadeAct, SIGNAL(triggered()), m_mdiArea, SLOT(cascadeSubWindows()));
 
     m_separatorAct = new QAction(this);
     m_separatorAct->setSeparator(true);
@@ -349,7 +305,7 @@ void MainWindow::createStatusBar(){
 
 void MainWindow::newProject()
 {
-    std::cout<<"New Project"<<std::endl;
+    MdiChild *child = createMdiChild();
 }
 
 
@@ -422,20 +378,29 @@ void MainWindow::importFile()
          chutier->Play(&butt);
          connect(butt.listWidget(), SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(launchVideo(QListWidgetItem*)) );
 
- QModelIndex button;
-int i;
-for(i=0;i<listW.size();++i){
-button = listW[i];
-if(QAbstractItemView::doubleClicked(button)){
-if(point = ){
-QMediaPlayer mediaPlayer;
-mediaPlayer.setMedia(QUrl::fromLocalFile(fileName));
-QAbstractButton *playButton;
-playButton->setEnabled(true);
-VideoPlayer(filePath);
+        QModelIndex button;
+        int i;
+        for(i=0;i<listW.size();++i){
+            button = listW[i];
+            if(QAbstractItemView::doubleClicked(button)){
+                if(point = ){
+                    QMediaPlayer mediaPlayer;
+                    mediaPlayer.setMedia(QUrl::fromLocalFile(fileName));
+                    QAbstractButton *playButton;
+                    playButton->setEnabled(true);
+                    VideoPlayer(filePath);
+                }
+            }
+        }
+    }*/
 }
-}
-}*/
+
+void MainWindow::exportFile(){
 
 }
+
+void MainWindow::about(){
+
+}
+
 
