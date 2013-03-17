@@ -20,6 +20,14 @@
 MainWindow::MainWindow(){
 
 
+    m_mdiArea = new QMdiArea;
+    setCentralWidget(m_mdiArea);
+    connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),
+            this, SLOT(updateMenu()));
+    m_windowMapper = new QSignalMapper(this);
+    connect(m_windowMapper, SIGNAL(mapped(QWidget*)),
+            this, SLOT(setActiveSubWindow(QWidget*)));
+
     /****===============TESTS=======================*****/
     Video *video1 = new Video("/home/cecilia/Vidéos/bunny.mp4");
     Video *video2 = new Video("/home/cecilia/Vidéos/ludovik.mp4");
@@ -45,18 +53,14 @@ MainWindow::MainWindow(){
 
     /****============================================*****/
 
-    m_mdiArea = new QMdiArea;
-    setCentralWidget(m_mdiArea);
-    connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),
-            this, SLOT(updateMenu()));
-    m_windowMapper = new QSignalMapper(this);
-    connect(m_windowMapper, SIGNAL(mapped(QWidget*)),
-            this, SLOT(setActiveSubWindow(QWidget*)));
+
 
     createActions();
     createMenu();
     createStatusBar();
     updateMenu();
+
+
 
     readSettings();
 
@@ -201,12 +205,6 @@ QMdiSubWindow *MainWindow::findMdiChild(const QString &fileName)
     return 0;
 }
 
-MdiChild *MainWindow::createMdiChild()
-{
-    MdiChild *child = new MdiChild;
-    m_mdiArea->addSubWindow(child);
-    return child;
-}
 
 void MainWindow::setActiveSubWindow(QWidget *window)
 {
@@ -221,7 +219,7 @@ void MainWindow::createActions()
 
     m_newAct = new QAction(tr("&Nouveau Projet"), this);
     m_newAct->setShortcuts(QKeySequence::New);
-    m_newAct->setStatusTip(tr("Créer un nouveau projet pour travailler"));
+    m_newAct->setStatusTip(tr("Créer un nouveau projet"));
     connect(m_newAct, SIGNAL(triggered()), this, SLOT(newProject()));
 
     m_openAct = new QAction(tr("&Ouvrir un projet..."), this);
@@ -305,12 +303,13 @@ void MainWindow::createStatusBar(){
 
 void MainWindow::newProject()
 {
-    MdiChild *child = createMdiChild();
+
 }
 
 
 void MainWindow::openProject()
 {
+
     /*QString projectname = QFileDialog::getOpenFileName(this, "Ouvrir le fichier", "/home/");
 
     //AJOUTER LES FILTRES DE RESTRICTION

@@ -7,9 +7,11 @@
 #include <QDeclarativeContext>
 #include <QDeclarativeView>
 
+#include <QDockWidget>
+#include <QListWidget>
+
 TimelineView::TimelineView(Timeline *timeline, QWidget *parent):QWidget(parent)
 {
-
     m_timeline = timeline;
 
     //qmlRegisterType<Timeline>("Timeline", 1, 0, "Slider");

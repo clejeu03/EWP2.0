@@ -27,7 +27,8 @@ SOURCES += \
     view/Timelineview.cpp \
     main.cpp \
     view/MainWindow.cpp \
-    view/MdiChild.cpp
+    view/MdiChild.cpp \
+    view/BinView.cpp
 
 HEADERS  += \
     core/VideoUtils.h \
@@ -44,7 +45,8 @@ HEADERS  += \
     view/exportwindow.h \
     view/Timelineview.h \
     view/MainWindow.h \
-    view/MdiChild.h
+    view/MdiChild.h \
+    view/BinView.h
 
 FORMS    += \
     view/infoconception.ui \

@@ -37,7 +37,6 @@ private slots:
    void about();
    void updateMenu();
    void updateWindowMenu();
-   MdiChild *createMdiChild();
    void setActiveSubWindow(QWidget *window);
 
 private:
