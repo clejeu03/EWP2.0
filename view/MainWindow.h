@@ -3,59 +3,86 @@
 
 #include <QMainWindow>
 
+class MdiChild;
+QT_BEGIN_NAMESPACE
+class QAction;
+class QMenu;
+class QMdiArea;
+class QMdiSubWindow;
+class QSignalMapper;
+QT_END_NAMESPACE
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    public:
-        MainWindow();
 
-    public slots:
+public:
+    MainWindow();
 
-    private:
-        QMenu *file;
-        QMenu *script;
-        QMenu *player;
-        QMenu *process;
-        QMenu *display;
-        QMenu *help;
-        QToolBar *fileToolBar;
-        QToolBar *editToolBar;
-        QAction *m_quit;
-        QAction *m_new;
-        QAction *m_open;
-        QAction *m_save;
-        QAction *m_saveAs;
-        QAction *m_import;
-        QAction *m_export;
-        QAction *m_applyScript;
-        QAction *m_suppressScript;
-        QAction *m_playLastClip;
-        QAction *m_render;
-        QAction *m_displayBin;
-        QAction *m_displayTool;
-        QAction *m_displayPlayer;
-        QAction *m_displayTimeline;
-        QAction *m_displayConceptionWindow;
-        QAction *m_displayRealisation;
-        QAction *m_showWebsite;
-        QAction *m_showHelp;
-        QAction *m_showCredits;
+protected:
+    void closeEvent(QCloseEvent *event);
 
-        void createMenu();
-        void createStatusBar();
+private slots:
+   void newProject();
+   void openProject();
+   void importFile();
+   void exportFile();
+   void save();
+   void saveAs();
+   /*void showChutier();
+   void showOutils();
+   void showMoniteur();
+   void showTimeline();
+   void showConception();*/
+   void about();
+   void updateMenus();
+   void updateWindowMenu();
+   MdiChild *createMdiChild();
+   void setActiveSubWindow(QWidget *window);
 
-     private slots:
-        void newProject();
-        void openProject();
-        void openFile();
-        void save();
-        void saveUnder();
-        /*void showChutier();
-        void showOutils();
-        void showMoniteur();
-        void showTimeline();
-        void showConception();
-        void visitWebsite();*/
+private:
+   void createMenu();
+   void createStatusBar();
+   /*void createActions();
+   void createToolBox();
+   void readSettings();
+   void writeSettings();
+   MdiChild *activeMdiChild();
+   QMdiSubWindow *findMdiChild(const QString &fileName);*/
+
+   QMdiArea *mdiArea;
+   QSignalMapper *windowMapper;
+
+    QMenu *fileMenu;
+    QMenu *scriptMenu;
+    QMenu *playerMenu;
+    QMenu *processMenu;
+    QMenu *displayMenu;
+    QMenu *windowMenu;
+    QMenu *helpMenu;
+    QAction *m_newAct;
+    QAction *m_openAct;
+    QAction *m_saveAct;
+    QAction *m_saveAsAct;
+    QAction *m_quitAct;
+    QAction *m_importAct;
+    QAction *m_exportAct;
+    QAction *m_applyScriptAct;
+    QAction *m_suppressScriptAct;
+    QAction *m_playLastClipAct;
+    QAction *m_renderAct;
+    QAction *m_displayToolAct;
+    QAction *m_displayPlayerAct;
+    QAction *m_displayTimelineAct;
+    QAction *m_displayConceptionWindowAct;
+    QAction *m_displayRealisationAct;
+    QAction *m_aboutAct;
+    QAction *m_closeAct;
+    QAction *m_closeAllAct;
+    QAction *m_tileAct;
+    QAction *m_cascadeAct;
+    QAction *m_separatorAct;
+
 };
 
 #endif // MAINWINDOW_H
