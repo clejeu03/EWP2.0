@@ -25,10 +25,10 @@ SOURCES += \
     view/infoconception.cpp \
     view/exportwindow.cpp \
     view/Timelineview.cpp \
-    main.cpp \
     view/MainWindow.cpp \
     view/MdiChild.cpp \
-    view/BinView.cpp
+    view/BinView.cpp \
+    main.cpp
 
 HEADERS  += \
     core/VideoUtils.h \

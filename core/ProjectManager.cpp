@@ -5,13 +5,14 @@
 ProjectManager::ProjectManager()
 {
     m_maxRecentProjects = 3;
+    if(!m_projectList.empty()){m_projectList.clear();}
 
     /*TO DO : parseur XML pour le fichier de sauvagerde d'état du logiciel
      * en cas d'interruption violente du travail
      * doit remplir la liste de fichiers récents et la liste de fichiers ouverts*/
-    if(!m_openProjects.empty()){
-        for(int i=0; i<m_openProjects.size();++i){
-            openProject(m_openProjects[i]);
+    if(!m_openProjectsPath.empty()){
+        for(int i=0; i<m_openProjectsPath.size();++i){
+            m_projectList.append(openProject(m_openProjectsPath[i]));
         }
     }
 }
@@ -19,19 +20,21 @@ ProjectManager::ProjectManager()
 /*Create a personnalized project with customs name and path*/
 Project* ProjectManager::newProject(QString path, QString name){
     Project *project = new Project(name, path);
-    m_openProjects.append(project->getProjectCompletePath());
+    m_projectList.append(project);
+    m_openProjectsPath.append(project->getProjectCompletePath());
     m_recentProjects.append(project->getProjectCompletePath());
     return project;
 }
 
 /*Open a file with the .ewp extension*/
-void ProjectManager::openProject(QString projectPath){
-    if(m_openProjects.size()<5){//Fixed max open projects at the same time
+Project* ProjectManager::openProject(QString projectPath){
+    if(m_openProjectsPath.size()<5){//Fixed max open projects at the same time
         QFileInfo info(projectPath);
         if(info.exists()){
             if(info.completeSuffix()==".ewp"){
                 Project *project = new Project(projectPath, info.completeBaseName());
-                m_openProjects.append(project->getProjectCompletePath());
+                m_projectList.append(project);
+                m_openProjectsPath.append(project->getProjectCompletePath());
                 m_recentProjects.append(project->getProjectCompletePath());
 
                 /*TO DO :
@@ -39,6 +42,7 @@ void ProjectManager::openProject(QString projectPath){
                  *et faire project->import(path)
                  *et mettre à jour ensuite les propriétés d'état de la vidéo en y accédant par le projet*/
 
+                return project;
             }else{
                 qDebug() << "EWP-Error :  is not a .ewp file." ;
             }
@@ -52,7 +56,7 @@ void ProjectManager::openProject(QString projectPath){
 
 /*Save a project in the name.ewp file into the path dir*/
 bool ProjectManager::saveProject(Project project){
-     if(m_openProjects.contains(project.getProjectCompletePath())){
+     if(m_openProjectsPath.contains(project.getProjectCompletePath())){
         /*TO DO :
          *générateur XML pour enregistrer tous les params
          *et message d'erreur si échec*/
@@ -64,7 +68,7 @@ bool ProjectManager::saveProject(Project project){
 
 /*Save a project from the path in the name.ewp file into the path dir*/
 bool ProjectManager::saveProject(QString projectPath){
-     if(m_openProjects.contains(projectPath)){
+     if(m_openProjectsPath.contains(projectPath)){
         /*TO DO :
          *générateur XML pour enregistrer tous les params
          *et message d'erreur si échec*/
@@ -76,8 +80,8 @@ bool ProjectManager::saveProject(QString projectPath){
 
 /*Save all the open projects*/
 bool ProjectManager::saveAllProjects(){
-    for(int i = 0; i< m_openProjects.size(); ++i){
-        if(!saveProject(m_openProjects[i])){
+    for(int i = 0; i< m_openProjectsPath.size(); ++i){
+        if(!saveProject(m_openProjectsPath[i])){
             return false;
         }
     }
@@ -86,9 +90,10 @@ bool ProjectManager::saveAllProjects(){
 
 /*Close a project and save him before*/
 void ProjectManager::closeProject(Project *project){
-    if(m_openProjects.contains(project->getProjectCompletePath())){
+    if(m_openProjectsPath.contains(project->getProjectCompletePath())){
         if(saveProject(*project)){
-            m_openProjects.removeOne(project->getProjectCompletePath());
+            m_projectList.removeOne(project);
+            m_openProjectsPath.removeOne(project->getProjectCompletePath());
             delete(project);
         }else{
             qDebug() << "EWP-Error : an error occurs in saving the current project." ;
@@ -101,7 +106,7 @@ void ProjectManager::closeProject(Project *project){
 /*Close all the open projects and save them before*/
 void ProjectManager::closeAllProjects(){
     if(saveAllProjects()){
-        m_openProjects.clear();
+        m_openProjectsPath.clear();
     }else{
         qDebug() << "EWP-Error : an error occurs in saving the current projects." ;
     }
