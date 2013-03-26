@@ -2,8 +2,12 @@
 #define BINVIEW_H
 
 #include <QWidget>
+#include <QToolBox>
+#include <QPushButton>
+#include <QHBoxLayout>
 #include <QStackedWidget>
 #include <core/ProjectManager.h>
+#include <QAbstractButton>
 
 class ProjectManager;
 
@@ -16,7 +20,11 @@ public:
 
 private:
     ProjectManager *m_projectManager;
-    QStackedWidget *m_stackedWidget;
+    QToolBox *m_toolBox;
+    QPushButton *but1;
+    QPushButton *but2;
+    QPushButton *but3;
+
     enum DisplayMode {
         DEFAULT, //affiche une image, le nom de la vidéo sans extension
         DETAIL, //Afiche le nom et l'extension + le poids de la vidéo

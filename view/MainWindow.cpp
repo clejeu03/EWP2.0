@@ -308,6 +308,12 @@ void MainWindow::newProject()
 
     ProjectManager *projectManager = new ProjectManager();
     projectManager->newProject("/home/cecilia/Vidéos/", "Porjet1");
+    projectManager->newProject("/home/cecilia/Vidéos/", "ProjetPlop2");
+    projectManager->getProjects()[0]->importVideo("/home/cecilia/Vidéos/bunny.mp4");
+    projectManager->getProjects()[0]->importVideo("/home/cecilia/Vidéos/ludovik.mp4");
+    projectManager->getProjects()[1]->importVideo("/home/cecilia/Vidéos/bunny.mp4");
+    projectManager->getProjects()[1]->importVideo("/home/cecilia/Vidéos/ludovik.mp4");
+
     BinView *binView = new BinView(projectManager);
     binView->update();
     dock->setWidget(binView);
