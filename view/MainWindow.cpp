@@ -29,7 +29,6 @@ MainWindow::MainWindow(){
     connect(m_windowMapper, SIGNAL(mapped(QWidget*)),
             this, SLOT(setActiveSubWindow(QWidget*)));
 
-
     loadStyles();
 
     createActions();
@@ -43,16 +42,7 @@ MainWindow::MainWindow(){
     setWindowTitle(tr("EWP 2.0"));
     setUnifiedTitleAndToolBarOnMac(true);
 
-    /*Drawing the Timeline View
-    TimelineView *timelineView = new TimelineView(timeline);
 
-    QMdiSubWindow *subWindow1 = new QMdiSubWindow;
-    subWindow1->setWidget(timelineView);
-    subWindow1->resize(900, 400);
-    subWindow1->setAttribute(Qt::WA_DeleteOnClose);
-    m_mdiArea->addSubWindow(subWindow1);
-    setCentralWidget(m_mdiArea);
-    setUnifiedTitleAndToolBarOnMac(true);*/
 }
 
 void MainWindow::loadStyles(){
@@ -348,6 +338,14 @@ void MainWindow::newProject()
 
     /****============================================*****/
 
+    /*Drawing the Timeline View*/
+    TimelineView *timelineView = new TimelineView(timeline);
+    QDockWidget *dockTimeline = new QDockWidget(this);
+    dockTimeline->setAllowedAreas(Qt::BottomDockWidgetArea | Qt::RightDockWidgetArea);
+    dockTimeline->setWidget(timelineView);
+    dockTimeline->setMinimumHeight(400);
+    dockTimeline->setMinimumWidth(600);
+
     ProjectManager *projectManager = new ProjectManager();
     projectManager->newProject("/home/cecilia/Vidéos/", "Porjet1");
     projectManager->newProject("/home/cecilia/Vidéos/", "ProjetPlop2");
@@ -359,7 +357,12 @@ void MainWindow::newProject()
     BinView *binView = new BinView(projectManager);
     binView->update();
     dock->setWidget(binView);
+    dock->setMaximumHeight(500);
+    dock->setMinimumHeight(100);
+    dock->setMinimumWidth(200);
+    dock->setMaximumWidth(400);
     addDockWidget(Qt::LeftDockWidgetArea, dock);
+    addDockWidget(Qt::RightDockWidgetArea, dockTimeline);
 }
 
 

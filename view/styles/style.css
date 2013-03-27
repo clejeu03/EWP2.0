@@ -42,3 +42,19 @@ QListView {
      background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                  stop: 0 #888, stop: 1 #222);
  }
+
+ QPushButton {
+     background-color: #888;
+     width : 30px;
+     height : 30px;
+     border-style : outset;
+     border-width: 1px;
+     border-color: #999;
+     font: 11px;
+     color : white;
+
+ }
+ QPushButton::pressed {
+     background-color: lightgrey;
+     border-style: inset;
+ }
