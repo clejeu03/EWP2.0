@@ -20,7 +20,6 @@
 
 MainWindow::MainWindow(){
 
-
     m_mdiArea = new QMdiArea;
     setCentralWidget(m_mdiArea);
     connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),
@@ -30,7 +29,6 @@ MainWindow::MainWindow(){
             this, SLOT(setActiveSubWindow(QWidget*)));
 
     loadStyles();
-
     createActions();
     createMenu();
     createToolBar();
@@ -41,8 +39,6 @@ MainWindow::MainWindow(){
 
     setWindowTitle(tr("EWP 2.0"));
     setUnifiedTitleAndToolBarOnMac(true);
-
-
 }
 
 void MainWindow::loadStyles(){
@@ -101,25 +97,18 @@ void MainWindow::createToolBar(){
     QDockWidget *dock = new QDockWidget(this);
     dock->setAllowedAreas(Qt::LeftDockWidgetArea);
 
-    QWidget *toolBox = new QWidget;
-    QGridLayout *grid = new QGridLayout;
-
     QPushButton *newProjectButton = new QPushButton(tr("Nouveau"));
     connect(newProjectButton, SIGNAL(clicked()), this, SLOT(newProject()));
-    grid->addWidget(newProjectButton, 0, 0);
+    dock->setWidget(newProjectButton);
 
     QPushButton *openProjectButton = new QPushButton(tr("Ouvrir"));
     connect(openProjectButton, SIGNAL(clicked()), this, SLOT(openProject()));
-    grid->addWidget(openProjectButton, 0, 1);
+    dock->setWidget(openProjectButton);
 
     QPushButton *importButton = new QPushButton(tr("Importer"));
     connect(importButton, SIGNAL(clicked()), this, SLOT(importFile()));
-    grid->addWidget(importButton, 0, 2);
+    dock->setWidget(importButton);
 
-    toolBox->setLayout(grid);
-
-
-    dock->setWidget(toolBox);
     dock->setFeatures(QDockWidget::NoDockWidgetFeatures);
     dock->setMaximumHeight(100);
     dock->setMinimumHeight(50);
