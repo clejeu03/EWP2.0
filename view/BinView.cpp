@@ -18,13 +18,8 @@ void BinView::update(){
     if(!openList.isEmpty()){
         m_toolBox = new QToolBox;
         m_toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Ignored));
-        m_toolBox->setMinimumWidth(150);
-        m_toolBox->setMaximumWidth(200);
-        m_toolBox->setMaximumHeight(300);
 
         QHBoxLayout *lay = new QHBoxLayout(this);
-
-
 
         for(int i = 0; i<openList.size(); ++i){
             QListWidget *widgetList = new QListWidget;
@@ -39,6 +34,7 @@ void BinView::update(){
             widget->setLayout(layout);
 
             m_toolBox->addItem(widget, openList[i]->getProjectName());
+
         }
 
         lay->addWidget(m_toolBox);

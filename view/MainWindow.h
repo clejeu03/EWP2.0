@@ -38,10 +38,12 @@ private slots:
    void updateMenu();
    void updateWindowMenu();
    void setActiveSubWindow(QWidget *window);
+   void loadStyles();
 
 private:
    void createMenu();
    void createStatusBar();
+   void createToolBar();
    void createActions();
    void readSettings();
    void writeSettings();

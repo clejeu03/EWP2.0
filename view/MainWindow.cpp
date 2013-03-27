@@ -30,9 +30,11 @@ MainWindow::MainWindow(){
             this, SLOT(setActiveSubWindow(QWidget*)));
 
 
+    loadStyles();
 
     createActions();
     createMenu();
+    createToolBar();
     createStatusBar();
     updateMenu();
 
@@ -51,6 +53,15 @@ MainWindow::MainWindow(){
     m_mdiArea->addSubWindow(subWindow1);
     setCentralWidget(m_mdiArea);
     setUnifiedTitleAndToolBarOnMac(true);*/
+}
+
+void MainWindow::loadStyles(){
+    QFile File("../EWP2.0/view/styles/style.css");
+    if(!File.open(QFile::ReadOnly)){
+        qDebug() << "EWP : couldn't open the stylesheet file";
+    }
+    QString StyleSheet = QLatin1String(File.readAll());
+    setStyleSheet(StyleSheet);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -94,6 +105,15 @@ void MainWindow::createMenu()
 
     helpMenu = menuBar()->addMenu(tr("&Help"));
     helpMenu->addAction(m_aboutAct);
+}
+
+void MainWindow::createToolBar(){
+    QDockWidget *dock = new QDockWidget(this);
+    dock->setAllowedAreas(Qt::LeftDockWidgetArea);
+
+    ToolBox *toolbox = new ToolBox();
+    dock->setWidget(toolBox);
+    addDockWidget(Qt::LeftDockWidgetArea, dock);
 }
 
 void MainWindow::updateMenu()
