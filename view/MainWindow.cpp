@@ -97,18 +97,25 @@ void MainWindow::createToolBar(){
     QDockWidget *dock = new QDockWidget(this);
     dock->setAllowedAreas(Qt::LeftDockWidgetArea);
 
+    //Creating a grid layout to organise properly the buttons//
+    QWidget *widget = new QWidget;
+    QGridLayout *grid = new QGridLayout;
+
     QPushButton *newProjectButton = new QPushButton(tr("Nouveau"));
     connect(newProjectButton, SIGNAL(clicked()), this, SLOT(newProject()));
-    dock->setWidget(newProjectButton);
+    grid->addWidget(newProjectButton, 0, 0);
 
     QPushButton *openProjectButton = new QPushButton(tr("Ouvrir"));
     connect(openProjectButton, SIGNAL(clicked()), this, SLOT(openProject()));
-    dock->setWidget(openProjectButton);
+    grid->addWidget(openProjectButton, 0, 1);
 
     QPushButton *importButton = new QPushButton(tr("Importer"));
     connect(importButton, SIGNAL(clicked()), this, SLOT(importFile()));
-    dock->setWidget(importButton);
+    grid->addWidget(importButton, 0, 2);
 
+    //Displaying the entire Widget//
+    widget->setLayout(grid);
+    dock->setWidget(widget);
     dock->setFeatures(QDockWidget::NoDockWidgetFeatures);
     dock->setMaximumHeight(100);
     dock->setMinimumHeight(50);
@@ -330,7 +337,8 @@ void MainWindow::newProject()
     /*Drawing the Timeline View*/
     TimelineView *timelineView = new TimelineView(timeline);
     QDockWidget *dockTimeline = new QDockWidget(this);
-    dockTimeline->setAllowedAreas(Qt::BottomDockWidgetArea | Qt::RightDockWidgetArea);
+    dockTimeline->setFeatures(QDockWidget::DockWidgetMovable);
+    dockTimeline->setAllowedAreas(Qt::BottomDockWidgetArea);
     dockTimeline->setWidget(timelineView);
     dockTimeline->setMinimumHeight(400);
     dockTimeline->setMinimumWidth(600);
