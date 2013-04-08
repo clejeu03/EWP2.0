@@ -1,0 +1,19 @@
+/*StyleSheet for the MenuBox
+ *Design the style for buttons
+*/
+
+QPushButton {
+     background-color: #888;
+     width : 30px;
+     height : 30px;
+     border-style : outset;
+     border-width: 1px;
+     border-color: #999;
+     font: 11px;
+     color : white;
+
+ }
+ QPushButton::pressed {
+     background-color: lightgrey;
+     border-style: inset;
+ }

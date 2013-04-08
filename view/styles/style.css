@@ -43,7 +43,7 @@ QListView {
                                  stop: 0 #888, stop: 1 #222);
  }
 
- QPushButton {
+ /*QPushButton {
      background-color: #888;
      width : 30px;
      height : 30px;
@@ -57,4 +57,4 @@ QListView {
  QPushButton::pressed {
      background-color: lightgrey;
      border-style: inset;
- }
+ }*/

@@ -63,5 +63,6 @@ RESOURCES += \
     view/resources/viewResources.qrc
 
 OTHER_FILES += \
-    view/styles/style.css
+    view/styles/style.css \
+    view/styles/toolbar.css
 

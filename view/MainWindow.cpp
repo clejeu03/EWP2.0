@@ -29,7 +29,6 @@ MainWindow::MainWindow(){
     connect(m_windowMapper, SIGNAL(mapped(QWidget*)),
             this, SLOT(setActiveSubWindow(QWidget*)));
 
-    loadStyles();
     createActions();
     createMenu();
     createToolBar();
@@ -42,13 +41,13 @@ MainWindow::MainWindow(){
     setUnifiedTitleAndToolBarOnMac(true);
 }
 
-void MainWindow::loadStyles(){
-    QFile File("../EWP2.0/view/styles/style.css");
+QString MainWindow::loadStyles(QString file){
+    QFile File("../EWP2.0/view/styles/"+file+".css");
     if(!File.open(QFile::ReadOnly)){
         qDebug() << "EWP : couldn't open the stylesheet file";
     }
     QString StyleSheet = QLatin1String(File.readAll());
-    setStyleSheet(StyleSheet);
+    return StyleSheet;
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -105,14 +104,18 @@ void MainWindow::createToolBar(){
     QPushButton *newProjectButton = new QPushButton(tr("Nouveau"));
     connect(newProjectButton, SIGNAL(clicked()), this, SLOT(newProject()));
     grid->addWidget(newProjectButton, 0, 0);
+    newProjectButton->setStyleSheet(loadStyles("toolbar"));
 
     QPushButton *openProjectButton = new QPushButton(tr("Ouvrir"));
     connect(openProjectButton, SIGNAL(clicked()), this, SLOT(openProject()));
     grid->addWidget(openProjectButton, 0, 1);
+    openProjectButton->setStyleSheet(loadStyles("toolbar"));
+
 
     QPushButton *importButton = new QPushButton(tr("Importer"));
     connect(importButton, SIGNAL(clicked()), this, SLOT(importFile()));
     grid->addWidget(importButton, 0, 2);
+    importButton->setStyleSheet(loadStyles("toolbar"));
 
     //Displaying the entire Widget//
     widget->setLayout(grid);
@@ -313,32 +316,40 @@ void MainWindow::newProject()
         newProjectPage->setSubTitle(tr("Remplissez les champs suivants :"));
 
         QLabel *nameLabel = new QLabel("Nom:");
-        QLineEdit *nameLineEdit = new QLineEdit;
+        QLineEdit *nameLineEdit = new QLineEdit("newProject.ewp");
 
         QLabel *directoryLabel = new QLabel("Emplacement:");
-        QLineEdit *directoryLineEdit = new QLineEdit;
+        QLineEdit *directoryLineEdit = new QLineEdit("/home/cecilia/Documents/EWP2.0/tmp/");
+
+        QPushButton *browse = new QPushButton(tr("Parcourir"));
+
+        /*Function Browse
+        QLabel *directoryLabel = new QLabel("/home/cecilia/Documents/EWP2.0/tmp/");
+        QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
+        QString directory = QFileDialog::getExistingDirectory(this,
+                                                              tr("Choisir l'emplacement de votre nouveau projet"),
+                                                              "/home/cecilia/Documents/EWP2.0/tmp/",
+                                                              options);
+        if (!directory.isEmpty())
+            QString directory = new QString(directory);*/
 
             QGridLayout *layout = new QGridLayout;
             layout->addWidget(nameLabel, 0, 0);
             layout->addWidget(nameLineEdit, 0, 1);
             layout->addWidget(directoryLabel, 1, 0);
             layout->addWidget(directoryLineEdit, 1, 1);
+            layout->addWidget(browse, 1, 2);
 
         newProjectPage->setLayout(layout);
+
+    //Changing default wizard buttons
+    QList<QWizard::WizardButton> wizardButtonLayout;
+    wizardButtonLayout << QWizard::Stretch << QWizard::FinishButton << QWizard::CancelButton ;
+    wizard->setButtonLayout(wizardButtonLayout);
 
     wizard->addPage(newProjectPage);
     wizard->show();
 
-
-    /*Function Browse*/
-    /*QLabel *directoryLabel = new QLabel("/home/cecilia/Documents/EWP2.0/tmp/");
-    QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
-    QString directory = QFileDialog::getExistingDirectory(this,
-                                                          tr("Choisir l'emplacement de votre nouveau projet"),
-                                                          directoryLabel->text(),
-                                                          options);
-    if (!directory.isEmpty())
-        directoryLabel->setText(directory);*/
 
     /*Creating projects*/
     ProjectManager *projectManager = new ProjectManager();

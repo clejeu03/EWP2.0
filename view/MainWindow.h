@@ -38,7 +38,7 @@ private slots:
    void updateMenu();
    void updateWindowMenu();
    void setActiveSubWindow(QWidget *window);
-   void loadStyles();
+   QString loadStyles(QString file);
 
 private:
    void createMenu();
