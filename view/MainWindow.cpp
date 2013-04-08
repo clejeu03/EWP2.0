@@ -16,6 +16,7 @@
 #include <QApplication>
 #include <QMdiArea>
 #include <QMdiSubWindow>
+#include <QWizardPage>
 
 
 MainWindow::MainWindow(){
@@ -305,44 +306,41 @@ void MainWindow::createStatusBar(){
 
 void MainWindow::newProject()
 {
-    QDockWidget *dock = new QDockWidget(this);
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea);
+    //Open a wizard to configure the new project//
+    QWizard *wizard = new QWizard(this);
+    QWizardPage *newProjectPage = new QWizardPage(this);
+        newProjectPage->setTitle(tr("Créez votre nouveau projet"));
+        newProjectPage->setSubTitle(tr("Remplissez les champs suivants :"));
 
-    //!! TO DO : A changer avec BinView !!
-    /****===============TESTS=======================*****/
-    Video *video1 = new Video("/home/cecilia/Vidéos/bunny.mp4");
-    Video *video2 = new Video("/home/cecilia/Vidéos/ludovik.mp4");
+        QLabel *nameLabel = new QLabel("Nom:");
+        QLineEdit *nameLineEdit = new QLineEdit;
 
-    QMap<int, Video*> sourceMap;
-    sourceMap[0]= video1;
-    sourceMap[1] = video2;
-    Timeline *timeline = new Timeline(sourceMap);
+        QLabel *directoryLabel = new QLabel("Emplacement:");
+        QLineEdit *directoryLineEdit = new QLineEdit;
 
-    qDebug() << "__________CREATION__________";
-    qDebug() << "drawing status : " << timeline->getDrawingStatus();
-    qDebug() << "list size : " << timeline->getVideoList();
-    qDebug() << "keys : " << timeline->getVideoList().uniqueKeys();
+            QGridLayout *layout = new QGridLayout;
+            layout->addWidget(nameLabel, 0, 0);
+            layout->addWidget(nameLineEdit, 0, 1);
+            layout->addWidget(directoryLabel, 1, 0);
+            layout->addWidget(directoryLineEdit, 1, 1);
 
-    //timeline.addVideo(video1);
-    //timeline.addVideo(video2);
+        newProjectPage->setLayout(layout);
 
-    qDebug() << "__________ADDING__________";
-    qDebug() << "list size : " << timeline->getListSize();
-    qDebug() << "keys : " << timeline->getVideoList().uniqueKeys();
-    qDebug() << "adding 2 videos : " << timeline->getVideoList().value(0)->getCompleteName();
-    qDebug() << "adding 2 videos : " << timeline->getVideoList().value(1)->getCompleteName();
+    wizard->addPage(newProjectPage);
+    wizard->show();
 
-    /****============================================*****/
 
-    /*Drawing the Timeline View*/
-    TimelineView *timelineView = new TimelineView(timeline);
-    QDockWidget *dockTimeline = new QDockWidget(this);
-    dockTimeline->setFeatures(QDockWidget::DockWidgetMovable);
-    dockTimeline->setAllowedAreas(Qt::BottomDockWidgetArea);
-    dockTimeline->setWidget(timelineView);
-    dockTimeline->setMinimumHeight(400);
-    dockTimeline->setMinimumWidth(600);
+    /*Function Browse*/
+    /*QLabel *directoryLabel = new QLabel("/home/cecilia/Documents/EWP2.0/tmp/");
+    QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
+    QString directory = QFileDialog::getExistingDirectory(this,
+                                                          tr("Choisir l'emplacement de votre nouveau projet"),
+                                                          directoryLabel->text(),
+                                                          options);
+    if (!directory.isEmpty())
+        directoryLabel->setText(directory);*/
 
+    /*Creating projects*/
     ProjectManager *projectManager = new ProjectManager();
     projectManager->newProject("/home/cecilia/Vidéos/", "Porjet1");
     projectManager->newProject("/home/cecilia/Vidéos/", "ProjetPlop2");
@@ -351,13 +349,29 @@ void MainWindow::newProject()
     projectManager->getProjects()[1]->importVideo("/home/cecilia/Vidéos/bunny.mp4");
     projectManager->getProjects()[1]->importVideo("/home/cecilia/Vidéos/ludovik.mp4");
 
+    /*Drawing the BinView*/
     BinView *binView = new BinView(projectManager);
     binView->update();
+    QDockWidget *dock = new QDockWidget(this);
+    dock->setAllowedAreas(Qt::LeftDockWidgetArea);
     dock->setWidget(binView);
     dock->setMaximumHeight(500);
     dock->setMinimumHeight(100);
     dock->setMinimumWidth(200);
     dock->setMaximumWidth(400);
+
+
+    /*Drawing the Timeline View*/
+    Timeline *timeline = new Timeline();
+    TimelineView *timelineView = new TimelineView(timeline);
+    QDockWidget *dockTimeline = new QDockWidget(this);
+    dockTimeline->setFeatures(QDockWidget::DockWidgetMovable);
+    dockTimeline->setAllowedAreas(Qt::BottomDockWidgetArea);
+    dockTimeline->setWidget(timelineView);
+    dockTimeline->setMinimumHeight(400);
+    dockTimeline->setMinimumWidth(600);
+
+    /*Displaying the docks*/
     addDockWidget(Qt::LeftDockWidgetArea, dock);
     addDockWidget(Qt::RightDockWidgetArea, dockTimeline);
 }
