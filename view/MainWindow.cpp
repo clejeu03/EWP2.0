@@ -18,7 +18,11 @@
 #include <QMdiSubWindow>
 #include <QWizardPage>
 
-
+/**
+ *The constructor settle the main caracteristics of the window division and repartition. It divises the window into
+ *two main spaces : the MDI Area and the Menu/Toolbar Area. The MDI that we settle in the center can handle mutiple
+ *sub-windows displaying, movables or not.
+ */
 MainWindow::MainWindow(){
 
     m_mdiArea = new QMdiArea;
@@ -31,16 +35,22 @@ MainWindow::MainWindow(){
 
     createActions();
     createMenu();
-    createToolBar();
-    createStatusBar();
+    createToolBar();                 
+    createStatusBar();//The StatusBar is on the very bottom of the window, and display explanations to the user.
     updateMenu();
 
-    readSettings();
+    readSettings();//If the user changed or personnalized his window options, we create a new window by using them.
 
     setWindowTitle(tr("EWP 2.0"));
     setUnifiedTitleAndToolBarOnMac(true);
 }
 
+/**
+ * @brief MainWindow::loadStyles
+ * This function read stylesheet files to only return their content.
+ * @param file - the filepath to the .qss or .css file used
+ * @return Stylesheet - the content of the loaded file
+ */
 QString MainWindow::loadStyles(QString file){
     QFile File("../EWP2.0/view/styles/"+file+".css");
     if(!File.open(QFile::ReadOnly)){
@@ -60,7 +70,12 @@ void MainWindow::closeEvent(QCloseEvent *event)
         event->accept();
     }
 }
-
+/**
+ * Creates the Menu on the very top of the window. menubar() is the Qt function that
+ * allows us to add entries, then we add actions and separators.
+ * WARNING : Commented actions are not implemented yet !
+ * @brief MainWindow::createMenu
+ */
 void MainWindow::createMenu()
 {
     fileMenu = menuBar()->addMenu(tr("&Fichier"));
@@ -93,7 +108,13 @@ void MainWindow::createMenu()
     helpMenu->addAction(m_aboutAct);
 }
 
+/**
+ * Creates a menu of button on the top-left of the window, called ToolBar because it's the same functionnality
+ * even if it has not the same position. Coutained in a DockWidget. Not movable, not closable.
+ * @brief MainWindow::createToolBar
+ */
 void MainWindow::createToolBar(){
+    //The DockWidget allows us to create new widget into the MDIWindow
     QDockWidget *dock = new QDockWidget(this);
     dock->setAllowedAreas(Qt::LeftDockWidgetArea);
 
@@ -101,17 +122,19 @@ void MainWindow::createToolBar(){
     QWidget *widget = new QWidget;
     QGridLayout *grid = new QGridLayout;
 
+    //Button New
     QPushButton *newProjectButton = new QPushButton(tr("Nouveau"));
     connect(newProjectButton, SIGNAL(clicked()), this, SLOT(newProject()));
     grid->addWidget(newProjectButton, 0, 0);
     newProjectButton->setStyleSheet(loadStyles("toolbar"));
 
+    //Button Open
     QPushButton *openProjectButton = new QPushButton(tr("Ouvrir"));
     connect(openProjectButton, SIGNAL(clicked()), this, SLOT(openProject()));
     grid->addWidget(openProjectButton, 0, 1);
     openProjectButton->setStyleSheet(loadStyles("toolbar"));
 
-
+    //Button Import
     QPushButton *importButton = new QPushButton(tr("Importer"));
     connect(importButton, SIGNAL(clicked()), this, SLOT(importFile()));
     grid->addWidget(importButton, 0, 2);
@@ -125,9 +148,12 @@ void MainWindow::createToolBar(){
     dock->setMinimumHeight(50);
     dock->setMinimumWidth(200);
     dock->setMaximumWidth(400);
-    addDockWidget(Qt::LeftDockWidgetArea, dock);
+    addDockWidget(Qt::LeftDockWidgetArea, dock);//understand "add this to MDIWindow int that position"
 }
 
+/**
+ * Redraw correctly the menu
+ */
 void MainWindow::updateMenu()
 {
     bool hasMdiChild = (activeMdiChild() != 0);
@@ -175,7 +201,10 @@ void MainWindow::updateWindowMenu(){
         m_windowMapper->setMapping(action, windows.at(i));
     }
 }
-
+/**
+ * @brief MainWindow::readSettings
+ * TO REWRITE
+ */
 void MainWindow::readSettings()
 {
     QSettings settings("QtProject", "MDI Example");
@@ -184,21 +213,31 @@ void MainWindow::readSettings()
     move(pos);
     resize(size);
 }
-
+/**
+ * @brief MainWindow::writeSettings
+ * TO REWRITE
+ */
 void MainWindow::writeSettings()
 {
     QSettings settings("QtProject", "MDI Example");
     settings.setValue("pos", pos());
     settings.setValue("size", size());
 }
-
+/**
+ * @brief MainWindow::activeMdiChild
+ * Help focus on a subwindow.
+ */
 MdiChild *MainWindow::activeMdiChild()
 {
     if (QMdiSubWindow *activeSubWindow = m_mdiArea->activeSubWindow())
         return qobject_cast<MdiChild *>(activeSubWindow->widget());
     return 0;
 }
-
+/**
+ * @brief MainWindow::findMdiChild
+ * @param fileName
+ * What utility ? Don't no...
+ */
 QMdiSubWindow *MainWindow::findMdiChild(const QString &fileName)
 {
     QString canonicalFilePath = QFileInfo(fileName).canonicalFilePath();
@@ -218,7 +257,11 @@ void MainWindow::setActiveSubWindow(QWidget *window)
         return;
     m_mdiArea->setActiveSubWindow(qobject_cast<QMdiSubWindow *>(window));
 }
-
+/**
+ * @brief MainWindow::createActions
+ * An Action is used for example in the Menu creation for linking a entry with a function.
+ * Commented actions are not ready for use yet. TO FINISH
+ */
 void MainWindow::createActions()
 {
     //Modèle si ajout d'icones --> saveAct = new QAction(QIcon(":/images/save.png"), tr("&Save"), this);
@@ -302,16 +345,27 @@ void MainWindow::createActions()
 
 }
 
+/**
+ * @brief MainWindow::createStatusBar
+ * Initialize the status bar by showing "ready". Then it changes automatically when calling
+ * setStatusTip on Actions.
+ */
 void MainWindow::createStatusBar(){
     statusBar()->showMessage(tr("Ready"));
 }
 
-
+/**
+ * @brief MainWindow::newProject
+ * Called when selecting the entry of the File Menu or the Button of the ToolBar.
+ * Use a wizard to help the user configure the new project.
+ * Opening a project allows the entire areas to shows up.
+ */
 void MainWindow::newProject()
 {
-    //Open a wizard to configure the new project//
+    //Create a wizard//
     QWizard *wizard = new QWizard(this);
-    QWizardPage *newProjectPage = new QWizardPage(this);
+        //Create a wizard page
+        QWizardPage *newProjectPage = new QWizardPage(this);
         newProjectPage->setTitle(tr("Créez votre nouveau projet"));
         newProjectPage->setSubTitle(tr("Remplissez les champs suivants :"));
 
@@ -322,35 +376,41 @@ void MainWindow::newProject()
         QLineEdit *directoryLineEdit = new QLineEdit("/home/cecilia/Documents/EWP2.0/tmp/");
 
         QPushButton *browse = new QPushButton(tr("Parcourir"));
+        connect(browse, SIGNAL(clicked()), this, SLOT(browse()));
 
-        /*Function Browse
-        QLabel *directoryLabel = new QLabel("/home/cecilia/Documents/EWP2.0/tmp/");
-        QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
-        QString directory = QFileDialog::getExistingDirectory(this,
-                                                              tr("Choisir l'emplacement de votre nouveau projet"),
-                                                              "/home/cecilia/Documents/EWP2.0/tmp/",
-                                                              options);
-        if (!directory.isEmpty())
-            QString directory = new QString(directory);*/
-
-            QGridLayout *layout = new QGridLayout;
-            layout->addWidget(nameLabel, 0, 0);
-            layout->addWidget(nameLineEdit, 0, 1);
-            layout->addWidget(directoryLabel, 1, 0);
-            layout->addWidget(directoryLineEdit, 1, 1);
-            layout->addWidget(browse, 1, 2);
-
+        //Displaying the elements in a grid
+        QGridLayout *layout = new QGridLayout;
+        layout->addWidget(nameLabel, 0, 0);
+        layout->addWidget(nameLineEdit, 0, 1);
+        layout->addWidget(directoryLabel, 1, 0);
+        layout->addWidget(directoryLineEdit, 1, 1);
+        layout->addWidget(browse, 1, 2);
         newProjectPage->setLayout(layout);
 
-    //Changing default wizard buttons
-    QList<QWizard::WizardButton> wizardButtonLayout;
-    wizardButtonLayout << QWizard::Stretch << QWizard::FinishButton << QWizard::CancelButton ;
-    wizard->setButtonLayout(wizardButtonLayout);
+        //Changing default wizard buttons : Finish and Cancel only
+        QList<QWizard::WizardButton> wizardButtonLayout;
+        wizardButtonLayout << QWizard::Stretch << QWizard::FinishButton << QWizard::CancelButton ;
+        wizard->setButtonLayout(wizardButtonLayout);
 
+    //Adding the created page to the wizard
     wizard->addPage(newProjectPage);
     wizard->show();
 
+    connect(wizard, SIGNAL(accepted()), this, SLOT(showBinView()));
 
+}
+void MainWindow::browse(){
+    QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
+    QString directory = QFileDialog::getExistingDirectory(this,
+                                                          tr("Choisir l'emplacement de votre nouveau projet"),
+                                                          "/home/cecilia/Documents/EWP2.0/tmp/",
+                                                          options);
+    if (!directory.isEmpty()){
+        QString directory = "/home/cecilia/Documents/EWP2.0/tmp/";
+    }
+}
+
+void MainWindow::showBinView(){
     /*Creating projects*/
     ProjectManager *projectManager = new ProjectManager();
     projectManager->newProject("/home/cecilia/Vidéos/", "Porjet1");
@@ -371,7 +431,11 @@ void MainWindow::newProject()
     dock->setMinimumWidth(200);
     dock->setMaximumWidth(400);
 
+    /*Displaying the dock*/
+    addDockWidget(Qt::LeftDockWidgetArea, dock);
+}
 
+void MainWindow::showTimeline(){
     /*Drawing the Timeline View*/
     Timeline *timeline = new Timeline();
     TimelineView *timelineView = new TimelineView(timeline);
@@ -382,11 +446,9 @@ void MainWindow::newProject()
     dockTimeline->setMinimumHeight(400);
     dockTimeline->setMinimumWidth(600);
 
-    /*Displaying the docks*/
-    addDockWidget(Qt::LeftDockWidgetArea, dock);
+    /*Displaying the dock*/
     addDockWidget(Qt::RightDockWidgetArea, dockTimeline);
 }
-
 
 void MainWindow::openProject()
 {

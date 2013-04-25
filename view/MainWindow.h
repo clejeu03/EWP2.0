@@ -29,12 +29,12 @@ private slots:
    void exportFile();
    void save();
    void saveAs();
-   /*void showChutier();
-   void showOutils();
-   void showMoniteur();
+   void showBinView();
+   //void showOutils();
+   //void showMoniteur();
    void showTimeline();
-   void showConception();*/
    void about();
+   void browse();
    void updateMenu();
    void updateWindowMenu();
    void setActiveSubWindow(QWidget *window);
