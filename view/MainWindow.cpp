@@ -47,7 +47,7 @@ MainWindow::MainWindow(){
 
 /**
  * @brief MainWindow::loadStyles
- * This function read stylesheet files to only return their content.
+ * This generic function read stylesheet files to only return their content.
  * @param file - the filepath to the .qss or .css file used
  * @return Stylesheet - the content of the loaded file
  */
