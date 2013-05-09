@@ -5,6 +5,7 @@
 #include <qdeclarative.h>
 #include <QVBoxLayout>
 #include <QDeclarativeContext>
+#include <QGraphicsObject>
 #include <QDeclarativeView>
 #include <QDebug>
 #include <QDockWidget>
@@ -30,5 +31,18 @@ TimelineView::TimelineView(Timeline *timeline, QWidget *parent):QWidget(parent)
     layout->addWidget(view);
     container->setLayout(layout);
 
+    //Temporary !
+    QObject *slider = view->rootObject();
+    QObject::connect(slider, SIGNAL(sendValues(int, int)),this, SLOT(receiveValues(int, int)));
+    QObject::connect(slider, SIGNAL(goEditing()),this, SLOT(edit()));
 }
+
+void TimelineView::receiveValues(int value, int value2){
+    qDebug() << "value1 : " << value << " value2 : " << value2 ;
+}
+
+void TimelineView::edit(){
+    qDebug() << "edit !" ;
+}
+
 

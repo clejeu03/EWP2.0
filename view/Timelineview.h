@@ -13,6 +13,11 @@ public:
 private:
     Timeline *m_timeline;
 
+private slots:
+    //Temporary !
+    void receiveValues(int, int);
+    void edit();
+
 };
 
 

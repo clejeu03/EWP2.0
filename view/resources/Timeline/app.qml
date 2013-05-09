@@ -35,7 +35,7 @@ Rectangle {
                         color: wrapper.ListView.isCurrentItem ? "#222" : "#444"
                         border.color: "#000000"
                         Text {  id:listText
-                                text: modelData.name
+                                text: modelData //modelData.name
                                 horizontalAlignment: Text.AlignRight
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.right : parent.right
@@ -497,7 +497,7 @@ Rectangle {
                                     anchors.leftMargin : 12
                                     anchors.rightMargin : 12
                                     anchors.verticalCenter: parent.verticalCenter
-                                    maximum : modelData.duration
+                                    maximum : 100 //modelData.duration
 
                                     function getValue(x){
                                         if((Math.ceil((x*slider.maximum)/slider.width)-((x*slider.maximum)/slider.width))<= 0.5){
@@ -511,10 +511,10 @@ Rectangle {
                                         id : sliderMouseArea
                                         hoverEnabled: true
                                         anchors.fill: parent
-
                                         onEntered:{
                                             slider.spacing = 20;
                                             if(pencil.state == "draw_on"){slider.value = slider.getValue(mouseX)}
+                                            console.log("QML :"+slider.value);
                                         }
                                     }
                                     Connections {

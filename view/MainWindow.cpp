@@ -363,7 +363,7 @@ void MainWindow::createStatusBar(){
 void MainWindow::newProject()
 {
     //Create a wizard//
-    QWizard *wizard = new QWizard(this);
+    /*QWizard *wizard = new QWizard(this);
         //Create a wizard page
         QWizardPage *newProjectPage = new QWizardPage(this);
         newProjectPage->setTitle(tr("Créez votre nouveau projet"));
@@ -397,6 +397,10 @@ void MainWindow::newProject()
     wizard->show();
 
     connect(wizard, SIGNAL(accepted()), this, SLOT(showBinView()));
+    */
+
+    showBinView();
+    showTimeline();
 
 }
 void MainWindow::browse(){
@@ -438,6 +442,13 @@ void MainWindow::showBinView(){
 void MainWindow::showTimeline(){
     /*Drawing the Timeline View*/
     Timeline *timeline = new Timeline();
+
+    //Temporary !
+    /*Video *lapin = new Video("/home/cecilia/Vidéos/bunny.mp4");
+    Video *ludo = new Video("/home/cecilia/Vidéos/ludovik.mp4");
+    timeline->addVideo(lapin);
+    timeline->addVideo(ludo);*/
+
     TimelineView *timelineView = new TimelineView(timeline);
     QDockWidget *dockTimeline = new QDockWidget(this);
     dockTimeline->setFeatures(QDockWidget::DockWidgetMovable);
@@ -447,8 +458,10 @@ void MainWindow::showTimeline(){
     dockTimeline->setMinimumWidth(600);
 
     /*Displaying the dock*/
-    addDockWidget(Qt::RightDockWidgetArea, dockTimeline);
+    addDockWidget(Qt::BottomDockWidgetArea, dockTimeline);
 }
+
+
 
 void MainWindow::openProject()
 {
