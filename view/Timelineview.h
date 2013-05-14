@@ -2,6 +2,7 @@
 #define TIMELINEVIEW_H
 
 #include <QWidget>
+#include "core/Path.h"
 
 class Timeline;
 
@@ -12,12 +13,11 @@ public:
     TimelineView(Timeline *timeline, QWidget *parent=0);
 private:
     Timeline *m_timeline;
+    QList<QPair <int, int> > m_points;
 
 private slots:
-    //Temporary !
-    void receiveValues(int, int);
-    void edit();
-
+    void receiveValues(int value, int value2);
+    void parseData(Path *path);
 };
 
 

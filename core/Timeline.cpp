@@ -4,6 +4,7 @@ Timeline::Timeline()
 {
     setDrawingStatus(false);
     m_videoList = QMap<int, Video*>();
+    m_videoUtils = new VideoUtils();
 }
 
 //Constructor used to recover a recorded work session
