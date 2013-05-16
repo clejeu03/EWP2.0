@@ -444,10 +444,11 @@ void MainWindow::showTimeline(){
     Timeline *timeline = new Timeline();
 
     //Temporary !
-    /*Video *lapin = new Video("/home/cecilia/Vidéos/bunny.mp4");
-    Video *ludo = new Video("/home/cecilia/Vidéos/ludovik.mp4");
+    Video *lapin = new Video("/home/cecilia/Vidéos/bunny.mp4");
+    Video *lapin2 = new Video("/home/cecilia/Vidéos/bunny.mp4");
     timeline->addVideo(lapin);
-    timeline->addVideo(ludo);*/
+    timeline->addVideo(lapin2);
+
 
     TimelineView *timelineView = new TimelineView(timeline);
     QDockWidget *dockTimeline = new QDockWidget(this);

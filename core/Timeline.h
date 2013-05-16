@@ -29,7 +29,7 @@ class Timeline {
     void switchVideo(Video* video, int newPos);
     void switchVideo(int pos, int newPos);
     void switchVideo(Video* source, Video* target);
-    inline void render(){m_videoUtils->rendering();}
+    inline void render(){m_videoUtils->rendering(m_path);}
     inline void clear(){m_videoList.clear();}
     inline void setPath(Path *path){m_path = path;}
 

@@ -22,8 +22,8 @@ TimelineView::TimelineView(Timeline *timeline, QWidget *parent):QWidget(parent)
     QVBoxLayout *layout = new QVBoxLayout();
 
     QStringList dataList;
-    dataList.append("Bunny.mp3");
-    dataList.append("Track02");
+    dataList.append("bunny.mp4");
+    dataList.append("bunny.mp4");
     QDeclarativeView *view = new QDeclarativeView;
     QDeclarativeContext *ctxt = view->rootContext();
     ctxt->setContextProperty("myModel", QVariant::fromValue(dataList));
@@ -32,34 +32,31 @@ TimelineView::TimelineView(Timeline *timeline, QWidget *parent):QWidget(parent)
     layout->addWidget(view);
     container->setLayout(layout);
 
-    Path *path = new Path();
+    m_path = new Path();
 
     //Temporary !
     QObject *slider = view->rootObject();
     QObject::connect(slider, SIGNAL(sendValues(int, int)),this, SLOT(receiveValues(int, int)));
-    QObject::connect(slider, SIGNAL(goEditing()),this, SLOT(parseData(path)));
+    QObject::connect(slider, SIGNAL(goEditing()),this, SLOT(parseData()));
 }
 
 void TimelineView::receiveValues(int value, int value2){
 
     m_points.append(QPair<int,int>(value, value2));
-    qDebug() << "TIMELINE VIEW -> value1 : " << value << " value2 : " << value2;
 }
 
-void TimelineView::parseData(Path *path){
-
+void TimelineView::parseData(){
     //Until the number of markers is lower than the number of videos, go on picking...
+
     if(m_points.size() == m_timeline->getListSize()){
         for(int i=0; i<m_points.size();++i){
             //Change the order of the points according to the video's reverse parameter
             //TODO test with a checkbox working for the reverse !
-            if(!m_timeline->getVideoList().value(i)->getReverse()){
-                path->addEntry(m_timeline->getVideoList().value(i), m_points.at(i).first, m_points.at(i).second);
-            }else{
-                path->addEntry(m_timeline->getVideoList().value(i), m_points.at(i).second, m_points.at(i).first);
-            }
+            m_path->addEntry(m_timeline->getVideoList().value(i), m_points.at(i).first, m_points.at(i).second);
          }
-        m_timeline->setPath(path);
+        qDebug() <<" Points : " << m_points.at(0).first << m_points.at(0).second;
+        qDebug() << "Valurs :" << m_path->getSequences().value(m_path->getSequences().keys().at(0)).first << m_path->getSequences().value(m_path->getSequences().keys().at(0)).second;
+        m_timeline->setPath(m_path);
         m_timeline->render();
     }
 }

@@ -5,14 +5,15 @@
 #include "QPair"
 #include "Video.h"
 #include "QDebug"
+#include "QObject"
 
 class Path : public QObject
 {
     Q_OBJECT
 public:
     Path(QObject *parent=0);
-
-    QMap<Video*, QPair<int, int> > getSequences(){return m_sequences;}
+    Path(const Path&);
+    inline QMap<Video*, QPair<int, int> > getSequences(){return m_sequences;}
     void addEntry(Video* video, int value, int value2);
 
 private :
