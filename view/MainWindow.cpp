@@ -486,7 +486,7 @@ void MainWindow::openProject()
     QString projectname = QFileDialog::getOpenFileName(this, "Ouvrir le fichier", "/home/");
 
     std::cout << "Open project : " << projectname.toStdString() << std::endl;
-    projectManager->openProject(projectname);
+    //projectManager->openProject(projectname);
 
     //AJOUTER LES FILTRES DE RESTRICTION
 

@@ -30,7 +30,7 @@ class Video {
         m_roundWeight = qRound(m_weight);
         m_timelinePresence = false;
         m_reverse = false;
-
+        delete capture;
     }
 
     inline void setName(QString name){m_name = name;}
@@ -50,7 +50,7 @@ class Video {
     inline double getWeight(){return m_weight;}
     inline double getRoundWeight(){return m_roundWeight;}
     inline bool getReverse(){return m_reverse;}
-    inline qint64 getDuration(){return m_duration;}
+    inline qint32 getDuration(){return m_duration;}
     inline QString getScript(){return m_script;}
     inline bool getTimelinePresence(){return m_timelinePresence;}
 
@@ -59,7 +59,7 @@ class Video {
     QString m_completeName; //ex : bunny.mp4
     QString m_name; //ex : bunny
     QString m_format;//ex : mp4
-    qint64 m_duration;// en secondes
+    qint32 m_duration;// en secondes
     double m_weight; //ex: 5.514532 MB
     double m_roundWeight; //ex: 5.5 MB
     bool m_timelinePresence;
