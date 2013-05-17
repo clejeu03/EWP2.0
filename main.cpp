@@ -5,17 +5,19 @@
 #include <QDesktopWidget>
 #include <QTextCodec>
 #include <QDebug>
+#include "core/Timeline.h"
+#include "core/Video.h"
 
 int main(int argc, char *argv[])
 {
-    //QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+   // QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 
-    //int screenWidth, screenHeight;
+   // int screenWidth, screenHeight;
 
     QApplication app(argc, argv);
 
-    /*Video *video1 = new Video("/home/cecilia/Vidéos/bunny.mp4");
-    Video *video2 = new Video("/home/cecilia/Vidéos/ludovik.mp4");
+    Video *video1 = new Video("/home/damaris/Vidéos/bunny.mp4");
+    Video *video2 = new Video("/home/damaris/Vidéos/ludovik.mp4");
 
     QMap<int, Video*> sourceMap;
     sourceMap[0]= video1;
@@ -73,7 +75,7 @@ int main(int argc, char *argv[])
     timeline->clear();
     qDebug() << "__________CLEAR__________";
     qDebug() << "list size : " << timeline->getListSize();
-    qDebug() << "keys : " << timeline->getVideoList().uniqueKeys();*/
+    qDebug() << "keys : " << timeline->getVideoList().uniqueKeys();
 
     MainWindow window;
     window.show();

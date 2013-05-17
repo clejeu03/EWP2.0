@@ -7,9 +7,12 @@ class MdiChild;
 QT_BEGIN_NAMESPACE
 class QAction;
 class QMenu;
+class QDir;
+class QLineEdit;
 class QMdiArea;
 class QMdiSubWindow;
 class QSignalMapper;
+class ProjectManager;
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -81,6 +84,11 @@ private:
     QAction *m_tileAct;
     QAction *m_cascadeAct;
     QAction *m_separatorAct;
+
+    QLineEdit *directoryLineEdit;
+    QString projectName;
+    QDir *workspace;
+    ProjectManager *projectManager;
 
 };
 

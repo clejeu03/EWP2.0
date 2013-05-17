@@ -2,6 +2,7 @@
 #define PROJECTMANAGER_H
 
 #include <vector>
+#include <QMessageBox>
 
 #include "Project.h"
 //#include "Visible.h"
@@ -15,7 +16,7 @@ class ProjectManager /*: virtual public Visible*/ {
     void recentProjects();
     Project* openProject(QString projectPath);
     bool saveProject(Project project);
-    bool saveProject(QString projectPath);
+    bool saveProject(QString projectPath, QString &projectName, QString workspace);
     bool saveAllProjects();
     void closeProject(Project *project);
     void closeAllProjects();
@@ -25,6 +26,7 @@ class ProjectManager /*: virtual public Visible*/ {
     inline int getMaxRecentProjects(){return m_maxRecentProjects;}
     inline void setMaxRecentProjects(int max){m_maxRecentProjects = max;}
     inline QList<Project*> getProjects(){return m_projectList;}
+    inline int getProjectListSize(){return m_openProjectsPath.length();}
 
  private:
     QString m_defaultPath;

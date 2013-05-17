@@ -9,6 +9,7 @@ QT += multimedia multimediawidgets
 QT += network sql
 QT += declarative
 QT += quick qml
+QT += xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

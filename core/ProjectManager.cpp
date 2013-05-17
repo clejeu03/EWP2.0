@@ -1,13 +1,14 @@
 #include "ProjectManager.h"
 
 #include <QDebug>
+#include <QtXml>
 
 ProjectManager::ProjectManager()
 {
     m_maxRecentProjects = 3;
     if(!m_projectList.empty()){m_projectList.clear();}
 
-    /*TO DO : parseur XML pour le fichier de sauvagerde d'état du logiciel
+    /*TO DO : parseur XML pour le fichier de sauvegarde d'état du logiciel
      * en cas d'interruption violente du travail
      * doit remplir la liste de fichiers récents et la liste de fichiers ouverts*/
     if(!m_openProjectsPath.empty()){
@@ -20,20 +21,27 @@ ProjectManager::ProjectManager()
 /*Create a personnalized project with customs name and path*/
 Project* ProjectManager::newProject(QString path, QString name){
     Project *project = new Project(name, path);
-    m_projectList.append(project);
-    m_openProjectsPath.append(project->getProjectCompletePath());
-    m_recentProjects.append(project->getProjectCompletePath());
+    m_projectList.push_back(project);
+    m_openProjectsPath.push_back(project->getProjectCompletePath());
+    m_recentProjects.push_back(project->getProjectCompletePath());
     return project;
 }
 
 /*Open a file with the .ewp extension*/
 Project* ProjectManager::openProject(QString projectPath){
-    if(m_openProjectsPath.size()<5){//Fixed max open projects at the same time
+
+    if(m_openProjectsPath.length()<5){//Fixed max open projects at the same time
+
+        std::cout << "test 2" << std::endl;
+
         QFileInfo info(projectPath);
         if(info.exists()){
             if(info.completeSuffix()==".ewp"){
+                std::cout << "test 3" << std::endl;
                 Project *project = new Project(projectPath, info.completeBaseName());
+                std::cout << "test 4" << std::endl;
                 m_projectList.append(project);
+
                 m_openProjectsPath.append(project->getProjectCompletePath());
                 m_recentProjects.append(project->getProjectCompletePath());
 
@@ -41,6 +49,9 @@ Project* ProjectManager::openProject(QString projectPath){
                  *parseur XML pour lire la liste de chemin de vidéo du fichier
                  *et faire project->import(path)
                  *et mettre à jour ensuite les propriétés d'état de la vidéo en y accédant par le projet*/
+
+                std::cout << projectPath.toStdString() << std::endl;
+                //QFile *file = new QFile(projectPath);
 
                 return project;
             }else{
@@ -60,31 +71,94 @@ bool ProjectManager::saveProject(Project project){
         /*TO DO :
          *générateur XML pour enregistrer tous les params
          *et message d'erreur si échec*/
+
+         //QTextStream in(&mFile, QIODevice::ReadWrite | QIODevice::Truncate);
          return true;
      }else{
+         QMessageBox::warning(0,"Erreur","La sauvegarde a échouée.");
          return false;
      }
 }
 
 /*Save a project from the path in the name.ewp file into the path dir*/
-bool ProjectManager::saveProject(QString projectPath){
-     if(m_openProjectsPath.contains(projectPath)){
+bool ProjectManager::saveProject(QString projectPath, QString &projectName, QString workspace){
+
+   if(m_openProjectsPath.contains(projectPath+".ewp")){
+
+       bool exists = QFile::exists(workspace+"/"+projectName+".ewp");
+       if(exists){
+           std::cout << "Ce fichier existe déjà" << std::endl;
+           QMessageBox::warning(0,"Attention","Ce fichier existe déjà.");
+       }
+
         /*TO DO :
          *générateur XML pour enregistrer tous les params
          *et message d'erreur si échec*/
+
+         QDomDocument dom(projectName);
+         QFile file(workspace+"/"+projectName+".ewp");
+
+         if(!file.open(QIODevice::WriteOnly)){
+             QMessageBox::warning(0,"Attention","Impossible d'ouvrir le fichier de sauvegarde.");
+             //return false
+         }
+
+         //XML Dom Writing
+         QDomElement rootElement = dom.createElement("PROJECT_BACKUP");
+         dom.appendChild(rootElement);
+
+         QDomElement tagName = dom.createElement("NAME");
+         rootElement.appendChild(tagName);
+
+         QDomElement tagDirectory = dom.createElement("DIRECTORY");
+         rootElement.appendChild(tagDirectory);
+
+         QDomElement tagVideos = dom.createElement("VIDEOLIST");
+         rootElement.appendChild(tagVideos);
+
+         QDomText nameValue = dom.createTextNode("value");
+         tagName.appendChild(nameValue);
+
+         QDomText directoryValue = dom.createTextNode("workspaceValue");
+         tagDirectory.appendChild(directoryValue);
+
+         nameValue.setData(projectName);
+         directoryValue.setData(workspace);
+
+         //Boucler sur la liste de videos
+         for(int i=0;i<this->getProjectListSize();++i){
+             for(int j=0;j<this->getProjects()[i]->getVideoListSize();++j){
+                 Video *currentVideo = this->getProjects()[i]->getVideoList()[j];
+
+                 QDomElement tagCurrentVideo = dom.createElement("VIDEO");
+                 tagVideos.appendChild(tagCurrentVideo);
+
+                 QDomText videoPath = dom.createTextNode("videoPath");
+                 tagCurrentVideo.appendChild(videoPath);
+                 videoPath.setData(currentVideo->getPath());
+             }
+         }
+
+         QTextStream stream(&file);
+         stream.setCodec("UTF-8");
+         stream << dom.toString();
+
+         file.close();
+
          return true;
      }else{
+         QMessageBox::warning(0,"Erreur","Impossible de créer le fichier de sauvegarde.");
          return false;
      }
 }
 
 /*Save all the open projects*/
 bool ProjectManager::saveAllProjects(){
-    for(int i = 0; i< m_openProjectsPath.size(); ++i){
+  /*  for(int i = 0; i< m_openProjectsPath.size(); ++i){
         if(!saveProject(m_openProjectsPath[i])){
             return false;
         }
-    }
+    }*/
     return true;
 }
 
