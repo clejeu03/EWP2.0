@@ -110,7 +110,6 @@ void VideoUtils::rendering(Path * path){
         //For each video, extract then rewrite
         for(int k=0; k<path->getSequences().size(); ++k){
             qDebug() << "Nouvelle Video !";
-            qDebug() << "valeurs : "<< path->getSequences().value(path->getSequences().keys().at(0)).first << path->getSequences().value(path->getSequences().keys().at(0)).second;
             Video* video = path->getSequences().keys().at(k);
 
             capture = cvCreateFileCapture(video->getPath().toLocal8Bit().data());

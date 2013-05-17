@@ -445,7 +445,7 @@ void MainWindow::showTimeline(){
 
     //Temporary !
     Video *lapin = new Video("/home/cecilia/Vidéos/bunny.mp4");
-    Video *lapin2 = new Video("/home/cecilia/Vidéos/bunny.mp4");
+    Video *lapin2 = new Video("/home/cecilia/Vidéos/ludovik.mp4");
     timeline->addVideo(lapin);
     timeline->addVideo(lapin2);
 

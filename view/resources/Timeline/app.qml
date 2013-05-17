@@ -512,7 +512,7 @@ Rectangle {
                                         hoverEnabled: true
                                         anchors.fill: parent
                                         onEntered:{
-                                            slider.spacing = 20;
+                                            slider.spacing = 5;
                                             if(pencil.state == "draw_on"){slider.value = slider.getValue(mouseX)}
                                             console.log("QML :"+slider.value);
                                         }

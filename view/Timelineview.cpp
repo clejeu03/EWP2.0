@@ -54,8 +54,6 @@ void TimelineView::parseData(){
             //TODO test with a checkbox working for the reverse !
             m_path->addEntry(m_timeline->getVideoList().value(i), m_points.at(i).first, m_points.at(i).second);
          }
-        qDebug() <<" Points : " << m_points.at(0).first << m_points.at(0).second;
-        qDebug() << "Valurs :" << m_path->getSequences().value(m_path->getSequences().keys().at(0)).first << m_path->getSequences().value(m_path->getSequences().keys().at(0)).second;
         m_timeline->setPath(m_path);
         m_timeline->render();
     }
