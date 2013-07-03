@@ -29,8 +29,7 @@ SOURCES += \
     view/MdiChild.cpp \
     view/BinView.cpp \
     main.cpp \
-    view/WizardNewProject.cpp \
-    view/QAbstractPartitioner.cpp
+    view/WizardNewProject.cpp
 
 HEADERS  += \
     core/VideoUtils.h \

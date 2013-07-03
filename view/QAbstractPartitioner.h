@@ -8,7 +8,15 @@ class QAbstractPartitioner : public QWidget
     Q_OBJECT
 public:
 
-    QAbstractPartitioner(int min, int max, QWidget *parent=0);
+    QAbstractPartitioner(int min, int max, QWidget *parent=0){
+        this->setMinimum(min);
+        this->setMaximum(max);
+        m_orientation = Qt::Horizontal;
+        m_inverted = false;
+        m_hovered = false;
+        m_position = m_minimum;
+        m_singleStep = 1
+    }
 
     Qt::Orientation orientation() const {return m_orientation;}
     int maximum() const {return m_maximum;}
