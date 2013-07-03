@@ -8,6 +8,7 @@ class QAbstractPartitioner : public QWidget
     Q_OBJECT
 public:
 
+    QAbstractPartitioner(QWidget *parent=0);
     QAbstractPartitioner(int min, int max, QWidget *parent=0){
         this->setMinimum(min);
         this->setMaximum(max);
@@ -18,21 +19,21 @@ public:
         m_singleStep = 1
     }
 
-    Qt::Orientation orientation() const {return m_orientation;}
-    int maximum() const {return m_maximum;}
-    void setMaximum(int value){m_maximum = value;}
-    int minimum() const {return m_minimum;}
-    void setMinimum(int value){m_minimum = value;}
-    bool inverted() const {return m_inverted;}
-    void setInverted(bool state){m_inverted = state;}
-    int singleStep() const {return m_singleStep;}
-    void setSingleStep(int value){m_singleStep = value;}
-    QPair < int, int > partition() const {return m_partition;}
-    void setPartition(int value1, int value2){ m_partition = QPair<value1,value2>;}
-    void setPartition(QPair<int, int> partition ){m_partition = partition;}
-    int position() const {return m_position;}
-    void setPosition(int value){m_position = value;}
-    bool isHovered() const {return m_hovered;}
+    inline Qt::Orientation orientation() const {return m_orientation;}
+    inline int maximum() const {return m_maximum;}
+    inline void setMaximum(int value){m_maximum = value;}
+    inline int minimum() const {return m_minimum;}
+    inline void setMinimum(int value){m_minimum = value;}
+    inline bool inverted() const {return m_inverted;}
+    inline void setInverted(bool state){m_inverted = state;}
+    inline int singleStep() const {return m_singleStep;}
+    inline void setSingleStep(int value){m_singleStep = value;}
+    inline QPair < int, int > partition() const {return m_partition;}
+    inline void setPartition(int value1, int value2){ m_partition = QPair<value1,value2>;}
+    inline void setPartition(QPair<int, int> partition ){m_partition = partition;}
+    inline int position() const {return m_position;}
+    inline void setPosition(int value){m_position = value;}
+    inline bool isHovered() const {return m_hovered;}
 
 
 public slots:
