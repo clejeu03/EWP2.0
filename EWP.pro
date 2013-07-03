@@ -29,7 +29,8 @@ SOURCES += \
     view/MdiChild.cpp \
     view/BinView.cpp \
     main.cpp \
-    view/WizardNewProject.cpp
+    view/WizardNewProject.cpp \
+    view/QAbstractPartitioner.cpp
 
 HEADERS  += \
     core/VideoUtils.h \
@@ -48,7 +49,8 @@ HEADERS  += \
     view/MainWindow.h \
     view/MdiChild.h \
     view/BinView.h \
-    view/WizardNewProject.h
+    view/WizardNewProject.h \
+    view/QAbstractPartitioner.h
 
 FORMS    += \
     view/infoconception.ui \

@@ -13,31 +13,33 @@
 
 TimelineView::TimelineView(Timeline *timeline, QWidget *parent):QWidget(parent)
 {
-    m_timeline = timeline;
-    m_points = QList<QPair <int, int> >();
+//    m_timeline = timeline;
+//    m_points = QList<QPair <int, int> >();
 
-    //qmlRegisterType<Timeline>("Timeline", 1, 0, "Slider");
+//    //qmlRegisterType<Timeline>("Timeline", 1, 0, "Slider");
 
-    QWidget *container = new QWidget(this);
-    QVBoxLayout *layout = new QVBoxLayout();
+//    QWidget *container = new QWidget(this);
+//    QVBoxLayout *layout = new QVBoxLayout();
 
-    QStringList dataList;
-    dataList.append("bunny.mp4");
-    dataList.append("bunny.mp4");
-    QDeclarativeView *view = new QDeclarativeView;
-    QDeclarativeContext *ctxt = view->rootContext();
-    ctxt->setContextProperty("myModel", QVariant::fromValue(dataList));
-    view->setSource(QUrl::fromLocalFile("../EWP2.0/view/resources/Timeline/app.qml"));
+//    QStringList dataList;
+//    dataList.append("bunny.mp4");
+//    dataList.append("bunny.mp4");
+//    QDeclarativeView *view = new QDeclarativeView;
+//    QDeclarativeContext *ctxt = view->rootContext();
+//    ctxt->setContextProperty("myModel", QVariant::fromValue(dataList));
+//    view->setSource(QUrl::fromLocalFile("../EWP2.0/view/resources/Timeline/app.qml"));
 
-    layout->addWidget(view);
-    container->setLayout(layout);
+//    layout->addWidget(view);
+//    container->setLayout(layout);
 
-    m_path = new Path();
+//    m_path = new Path();
 
-    //Temporary !
-    QObject *slider = view->rootObject();
-    QObject::connect(slider, SIGNAL(sendValues(int, int)),this, SLOT(receiveValues(int, int)));
-    QObject::connect(slider, SIGNAL(goEditing()),this, SLOT(parseData()));
+//    //Temporary !
+//    QObject *slider = view->rootObject();
+//    QObject::connect(slider, SIGNAL(sendValues(int, int)),this, SLOT(receiveValues(int, int)));
+//    QObject::connect(slider, SIGNAL(goEditing()),this, SLOT(parseData()));
+
+
 }
 
 void TimelineView::receiveValues(int value, int value2){
