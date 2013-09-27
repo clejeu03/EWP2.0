@@ -16,7 +16,7 @@ public:
         m_inverted = false;
         m_hovered = false;
         m_position = m_minimum;
-        m_singleStep = 1
+        m_singleStep = 1;
     }
 
     inline Qt::Orientation orientation() const {return m_orientation;}
@@ -29,7 +29,7 @@ public:
     inline int singleStep() const {return m_singleStep;}
     inline void setSingleStep(int value){m_singleStep = value;}
     inline QPair < int, int > partition() const {return m_partition;}
-    inline void setPartition(int value1, int value2){ m_partition = QPair<value1,value2>;}
+    inline void setPartition(int value1, int value2){ m_partition = QPair<int, int>(value1,value2);}
     inline void setPartition(QPair<int, int> partition ){m_partition = partition;}
     inline int position() const {return m_position;}
     inline void setPosition(int value){m_position = value;}
@@ -38,8 +38,6 @@ public:
 
 public slots:
     void setOrientation(Qt::Orientation orientation){m_orientation = orientation;}
-    void setRange(int min, int max);
-    void setPosition(int value);
 
 
 signals:
